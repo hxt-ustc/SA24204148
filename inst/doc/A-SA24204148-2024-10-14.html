@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.10.14</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.10.14</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p>Of N = 1000 hypotheses, 950 are null and 50 are alternative. The
+p-value under any null hypothesis is uniformly distributed(use runif),
+and the p-value under any alternative hypothesis follows the beta
+distribution with parameter 0.1 and 1 (use rbeta). Obtain Bonferroni
+adjusted p-values and B-H adjusted p-values. Calculate FWER, FDR, and
+TPR under nominal level <span class="math inline">\(\alpha =
+0.1\)</span> for each of the two adjustment methods based on m = 10000
+simulation replicates. You should output the 6 numbers (3 ) to a <span class="math inline">\(3 \times 2\)</span> table (column names:
+Bonferroni correction, B-H correction; row names: FWER, FDR, TPR).
+Comment the results.</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>To address this problem, I will simulate data under the scenario
+described, apply both the Bonferroni and Benjamini-Hochberg (B-H)
+adjustments to the p-values, and compute the Family-Wise Error Rate
+(FWER), False Discovery Rate (FDR), and True Positive Rate (TPR) for
+each adjustment method.</p>
+<p>To simulate the p-values:</p>
+<ul>
+<li>Under null hypotheses (950 hypotheses): use a uniform distribution
+(runif).</li>
+<li>Under alternative hypotheses (50 hypotheses): use a beta
+distribution (rbeta(0.1, 1)).</li>
+</ul>
+<p>To apply Bonferroni and B-H corrections:</p>
+<ul>
+<li>Bonferroni correction: reject those null hypotheses with <span class="math inline">\(p_i &lt; \alpha/N (i = 1, \cdots, N)\)</span>, so
+correct <span class="math inline">\(p_i\)</span> by <span class="math inline">\(min(1,Np_i)\)</span></li>
+<li>B-H correction: sort p-values and reject those null hypotheses with
+<span class="math inline">\(p_{(k)} ≤ k\alpha/N\)</span> which can be
+produced by the R function p.adjust.</li>
+</ul>
+<p>To calculate FWER, FDR, and TPR:</p>
+<ul>
+<li>FWER (Family-Wise Error Rate): Probability of making at least one
+Type I error (false positive).</li>
+<li>FDR (False Discovery Rate): Proportion of false positives among
+rejected hypotheses.</li>
+<li>TPR (True Positive Rate): Proportion of true positives among all
+alternative hypotheses (sensitivity).</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># total number of hypotheses</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="dv">10000</span>  <span class="co"># number of simulation replicates</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.1</span>  <span class="co"># nominal significance level</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Function to compute FWER, FDR, and TPR for one simulation</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>compute_metrics <span class="ot">&lt;-</span> <span class="cf">function</span>(p_values, true_nulls, method) {</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="co"># Apply p-value adjustments</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;bonferroni&quot;</span>) {</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    p_adjusted <span class="ot">&lt;-</span> <span class="fu">pmin</span>(<span class="dv">1</span>, p_values <span class="sc">*</span> N)  <span class="co"># Bonferroni correction</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (method <span class="sc">==</span> <span class="st">&quot;bh&quot;</span>) {</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    p_adjusted <span class="ot">&lt;-</span> <span class="fu">p.adjust</span>(p_values, <span class="at">method =</span> <span class="st">&quot;BH&quot;</span>)  <span class="co"># B-H correction</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  }</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  </span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="co"># Decision: reject if p_adjusted &lt; alpha</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  rejected <span class="ot">&lt;-</span> p_adjusted <span class="sc">&lt;</span> alpha</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  </span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>  <span class="co"># Calculate metrics</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  FWER <span class="ot">&lt;-</span> <span class="fu">any</span>(rejected[true_nulls])  <span class="co"># Family-Wise Error Rate (any false positive)</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  FDP <span class="ot">&lt;-</span> <span class="fu">sum</span>(rejected[true_nulls]) <span class="sc">/</span> <span class="fu">max</span>(<span class="dv">1</span>, <span class="fu">sum</span>(rejected))  <span class="co"># False Discovery Proportion (FDR)</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  TPR <span class="ot">&lt;-</span> <span class="fu">sum</span>(rejected[<span class="sc">!</span>true_nulls]) <span class="sc">/</span> <span class="fu">sum</span>(<span class="sc">!</span>true_nulls)  <span class="co"># True Positive Rate</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  </span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(<span class="at">FWER =</span> FWER, <span class="at">FDR =</span> FDP, <span class="at">TPR =</span> TPR))</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>}</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="co"># Simulation</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>results_bonferroni <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> m, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>results_bh <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> m, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>m) {</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="co"># Generate p-values</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  true_nulls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="cn">TRUE</span>, <span class="dv">950</span>), <span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="dv">50</span>))  <span class="co"># 950 null, 50 alternative</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  p_values_null <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">950</span>)  <span class="co"># null hypotheses: uniform distribution</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  p_values_alt <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">50</span>, <span class="fl">0.1</span>, <span class="dv">1</span>)  <span class="co"># alternative hypotheses: beta distribution</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>  p_values <span class="ot">&lt;-</span> <span class="fu">c</span>(p_values_null, p_values_alt)</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  </span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  <span class="co"># Bonferroni correction</span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>  results_bonferroni[i, ] <span class="ot">&lt;-</span> <span class="fu">compute_metrics</span>(p_values, true_nulls, <span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>  </span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>  <span class="co"># Benjamini-Hochberg correction</span></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>  results_bh[i, ] <span class="ot">&lt;-</span> <span class="fu">compute_metrics</span>(p_values, true_nulls, <span class="at">method =</span> <span class="st">&quot;bh&quot;</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>}</span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="co"># Calculate mean FWER, FDR, and TPR over all simulations</span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>mean_bonferroni <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(results_bonferroni)</span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>mean_bh <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(results_bh)</span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="co"># Output the results as a 3x2 table</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>results_table <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(mean_bonferroni, mean_bh), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="fu">colnames</span>(results_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Bonferroni correction&quot;</span>, <span class="st">&quot;B-H correction&quot;</span>)</span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="fu">rownames</span>(results_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;FWER&quot;</span>, <span class="st">&quot;FDR&quot;</span>, <span class="st">&quot;TPR&quot;</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="fu">print</span>(results_table)</span></code></pre></div>
+<pre><code>##      Bonferroni correction B-H correction
+## FWER           0.087300000     0.93050000
+## FDR            0.004510088     0.09502215
+## TPR            0.396736000     0.56106200</code></pre>
+<p>Comments on the Results:</p>
+<ul>
+<li>FWER: The Family-Wise Error Rate is much lower for the Bonferroni
+correction (0.0873) compared to the B-H correction (0.9305). This is
+expected because Bonferroni is a conservative method that tightly
+controls the probability of making even a single Type I error (false
+positive). On the other hand, B-H does not control FWER as strictly,
+leading to a much higher FWER.</li>
+<li>FDR: The False Discovery Rate is very low for Bonferroni (0.00451),
+indicating that the proportion of false discoveries among rejected
+hypotheses is minimal. For the B-H correction, the FDR is close to the
+nominal level of 0.1 (0.0950), which is expected since the B-H method is
+designed to control FDR at the specified threshold.</li>
+<li>TPR: The True Positive Rate is higher for B-H (0.5611) compared to
+Bonferroni (0.3967). This means that B-H is more sensitive and detects
+more true positives (alternative hypotheses), while Bonferroni
+sacrifices power (lower TPR) in exchange for stricter Type I error
+control.</li>
+</ul>
+<p>Summary:</p>
+<ul>
+<li>Bonferroni is more conservative, yielding a lower FWER and FDR but
+at the cost of a lower TPR (fewer true positives detected).</li>
+<li>B-H Correction offers better TPR (higher power) and controls FDR
+well but results in a higher FWER, meaning more Type I errors.</li>
+</ul>
+</div>
+<div id="question-7.4" class="section level1">
+<h1>Question 7.4</h1>
+<p>Refer to the air-conditioning data set <strong>aircondit</strong>
+provided in the <strong>boot</strong> package. The 12 observations are
+the times in hours between failures of airconditioning equipment :</p>
+<p><span class="math display">\[
+3, 5, 7, 18, 43, 85, 91, 98, 100, 130, 230, 487
+\]</span></p>
+<p>Assume that the times between failures follow an exponential model
+<span class="math inline">\(Exp(\lambda)\)</span>. Obtain the MLE of the
+hazard rate <span class="math inline">\(lambda\)</span> and use
+bootstrap to estimate the bias and standard error of the estimate.</p>
+</div>
+<div id="answer-1" class="section level1">
+<h1>Answer</h1>
+<p>To obtain the MLE of the hazard rate <span class="math inline">\(lambda\)</span>:</p>
+<p>The likelihood function is the joint probability of observing the
+data given the parameter <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[
+L(\lambda|x_1,\cdots,x_n)=\Pi \lambda e^{-\lambda x_i}.
+\]</span></p>
+<p>It’s easier to work with the log of the likelihood function
+(log-likelihood), which converts the product into a sum:</p>
+<p><span class="math display">\[
+l(\lambda|x_1,\cdots,x_n)=nlog\lambda-\lambda\sum x_i
+\]</span></p>
+<p>Take the derivative of the log-likelihood with respect to <span class="math inline">\(\lambda\)</span>, set it equal to zero, and solve
+for <span class="math inline">\(\lambda\)</span>:</p>
+<p><span class="math display">\[
+\frac{n}{\lambda}-\sum x_i=0\Rightarrow \hat{\lambda}=\frac{1}{\bar{x}}
+\]</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Data: times between failures</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">43</span>, <span class="dv">85</span>, <span class="dv">91</span>, <span class="dv">98</span>, <span class="dv">100</span>, <span class="dv">130</span>, <span class="dv">230</span>, <span class="dv">487</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># MLE of lambda</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>lambda_mle <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(times)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Bootstrap to estimate bias and standard error</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>n_bootstrap <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Number of bootstrap samples</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>lambda_boot <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_bootstrap)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_bootstrap) {</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  boot_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(times, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  lambda_boot[i] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(boot_sample)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>}</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co"># Bias estimate</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>bias_estimate <span class="ot">&lt;-</span> <span class="fu">mean</span>(lambda_boot) <span class="sc">-</span> lambda_mle</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co"># Standard error estimate</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>se_estimate <span class="ot">&lt;-</span> <span class="fu">sd</span>(lambda_boot)</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co"># Results</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;MLE of lambda:&quot;</span>, lambda_mle, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## MLE of lambda: 0.00925212</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Bootstrap estimate of lambda:&quot;</span>, <span class="fu">mean</span>(lambda_boot), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Bootstrap estimate of lambda: 0.01083509</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Bootstrap bias estimate:&quot;</span>, bias_estimate, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Bootstrap bias estimate: 0.001582967</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Bootstrap standard error estimate:&quot;</span>, se_estimate, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Bootstrap standard error estimate: 0.004452266</code></pre>
+<p>These indicate that the maximum likelihood estimate (MLE) for <span class="math inline">\(\lambda\)</span>, based on the exponential model,
+is approximately 0.00925. The bootstrap approach was used to estimate
+the bias, which is around 0.00158, and the standard error of the
+estimate is approximately 0.00445. The bias being positive suggests that
+the MLE might slightly underestimate the true value of <span class="math inline">\(\lambda\)</span>, as the bias is added to the MLE
+to correct it. The standard error gives an indication of the variability
+of the estimate.</p>
+</div>
+<div id="question-7.5" class="section level1">
+<h1>Question 7.5</h1>
+<p>Refer to Exercise 7.4. Compute 95% bootstrap confidence intervals for
+the mean time between failures <span class="math inline">\(\frac{1}{\lambda}\)</span> by the standard normal,
+basic, percentile, and BCa methods. Compare the intervals and explain
+why they may differ.</p>
+</div>
+<div id="answer-2" class="section level1">
+<h1>Answer</h1>
+<p>To compute 95% bootstrap confidence intervals for the mean time
+between failures <span class="math inline">\(\lambda\)</span>:</p>
+<ul>
+<li>Bootstrap Sampling: Generate a large number of bootstrap samples
+from the original data.</li>
+<li>Estimate <span class="math inline">\(\frac{1}{\lambda}\)</span>: For
+each bootstrap sample, calculate the MLE of <span class="math inline">\(\frac{1}{\lambda}\)</span>.</li>
+<li>Construct Confidence Intervals: Use the results from the bootstrap
+samples to compute the confidence intervals using the specified
+methods.</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(times)  <span class="co"># Number of original observations</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Number of bootstrap samples</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co"># Store bootstrap estimates for mean time between failures (1/lambda)</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>mean_time_boot <span class="ot">&lt;-</span> <span class="fu">numeric</span>(B)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>  boot_sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(times, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>  lambda_boot <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">mean</span>(boot_sample)  <span class="co"># MLE for each bootstrap sample</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>  mean_time_boot[i] <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> lambda_boot  <span class="co"># 1/lambda for each bootstrap sample</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>}</span></code></pre></div>
+<p>Standard Normal Method: Using the standard error of the bootstrap
+estimates, we can calculate a normal-based confidence interval for <span class="math inline">\(\frac{1}{\lambda}\)</span>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>mean_time_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(mean_time_boot)  <span class="co"># Mean estimate of 1/lambda</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>se_boot <span class="ot">&lt;-</span> <span class="fu">sd</span>(mean_time_boot)  <span class="co"># Standard error of bootstrap estimates</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co"># Standard normal confidence interval</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>ci_normal <span class="ot">&lt;-</span> <span class="fu">c</span>(mean_time_hat <span class="sc">-</span> z <span class="sc">*</span> se_boot, mean_time_hat <span class="sc">+</span> z <span class="sc">*</span> se_boot)</span></code></pre></div>
+<p>Basic Method: The basic bootstrap confidence interval uses the
+difference between the original estimate and the quantiles of the
+bootstrap distribution.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Basic bootstrap CI</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>ci_basic <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> mean_time_hat <span class="sc">-</span> <span class="fu">quantile</span>(mean_time_boot, <span class="fu">c</span>(<span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>, alpha <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
+<p>Percentile Method: The percentile bootstrap confidence interval is
+based on the quantiles of the bootstrap estimates.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Percentile bootstrap CI</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>ci_percentile <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mean_time_boot, <span class="fu">c</span>(alpha <span class="sc">/</span> <span class="dv">2</span>, <span class="dv">1</span> <span class="sc">-</span> alpha <span class="sc">/</span> <span class="dv">2</span>))</span></code></pre></div>
+<p>BCa Method: The bias-corrected and accelerated (BCa) method adjusts
+for bias and acceleration in the bootstrap estimates.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># Calculate BCa confidence interval for the mean time between failures</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>bca_ci <span class="ot">&lt;-</span> <span class="fu">boot.ci</span>(<span class="fu">boot</span>(mean_time_boot, <span class="cf">function</span>(x, i) <span class="fu">mean</span>(x[i]), <span class="at">R =</span> B), <span class="at">type =</span> <span class="st">&quot;bca&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>ci_bca <span class="ot">&lt;-</span> <span class="fu">c</span>(bca_ci<span class="sc">$</span>bca[<span class="dv">4</span>], bca_ci<span class="sc">$</span>bca[<span class="dv">5</span>])</span></code></pre></div>
+<p>Output the Confidence Intervals:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>ci_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">&quot;Standard Normal&quot;</span>, <span class="st">&quot;Basic&quot;</span>, <span class="st">&quot;Percentile&quot;</span>, <span class="st">&quot;BCa&quot;</span>),</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="at">Lower =</span> <span class="fu">c</span>(ci_normal[<span class="dv">1</span>], ci_basic[<span class="dv">1</span>], ci_percentile[<span class="dv">1</span>], ci_bca[<span class="dv">1</span>]),</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">Upper =</span> <span class="fu">c</span>(ci_normal[<span class="dv">2</span>], ci_basic[<span class="dv">2</span>], ci_percentile[<span class="dv">2</span>], ci_bca[<span class="dv">2</span>])</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>)</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="fu">print</span>(ci_results)</span></code></pre></div>
+<pre><code>##            Method     Lower    Upper
+## 1 Standard Normal  30.76223 181.1449
+## 2           Basic  18.38842 164.5134
+## 3      Percentile  47.39375 193.5187
+## 4             BCa 103.65805 108.4829</code></pre>
+<p>The table shows the 95% bootstrap confidence intervals for the mean
+time between failures (<span class="math inline">\(\frac{1}{\lambda}\)</span>) using four different
+methods: Standard Normal, Basic, Percentile, and BCa.</p>
+<ul>
+<li>Standard Normal: The standard normal method assumes that the
+distribution of the mean time between failures is approximately normal,
+which may not be valid if the distribution is skewed. The confidence
+interval is relatively wide compared to other methods, possibly
+reflecting the variability in the data.</li>
+<li>Basic: The basic bootstrap method centers the interval around the
+original estimate and corrects for asymmetry in the bootstrap
+distribution. The lower bound is smaller than in the standard normal
+interval, and the upper bound is somewhat smaller, indicating a slightly
+narrower interval.</li>
+<li>Percentile: The percentile method directly uses the quantiles of the
+bootstrap distribution. This interval is notably wider, especially on
+the upper end. This suggests that the bootstrap distribution might have
+a heavy upper tail, which this method captures more effectively.</li>
+<li>BCa (Bias-Corrected and Accelerated): The BCa method adjusts for
+both bias and skewness in the bootstrap distribution. In this case, the
+interval is surprisingly narrow compared to the other methods. This
+might be due to how the BCa method adjusts for bias and acceleration in
+the bootstrap distribution, leading to a tighter estimate of the mean
+time between failures.</li>
+</ul>
+<p>Why the Intervals Differ: + Bias and Skewness: The BCa method
+corrects for both bias and skewness, while the other methods do not
+fully adjust for these. This may explain why the BCa interval is so much
+tighter. + Tail Behavior: The percentile method captures the shape of
+the bootstrap distribution more directly, including any heavy tails,
+which might explain why it produces the wider interval. + Symmetry
+Assumption: The standard normal method assumes symmetry in the
+distribution of the bootstrap estimates, which might not be the case
+here. This could explain the relatively wide interval. + Distribution
+Shape: The basic method provides a middle ground, adjusting for
+asymmetry but not for bias, resulting in a moderately wide interval.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

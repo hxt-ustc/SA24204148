@@ -1,0 +1,204 @@
+---
+title: "Homework-2024.09.30"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.09.30}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+## Question 6.6
+
+Estimate the 0.025, 0.05, 0.95, and 0.975 quantiles of the skewness $\sqrt{b_1}$ under normality by a Monte Carlo experiment. Compute the standard error of the estimates from $Var(\hat{x}_q)=\frac{q(1-q)}{nf(x_q)^2}\ (2.14)$ using the normal approximation for the density (with exact variance formula). Compare the estimated quantiles with the quantiles of the large sample approximation $\sqrt{b_1}\approx N(0,6/n)$.
+
+## Answer
+
+设置模拟次数为$N_sim =1000$，样本量大小为$n = 100$。
+
+从标准正态分布中抽取样本，计算样本偏度$\sqrt{b_1}=\frac{\frac{1}{n}\sum (x_i-\bar{x})^3}{(\frac{1}{n}\sum(x_i-\bar{x})^2)^{3/2}}$。
+
+```{r}
+# 计算样本偏度
+skewness <- function(sample){
+  s = sqrt(var(sample))
+  x_bar = mean(sample)
+  b1 = mean(((sample-x_bar)/s)^3)
+  return(b1)
+}
+
+# 设置参数
+N_sim <- 1000  # 模拟次数
+n <- 100  # 样本大小
+
+# 初始化用于存储偏度的向量
+skewness_values <- numeric(N_sim)
+
+# 进行蒙特卡洛模拟
+set.seed(123)  # 设置随机种子以便结果可重复
+for (i in 1:N_sim) {
+  # 从标准正态分布中生成样本
+  sample <- rnorm(n)
+  
+  # 计算偏度（b_1 的平方根）
+  skewness_values[i] <- skewness(sample) #sqrt(skewness(sample))
+}
+
+# 估计所需的分位数
+quantiles <- quantile(skewness_values, probs = c(0.025, 0.05, 0.95, 0.975))
+
+# 计算分位数估计的标准误差
+# 使用近似公式 Var(hat{x}_q) = (q * (1 - q)) / (n * f(x_q)^2)
+# f(x_q) 在此用正态分布的密度近似
+se_estimates <- numeric(length(quantiles))
+
+for (i in seq_along(quantiles)) {
+  q <- c(0.025, 0.05, 0.95, 0.975)[i]
+  f_xq <- dnorm(quantiles[i], mean = 0, sd = 1)
+  se_estimates[i] <- sqrt(q * (1 - q) / (N_sim * f_xq^2))
+}
+
+# 打印分位数估计及其标准误差
+for (i in seq_along(quantiles)) {
+  cat(sprintf("Quantile %f: Estimate = %f, SE = %f\n", 
+              c(0.025, 0.05, 0.95, 0.975)[i], quantiles[i], se_estimates[i]))
+}
+
+# 比较估计的分位数和大样本近似的分位数
+approx_quantiles <- qnorm(c(0.025, 0.05, 0.95, 0.975), mean = 0, sd = sqrt(6 / n))
+cat("\nLarge Sample Approximation Quantiles:\n")
+print(approx_quantiles)
+
+result = cbind(quantiles,approx_quantiles,se_estimates)
+colnames(result) <- c("estimate", "approx", "se")
+knitr::kable(round(result,3))
+```
+
+结果如上表所示，对于偏度的各分位数估计与大样本近似下的分位数接近。
+
+## Question 6.B
+
+Tests for association based on Pearson product moment correlation $\rho$, Spearman’s rank correlation coefficient $\rho_s$, or Kendall’s coefficient $\tau$, are implemented in **cor.test**. Show (empirically) that the nonparametric tests based on $\rho_s$ or $\tau$ are less powerful than the correlation test when the sampled distribution is bivariate normal. Find an example of an alternative (a bivariate distribution (X, Y) such that X and Y are dependent) such that at least one of the nonparametric tests have better empirical power than the correlation test against this alternative.
+
+## Answer
+
+为验证非参数检验在双变量正态分布时的低功效性:
+
+ + 使用 rnorm() 生成样本 X 和 Y，Y 与 X 有一定线性关系。
+ + 计算Pearson、Spearman和Kendall相关性检验的 p 值。
+ + 计算拒绝原假设的比例，作为经验功效。
+
+```{r}
+# 设置参数
+N_sim <- 10000  # 模拟次数
+n <- 50  # 样本大小
+alpha <- 0.05  # 显著性水平
+
+# 初始化用于存储 p 值的矩阵
+p_values <- matrix(0, nrow = N_sim, ncol = 3)
+colnames(p_values) <- c("Pearson", "Spearman", "Kendall")
+
+set.seed(123)  # 设置随机种子
+
+# 1. 双变量正态分布下的功效比较
+for (i in 1:N_sim) {
+  # 生成双变量正态分布样本
+  X <- rnorm(n)
+  Y <- 0.5 * X + sqrt(1 - 0.5^2) * rnorm(n)
+  
+  # 使用 cor.test() 进行三种相关性检验
+  p_values[i, "Pearson"] <- cor.test(X, Y, method = "pearson")$p.value
+  p_values[i, "Spearman"] <- cor.test(X, Y, method = "spearman")$p.value
+  p_values[i, "Kendall"] <- cor.test(X, Y, method = "kendall")$p.value
+}
+
+# 计算功效（拒绝原假设的比例）
+power_pearson <- mean(p_values[, "Pearson"] < alpha)
+power_spearman <- mean(p_values[, "Spearman"] < alpha)
+power_kendall <- mean(p_values[, "Kendall"] < alpha)
+
+cat("双变量正态分布下的经验功效:\n")
+cat(sprintf("Pearson: %f, Spearman: %f, Kendall: %f\n", power_pearson, power_spearman, power_kendall))
+```
+
+当样本数据来自双变量正态分布时，通过模拟大量数据并计算正确拒绝原假设的比例（即经验功效）发现基于Spearman相关系数和Kendall系数的非参数检验比Pearson系数检验的功效更低。
+
+如下展示了一个非正态分布下非参数检验具有更高功效的例子，其中变量$X$服从(-1,1)上的均匀分布，而变量$Y = X^2+$噪声。
+
+```{r}
+# 2. 非正态分布下非参数检验的高功效示例
+# 生成一个非正态分布的双变量依赖数据集
+set.seed(123)
+p_values_non_normal <- matrix(0, nrow = N_sim, ncol = 3)
+colnames(p_values_non_normal) <- c("Pearson", "Spearman", "Kendall")
+
+for (i in 1:N_sim) {
+  # 生成具有依赖关系的非正态分布样本，例如 Y = X^2 + 噪声
+  X <- runif(n, -1, 1)
+  Y <- X^2 + rnorm(n, mean = 0, sd = 0.1)
+  
+  # 使用 cor.test() 进行三种相关性检验
+  p_values_non_normal[i, "Pearson"] <- cor.test(X, Y, method = "pearson")$p.value
+  p_values_non_normal[i, "Spearman"] <- cor.test(X, Y, method = "spearman")$p.value
+  p_values_non_normal[i, "Kendall"] <- cor.test(X, Y, method = "kendall")$p.value
+}
+
+# 计算非正态分布下的功效
+power_pearson_non_normal <- mean(p_values_non_normal[, "Pearson"] < alpha)
+power_spearman_non_normal <- mean(p_values_non_normal[, "Spearman"] < alpha)
+power_kendall_non_normal <- mean(p_values_non_normal[, "Kendall"] < alpha)
+
+cat("\n非正态分布下的经验功效:\n")
+cat(sprintf("Pearson: %f, Spearman: %f, Kendall: %f\n", power_pearson_non_normal, power_spearman_non_normal, power_kendall_non_normal))
+```
+
+通过比较经验功效发现，对于上述生成的具有依赖关系但不呈正态分布的双变量数据集，非参数检验（如Spearman和Kendall检验）的功效更高。 
+
+## Question 
+
+If we obtain the powers for two methods under a particular simulation setting with 10,000 experiments: say, 0.651 for one method and 0.676 for another method. We want to know if the powers are different at 0.05 level.
+
+ + What is the corresponding hypothesis test problem?
+ + What test should we use? Z-test, two-sample t-test, paired-t test or McNemar test? Why?
+ + Please provide the least necessary information for hypothesis testing.
+
+## Answer
+
+为比较两种方法的功效（即正确拒绝原假设的比例）。设：
+
+ + $p_1$= 方法 1 的功效，
+ + $p_2$= 方法 2 的功效。
+ 
+则零假设和备择假设为：
+
+ + $H_0:p_1=p_2$，表示两种方法的功效没有差异。
+ + $H_1:p_1\not=p_2$，表示两种方法的功效存在差异。
+ 
+在这种情况下，适合使用 Z 检验，因为：
+
+ + 我们基于大量模拟（10000 次）获得了两种方法的功效估计。
+ + 每种方法的功效是基于成功结果的比例，符合比较两个比例的条件。
+ + 由于样本量较大（$n_1=n_2=10000$），根据中心极限定理，Z 检验是近似有效的。
+ 
+而其他检验不适用的原因如下：
+
+ + 两样本 t 检验：此检验用于比较两组独立样本的均值，而不是比例。
+ + 配对 t 检验：此检验用于比较配对样本的均值，而在这里，我们的两个功效值来自独立的方法。
+ + McNemar 检验：此检验用于配对的二元数据，例如测试配对样本中响应的变化。但我们的场景涉及独立的比例。
+ 
+为进行检验，至少需要如下信息：
+
+ + 观察到的比例$p_1,p_2$，
+ + 样本量$n_1,n_2$，
+ + 显著性水平$\alpha=0.05$
+ 
+Z 统计量可以按如下公式计算：
+
+$$
+Z=\frac{(\hat{p}_1-\hat{p}_2)}{\sqrt{\hat{p}(1-\hat{p})(\frac{1}{n_1}+\frac{1}{n_2})}}
+$$
+其中$\hat{p}=\frac{n_1\times\hat{p}_1+n_2\times\hat{p}_2}{n_1+n_2}$。
+
+一旦得到 Z 统计量，我们可以将其与标准正态分布的临界值（对于 $\alpha=0.05$即$\pm1.96$）进行比较，以确定两种方法的功效是否存在显著差异。

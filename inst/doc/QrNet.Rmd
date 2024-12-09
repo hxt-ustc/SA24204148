@@ -1,0 +1,427 @@
+---
+title: "Introduction to QrNet"
+author: "Xinting Huang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to QrNet}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+In many real-world applications, the target variable  y  is not only influenced by independent variables  X , but also by underlying network structures or auxiliary data. For example, in finance, social networks, or genomics, the network structures can reveal dependencies or associations among variables. The __SA24204148__ package introduces a framework to incorporate such network information explicitly into quantile regression models.
+
+This R package introduces a novel method called __QrNet__ for solving quantile regression problems with the assistance of network-structured data. The main features of the package include two key functions:
+
+ + _two_stage_: A traditional two-stage algorithm for solving quantile regression problems, which separates the estimation of network structure and regression coefficients.
+ + _QrNet_: A more advanced method that jointly estimates both the unobserved network structure and the regression coefficients.
+
+## Model
+
+The mathematical formulation of the **network-assisted quantile regression** model can be described as follows:
+
+$$
+\begin{cases}
+A = d u v^\top + E, \\
+y = X \beta_x + u \beta_u + v \beta_v + \epsilon,
+\end{cases}
+$$
+
+where:
+
+ +  $A$ : Represents the adjacency matrix or feature matrix of the network, decomposed as a low-rank approximation $d u v^\top$, where $u$ and $v$ capture network-related latent variables.
+ + $X$: The traditional predictor matrix in regression problems.
+ + $u, v$: Latent variables associated with the network structure.
+ + $\beta_x, \beta_u, \beta_v$: Regression coefficients for $X$, $u$, and $v$, respectively.
+ + $\epsilon$: Noise or error term.
+
+The objective of this model is to estimate both the regression coefficients and the latent variables within the quantile regression framework:
+
+$$
+\underset{\substack{\boldsymbol{\beta}_x, \beta_u, \beta_v \\ d,\| \boldsymbol{u}\|=\| \boldsymbol{v}\|=\sqrt{n}}}{\arg \min } \frac{1}{n}\sum^n_{i=1}\rho_{\tau}(y_i-\boldsymbol{x_i}^T\beta_x-u_i\beta_u-v_i\beta_v) + \frac{\lambda}{n^2}\left\|\boldsymbol{A}-d \boldsymbol{u} \boldsymbol{v}^{\top}\right\|_F^2,
+$$
+
+This approach allows for more accurate predictions of $y$ while simultaneously uncovering the influence of network structures on the target variable.
+
+## two_stage
+
+The _two_stage_ method in the package solves the network-assisted quantile regression problem in two stages:
+
+### Stage 1: Singular Value Decomposition (SVD) for Latent Variables
+
+In the first stage, we estimate the latent variables $\boldsymbol{u}$ and $\boldsymbol{v}$ (representing centrality and authority in a network context) by performing **singular value decomposition (SVD)** on the network adjacency matrix $\boldsymbol{A}$. Specifically, the idea is to approximate $\boldsymbol{A}$ as a low-rank matrix:
+
+$$
+{A} \approx d {u} {v}^{\top}
+$$
+where:
+- ${u}$ and ${v}$ are the centrality and authority vectors, respectively.
+- $d$ is a scalar that scales the vectors ${u}$ and ${v}$.
+
+The SVD decomposes ${A}$ into three matrices ${A} = U \Sigma V^\top$, where the first singular vector in $U$ represents the centrality vector ${u} $, and the first singular vector in $V$ represents the authority vector${v}$. This gives us initial estimates for these latent variables.
+
+The source R code is as follows:
+
+```{r eval=FALSE}
+svda <- irlba::irlba(A, nu = r, nv = r) 
+uu <- svda$u[,1]
+vv <- svda$v[,1]
+d <- svda$d[1]
+```
+
+### Stage 2: Linear Regression
+
+In the second stage, after obtaining ${u}$ and ${v}$, we proceed with the linear regression analysis. 
+
+The source R code is as follows:
+
+```{r eval=FALSE}
+ret_two_stage <- lm.fit(cbind(X, uu[1:n_obs], vv[1:n_obs]), y)
+ret_two_stage$beta <- ret_two_stage$coefficients
+```
+
+Thus, the method combines the latent structure derived from the network with the regression analysis to obtain an accurate prediction of the target variable $y$.
+
+### Example Code
+
+Here is how you can use the _two_stage_ function in __SA24204148__:
+
+```{r include=FALSE}
+vec_norm <- function(x) {sqrt(sum(x^2))}   
+```
+
+
+```{r}
+library(SA24204148)
+n <- 100
+p <- 3
+sigmaa <- 1
+sigmay <- 1e-5
+A <- matrix(rnorm(n^2, sd = sigmaa), nrow = n)
+X <- matrix(rnorm(n*p), nrow = n, ncol = p)
+y <- rnorm(n, sd = sigmay)
+ret <- two_stage(A, X, y)
+ret$coefficients
+vec_norm(ret$residuals)
+```
+
+## QrNet
+
+The _QrNet_ algorithm extends the previous framework by using the **augmented Lagrangian method** (ALM) with **Alternating Direction Method of Multipliers (ADMM)**, to solve the network-assisted quantile regression problem. 
+
+### Reformulation with Augmented Lagrangian
+
+Recall that the original optimization problem for network-assisted quantile regression is:
+
+$$
+\underset{\substack{\boldsymbol{\beta}_x, \beta_u, \beta_v \\ d,\| \boldsymbol{u}\|=\| \boldsymbol{v}\|=\sqrt{n}}}{\arg \min } \frac{1}{n}\sum^n_{i=1}\rho_{\tau}(y_i-\boldsymbol{x_i}^T\beta_x-u_i\beta_u-v_i\beta_v) + \frac{\lambda}{n^2}\left\|\boldsymbol{A}-d \boldsymbol{u} \boldsymbol{v}^{\top}\right\|_F^2,
+$$
+
+To solve this problem using ADMM, we introduce auxiliary variables and Lagrange multipliers. The key idea is to decouple the problem into smaller, more manageable subproblems that can be solved iteratively.
+
+We introduce an auxiliary matrix $\boldsymbol{Z}$ such that:
+
+$$
+X\beta_x+\boldsymbol{z}+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v=\boldsymbol{y}
+$$
+
+Now, the augmented Lagrangian for this problem can be written as:
+
+$$
+\begin{array}{ll}
+    L_{\sigma}(\beta_x,\beta_u,\beta_v,\boldsymbol{z},d,\boldsymbol{u},\boldsymbol{v},\theta) &= Q_{\tau}(\boldsymbol{z})+\frac{\lambda}{n^2}\left\|\boldsymbol{A}-d \boldsymbol{u} \boldsymbol{v}^{\top}\right\|_F^2    \\
+    &-<\boldsymbol{\theta},X\beta_x+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v+\boldsymbol{z}-\boldsymbol{y}>  \\
+    &+ \frac{\sigma}{2}\|X\beta_x+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v+\boldsymbol{z}-\boldsymbol{y}\|_2^2,
+\end{array}
+$$
+
+where:
+
+ + $\boldsymbol{z}$ is the auxiliary matrix introduced to relax the constraints.
+ + $\boldsymbol{\theta}$ is the Lagrange multiplier that enforces the equality constraint.
+
+The objective now consists of two parts:
+
+1. The quantile regression loss term.
+
+2. The augmented Lagrangian term, which ensures that the low-rank approximation of the network structure is satisfied.
+
+### ADMM Algorithm
+
+The ADMM algorithm iterates between solving for the variables ${\beta}_x $, ${u}$, ${v}$, and ${z}$, by alternately optimizing the Lagrangian terms. The steps of the algorithm are as follows:
+
+1. **Update $\beta$**
+
+$$
+\beta^{k+1} =  argmin_{\beta} -<\theta,W\beta>+ \frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+int update_beta(const arma::colvec& y,
+                const arma::mat& X,
+                const arma::colvec& u,
+                const arma::colvec& v,
+                arma::colvec& beta,
+                const arma::colvec& theta,
+                double sigma,
+                const arma::colvec& z){
+  int n_obs = X.n_rows;
+  arma::mat WW = arma::join_rows(X, u.head(n_obs));
+  arma::mat W = arma::join_rows(WW, v.head(n_obs));
+  beta = arma::solve(W, y - z + theta / sigma);
+  return 1;
+}
+```
+
+2. **Update $z$**
+
+$$
+\boldsymbol{z}^{k+1} = argmin_{\boldsymbol{z}} Q_{\tau}(\boldsymbol{z})-<\theta,\boldsymbol{z}>+ \frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+int update_z(const arma::colvec& y,
+             const arma::mat& X,
+             const arma::colvec& u,
+             const arma::colvec& v,
+             const arma::colvec& beta,
+             const arma::colvec& theta,
+             double sigma,
+             double tau,
+             arma::colvec& z){
+  int n_obs = X.n_rows;
+  arma::mat W = join_rows(X, u.head(n_obs), v.head(n_obs));
+  arma::colvec xi = y -  W * beta + theta/sigma;
+  for(int i = 0; i < n_obs; i++){
+    z(i) = prox(tau, xi(i), n_obs * sigma);
+  }
+  return 1;
+};
+```
+
+3. **Update $d$**
+
+$$
+d^{k+1} = argmin_d  \frac{\lambda}{n^2} \|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+double update_d(const arma::mat& A,
+                const arma::colvec& u, 
+                const arma::colvec& v) 
+{
+  double d = as_scalar(u.t() * A * v);
+  return d;
+}
+```
+
+4. **Update $u$**
+
+$$
+\boldsymbol{u}^{k+1} =argmin_{\boldsymbol{u}}  \frac{\lambda}{n^2} \|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2-<\theta,\boldsymbol{u}\beta_u>+ \frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2 
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+int update_u(const arma::mat& A,
+             const arma::colvec& y,
+             const arma::mat& X,
+             arma::colvec& u,
+             const arma::colvec& v,
+             const arma::colvec& beta,
+             const arma::colvec& theta,
+             double d,
+             double sigma,
+             double tau,
+             double l,
+             const arma::colvec& z){
+  int n_obs = X.n_rows, k = X.n_cols, n = A.n_rows, n_c = n - n_obs;
+  arma::colvec rmat = beta(k)*(sigma*(y - X*beta.head(k) - beta(k+1)*v.head(n_obs) - z) + theta) + 2*l*d*A.head_rows(n_obs)*v/n;
+  u.head(n_obs) = rmat / (pow(beta(k),2)*sigma + 2*l*pow(d,2));
+  
+  if(n_obs < n) {
+    u.tail(n_c) = A.tail_rows(n_c)*v/d/n;
+  }
+  
+  // normalize u
+  u = arma::normalise(u) * sqrt(n);
+  
+  return 1;
+}
+```
+
+5. **Update $v$**
+
+$$
+\boldsymbol{v}^{k+1} =argmin_{\boldsymbol{v}} \frac{\lambda}{n^2} \|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2-<\theta,\boldsymbol{v}\beta_v>+ \frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+int update_v(const arma::mat& A,
+             const arma::colvec& y,
+             const arma::mat& X,
+             const arma::colvec& u,
+             arma::colvec& v,
+             const arma::colvec& beta,
+             const arma::colvec& theta,
+             double d,
+             double sigma,
+             double tau,
+             double l,
+             const arma::colvec& z){
+  int n_obs = X.n_rows, k = X.n_cols, n = A.n_rows, n_c = n - n_obs;
+  arma::colvec rmat = beta(k+1)*(sigma*(y - X*beta.head(k) - beta(k)*u.head(n_obs) - z) + theta) + 2*l*d*A.head_cols(n_obs).t()*u/n;
+  v.head(n_obs) = rmat / (pow(beta(k+1),2)*sigma + 2*l*pow(d,2));
+  
+  if(n_obs < n) {
+    v.tail(n_c) = A.tail_cols(n_c).t()*u/d/n;
+  }
+  
+  // normalize u
+  v = arma::normalise(v) * sqrt(n);
+  
+  return 1;
+}
+```
+
+6. **Update $\theta$**
+
+$$
+\theta^{k+1} =\theta^k-\sigma(W\beta+\boldsymbol{z}-\boldsymbol{y})
+$$
+
+The source R++ code is as follows:
+
+```{r eval=FALSE}
+int update_theta(arma::colvec& theta,
+                 double sigma,
+                 const arma::mat& X,
+                 const arma::colvec& u,
+                 const arma::colvec& v,
+                 const arma::colvec& y,
+                 const arma::colvec& z,
+                 const arma::colvec& beta){
+  int n_obs = X.n_rows;
+  arma::mat WW = arma::join_rows(X, u.head(n_obs));
+  arma::mat W = arma::join_rows(WW, v.head(n_obs));
+  theta -= sigma*(W*beta+z-y);
+  return 1;
+}
+```
+
+### Example Code
+
+```{r}
+library(irlba)
+n <- 1000
+p <- 3
+sigmaa <- 1
+sigmay <- 1e-5
+A <- matrix(rnorm(n^2, sd = sigmaa), nrow = n)
+X <- matrix(rnorm(n*p), nrow = n, ncol = p)
+y <- rnorm(n, sd = sigmay)
+ret_q <- QrNet(A, X, y)
+ret_q$beta
+```
+
+## Comparing the Two Methods: _two_stage_ vs. _QrNet_
+
+In this section, we compare the performance of two methods for network-assisted quantile regression: the _two_stage_ method and the _QrNet_ algorithm. 
+
+First, simulate a sample dataset:
+
+```{r}
+set.seed(0)
+n=1e3
+d=1
+p=3
+
+sigma_a_set=c(2^(-4),2^(-2))
+u=matrix(rnorm(n,0,1),ncol = 1)
+v=0.5*u+matrix(rnorm(n,0,1),ncol = 1)
+
+u = u/sqrt(sum(u^2))*sqrt(n)
+v = v/sqrt(sum(v^2))*sqrt(n)
+
+sigma_a=sigma_a_set[2] #  choose sigma_a
+A=d*u%*%t(v)+matrix(rnorm(n^2,0,sigma_a^2),n,n)
+
+beta_x=matrix(c(1,3,5),ncol=1)
+beta_v=1
+beta_u_set=c(2^0,2^2,2^4)
+sigma_y_set=c(2^(-4),2^(-2),2^0)
+beta_u=beta_u_set[1] #  choose beta_u
+sigma_y=sigma_y_set[3] #  choose beta_y
+
+X=matrix(rnorm(n*p,0,1),nrow = n)
+y=X%*%beta_x+u*beta_u+v*beta_v+matrix(rnorm(n,0,sigma_y^2),ncol = 1)
+
+lambda0=n*sigma_y^2/sigma_a^2
+
+# 1. 查看生成的目标变量 y 和预测变量 X 的关系
+
+# 可视化 X 和 y 的关系（散点图）
+plot(y, type = "p", col = "blue", pch = 16, main = "Target variable y vs. Index", xlab = "Index", ylab = "y")
+
+# 可视化 X 中的前三个变量
+matplot(X[, 1:3], type = "l", col = c("red", "green", "blue"), lty = 1, 
+        main = "First Three Predictors (X)", xlab = "Index", ylab = "Value")
+legend("topright", legend = c("X1", "X2", "X3"), col = c("red", "green", "blue"), lty = 1)
+
+# 2. 可视化网络数据 A 的结构（前几行）
+image(A[1:20, 1:20], main = "Network Structure A (Subset)", xlab = "Index", ylab = "Index")
+
+# 3. 可视化 u 和 v 的关系
+
+# u 和 v 的关系（散点图）
+plot(u, v, col = "purple", pch = 16, main = "Relationship between u and v", 
+     xlab = "u", ylab = "v")
+
+# u 和 v 的时间序列图
+plot(u, type = "l", col = "red", main = "Time Series of u and v", xlab = "Index", ylab = "Value")
+lines(v, col = "blue")
+legend("topright", legend = c("u", "v"), col = c("red", "blue"), lty = 1)
+```
+
+Compare performance for each method and quantiles:
+
+```{r}
+library(knitr)  # 用于生成表格
+
+# 运行 two_stage 方法
+ret <- two_stage(A, X, y)
+beta_two_stage <- ret$beta
+
+# 运行 QrNet 方法
+tau_values <- c(0.1, 0.3, 0.5, 0.7, 0.9)
+beta_qrnet <- lapply(tau_values, function(tau) {
+  ret_q <- QrNet(A, X, y, tau = tau)
+  ret_q$beta
+})
+
+# 将结果整理为数据框
+result_table <- data.frame(
+  Beta = paste0("Beta_", 1:length(beta_two_stage)),
+  Two_Stage = beta_two_stage
+)
+
+# 添加不同分位数的 QrNet 结果到数据框
+for (i in seq_along(tau_values)) {
+  result_table[[paste0("Tau = ", tau_values[i])]] <- beta_qrnet[[i]]
+}
+
+# 打印表格
+kable(result_table, format = "markdown", caption = "Comparison of Two-Stage and QrNet Methods")
+```
+

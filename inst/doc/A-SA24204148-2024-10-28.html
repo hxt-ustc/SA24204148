@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.10.28</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.10.28</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<p>For each of the exercise, use the Gelman-Rubin method to monitor
+convergence of the chain, and run the chain until it converges
+approximately to the target distribution according to <span class="math inline">\(\hat{R} &lt; 1.2\)</span>.</p>
+<div id="question-9.3" class="section level2">
+<h2>Question 9.3</h2>
+<p>Use the Metropolis-Hastings sampler to generate random variables from
+a standard Cauchy distribution. Discard the first 1000 of the chain, and
+compare the deciles of the generated observations with the deciles of
+the standard Cauchy distribution (see qcauchy or qt with df=1). Recall
+that a Cauchy(<span class="math inline">\(\theta, \eta\)</span>)
+distribution has density function</p>
+<p><span class="math display">\[
+f(x)=\frac{1}{\theta\pi(1+[(x-\eta)/\theta]^2)},\ \ \
+-\infty&lt;x&lt;\infty
+\]</span></p>
+<p>The standard Cauchy has the Cauchy(<span class="math inline">\(\theta=1, \eta=0\)</span>) density. (Note that the
+standard Cauchy density is equal to the Student t density with one
+degree of freedom.)</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>The Metropolis-Hastings sampler generates the Markov chain {$X_0,
+X_1,$} as follows:</p>
+<ul>
+<li>Choose a proposal distribution <span class="math inline">\(g(·|X_t)\)</span> (here using a normal proposal
+distribution).</li>
+<li>Repeat (until the chain has converged to a stationary distribution
+according to some criterion):
+<ul>
+<li>Generate <span class="math inline">\(Y\)</span> from <span class="math inline">\(g(·|X_t)\)</span></li>
+<li>Generate U from Uniform(0,1)</li>
+<li>if<span class="math inline">\(U\leq\frac{f(Y)g(X_t|Y)}{f(X_t)g(Y|X_t)}\)</span>,
+accept <span class="math inline">\(Y\)</span> and set <span class="math inline">\(X_{t+1} = Y\)</span> ; otherwise set <span class="math inline">\(X_{t+1} = X_t\)</span>.</li>
+<li>Increment t</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Set parameters</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>n_chains <span class="ot">&lt;-</span> <span class="dv">3</span>        <span class="co"># Number of chains</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>n_samples <span class="ot">&lt;-</span> <span class="dv">5000</span>    <span class="co"># Samples per chain</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>burn_in <span class="ot">&lt;-</span> <span class="dv">1000</span>      <span class="co"># Burn-in period</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="dv">1</span>           <span class="co"># Scale parameter for standard Cauchy</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>eta <span class="ot">&lt;-</span> <span class="dv">0</span>             <span class="co"># Location parameter for standard Cauchy</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Metropolis-Hastings function to sample from standard Cauchy</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>mh_cauchy <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">theta =</span> <span class="dv">1</span>, <span class="at">eta =</span> <span class="dv">0</span>) {</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  samples <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  samples[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span>  <span class="co"># Initial value</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    proposal <span class="ot">&lt;-</span> samples[i <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    acceptance_ratio <span class="ot">&lt;-</span> <span class="fu">dcauchy</span>(proposal, <span class="at">location =</span> eta, <span class="at">scale =</span> theta) <span class="sc">/</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>                        <span class="fu">dcauchy</span>(samples[i <span class="sc">-</span> <span class="dv">1</span>], <span class="at">location =</span> eta, <span class="at">scale =</span> theta)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">runif</span>(<span class="dv">1</span>) <span class="sc">&lt;</span> acceptance_ratio) {</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>      samples[i] <span class="ot">&lt;-</span> proposal</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>      samples[i] <span class="ot">&lt;-</span> samples[i <span class="sc">-</span> <span class="dv">1</span>]</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    }</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  }</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">return</span>(samples)</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>}</span></code></pre></div>
+<p>To monitor convergence of the M-H chain by the Gelman-Rubin
+method:</p>
+<ul>
+<li>use sample mean to be the scalar summary statistic</li>
+<li><span class="math inline">\(B=\frac{n}{k-1}\sum_{i=1}^k(\bar{\psi}_{i·}-\bar{\psi}_{··})^2\)</span></li>
+<li><span class="math inline">\(s_i^2=\frac{1}{n}\sum_{j=1}^n(\psi_{ij}-\bar{\psi}_{i·})^2\)</span></li>
+<li><span class="math inline">\(W=\frac{1}{k}\sum_{i=1}^k
+s_i^2\)</span></li>
+<li><span class="math inline">\(\hat{Var}(\psi)=\frac{n-1}{n}W+\frac{1}{n}B\)</span></li>
+<li><span class="math inline">\(\hat{R}=\frac{\hat{Var}(\psi)}{W}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Function to calculate Gelman-Rubin diagnostic</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>gelman_rubin <span class="ot">&lt;-</span> <span class="cf">function</span>(chains) {</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  M <span class="ot">&lt;-</span> <span class="fu">length</span>(chains)                   <span class="co"># Number of chains</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">length</span>(chains[[<span class="dv">1</span>]])               <span class="co"># Length of each chain</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="co"># Calculate mean and variance within each chain</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  chain_means <span class="ot">&lt;-</span> <span class="fu">sapply</span>(chains, mean)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  chain_variances <span class="ot">&lt;-</span> <span class="fu">sapply</span>(chains, var)<span class="sc">/</span>N<span class="sc">*</span>(N<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="co"># Calculate the overall mean of all chains</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  overall_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">unlist</span>(chains))</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="co"># Calculate B (between-chain variance)</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  B <span class="ot">&lt;-</span> N <span class="sc">*</span> <span class="fu">var</span>(chain_means)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="co"># Calculate W (within-chain variance)</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  W <span class="ot">&lt;-</span> <span class="fu">mean</span>(chain_variances)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  </span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="co"># Calculate V_hat (estimated variance)</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  V_hat <span class="ot">&lt;-</span> (N <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> N <span class="sc">*</span> W <span class="sc">+</span> B <span class="sc">/</span> N</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  </span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="co"># Calculate R_hat</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  R_hat <span class="ot">&lt;-</span> V_hat <span class="sc">/</span> W</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  <span class="fu">return</span>(R_hat)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>}</span></code></pre></div>
+<p>The code runs until <span class="math inline">\(\hat{R}\)</span> is
+less than 1.2. Each time convergence is not achieved, the number of
+samples is increased by 1000 and the chains are re-run.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Function to run multiple chains and check convergence</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>run_chains <span class="ot">&lt;-</span> <span class="cf">function</span>(n_chains, n_samples, burn_in) {</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="co"># Run each chain independently</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  chains <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>n_chains, <span class="cf">function</span>(x) <span class="fu">mh_cauchy</span>(n_samples))</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="co"># Discard burn-in samples</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  chains <span class="ot">&lt;-</span> <span class="fu">lapply</span>(chains, <span class="cf">function</span>(chain) chain[(burn_in <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>n_samples])</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  </span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="co"># Calculate Gelman-Rubin diagnostic</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  r_hat <span class="ot">&lt;-</span> <span class="fu">gelman_rubin</span>(chains)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  </span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">list</span>(<span class="at">r_hat =</span> r_hat, <span class="at">chains =</span> chains))</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>}</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co"># Run chains and monitor convergence</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>converged <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>iteration <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span>converged) {</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">run_chains</span>(n_chains, n_samples, burn_in)</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  r_hat <span class="ot">&lt;-</span> result<span class="sc">$</span>r_hat</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>  </span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Iteration:&quot;</span>, iteration, <span class="st">&quot;R-hat:&quot;</span>, r_hat, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>  </span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>  <span class="co"># Check if R-hat is below the threshold</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  <span class="cf">if</span> (r_hat <span class="sc">&lt;</span> <span class="fl">1.2</span>) {</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>    converged <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Chains have converged with R-hat &lt;&quot;</span>, r_hat, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>    iteration <span class="ot">&lt;-</span> iteration <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>    n_samples <span class="ot">&lt;-</span> n_samples <span class="sc">+</span> <span class="dv">1000</span>  <span class="co"># Increase sample size if not converged</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>  }</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Iteration: 1 R-hat: 1.009811 
+## Chains have converged with R-hat &lt; 1.009811</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Analyze the resulting chains</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>mcmc_samples <span class="ot">&lt;-</span> <span class="fu">unlist</span>(result<span class="sc">$</span>chains)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>generated_deciles <span class="ot">&lt;-</span> <span class="fu">quantile</span>(mcmc_samples, <span class="at">probs =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>theoretical_deciles <span class="ot">&lt;-</span> <span class="fu">qcauchy</span>(<span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="at">by =</span> <span class="fl">0.1</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co"># Print results</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Generated Deciles:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Generated Deciles:&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">print</span>(generated_deciles)</span></code></pre></div>
+<pre><code>##         10%         20%         30%         40%         50%         60% 
+## -2.24654796 -1.20330857 -0.63901521 -0.28432113  0.02205332  0.34594396 
+##         70%         80%         90% 
+##  0.70851591  1.35360310  2.61046533</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Theoretical Deciles:&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Theoretical Deciles:&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(theoretical_deciles)</span></code></pre></div>
+<pre><code>## [1] -3.0776835 -1.3763819 -0.7265425 -0.3249197  0.0000000  0.3249197  0.7265425
+## [8]  1.3763819  3.0776835</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">plot</span>(mcmc_samples, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="fu">hist</span>(mcmc_samples, <span class="at">breaks=</span><span class="st">&quot;scott&quot;</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;&quot;</span>, <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="fu">curve</span>(dcauchy, <span class="at">add =</span> T)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>From the results, it appears that the Metropolis-Hastings chain has
+converged quickly, as it meets the Gelman-Rubin convergence criterion
+<span class="math inline">\(\hat{R}&lt;1.2\)</span> on the first
+iteration (with <span class="math inline">\(\hat{R}\approx1.0098\)</span>). This is a good
+outcome, indicating that the samples from the chain are close to the
+target distribution(which could also be seen from the sample
+histogram).</p>
+<p>From the contrast of the quantile, the generated samples are very
+close to the theoretical ones, though there is some slight discrepancy
+likely due to the finite sample size. We might consider increasing the
+length of the chain to achieve a more precise approximation of the
+distribution.</p>
+</div>
+<div id="question-9.8" class="section level2">
+<h2>Question 9.8</h2>
+<p>This example appears in [40]. Consider the bivariate density</p>
+<p><span class="math display">\[
+f(x, y) \propto \binom{n}{x} y^{x + a - 1} (1 - y)^{n - x + b - 1},
+\quad x = 0, 1, \dots, n, \quad 0 \leq y \leq 1.
+\]</span></p>
+<p>It can be shown (see e.g. [23]) that for fixed a, b, n, the
+conditional distributions are Binomial(<span class="math inline">\(n,
+y\)</span>) and Beta(<span class="math inline">\(x + a, n − x +
+b\)</span>). Use the Gibbs sampler to generate a chain with target joint
+density <span class="math inline">\(f(x, y)\)</span>.</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<p>In this experiment, set <span class="math inline">\(a=2,b=3,n=10\)</span>.</p>
+<p>To use the Gibbs sampler to generate a chain:</p>
+<ul>
+<li>initialize <span class="math inline">\(y\)</span></li>
+<li>repeat:
+<ul>
+<li>sample <span class="math inline">\(x_t\)</span> from B<span class="math inline">\((n, y_{t-1})\)</span></li>
+<li>sample <span class="math inline">\(y_t\)</span> from Beta<span class="math inline">\((x_t+a,n-x_t+b)\)</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span>     <span class="co"># Parameter a</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">3</span>     <span class="co"># Parameter b</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span>    <span class="co"># Parameter n</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>iterations_per_batch <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Number of iterations to generate per batch for each chain</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>chains <span class="ot">&lt;-</span> <span class="dv">3</span>          <span class="co"># Number of chains</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>converged <span class="ot">&lt;-</span> <span class="cn">FALSE</span>   <span class="co"># Convergence flag</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co"># Initialize storage for each chain&#39;s samples</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>x_samples <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>y_samples <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>chains) {</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>  x_samples[[i]] <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  y_samples[[i]] <span class="ot">&lt;-</span> <span class="fu">numeric</span>()</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>}</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co"># Gelman-Rubin calculation function</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>gelman_rubin <span class="ot">&lt;-</span> <span class="cf">function</span>(chains_matrix) {</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">ncol</span>(chains_matrix)  <span class="co"># Number of chains</span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(chains_matrix)  <span class="co"># Number of samples per chain</span></span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>  </span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>  <span class="co"># Calculate mean for each chain and overall mean</span></span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a>  chain_means <span class="ot">&lt;-</span> <span class="fu">colMeans</span>(chains_matrix)</span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>  overall_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(chains_matrix)</span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>  </span>
+<span id="cb14-28"><a href="#cb14-28" tabindex="-1"></a>  <span class="co"># Calculate B (between-chain variance) and W (within-chain variance)</span></span>
+<span id="cb14-29"><a href="#cb14-29" tabindex="-1"></a>  B <span class="ot">&lt;-</span> n <span class="sc">*</span> <span class="fu">var</span>(chain_means)</span>
+<span id="cb14-30"><a href="#cb14-30" tabindex="-1"></a>  W <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">apply</span>(chains_matrix, <span class="dv">2</span>, var))</span>
+<span id="cb14-31"><a href="#cb14-31" tabindex="-1"></a>  </span>
+<span id="cb14-32"><a href="#cb14-32" tabindex="-1"></a>  <span class="co"># Estimate of marginal posterior variance</span></span>
+<span id="cb14-33"><a href="#cb14-33" tabindex="-1"></a>  var_hat <span class="ot">&lt;-</span> ((n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> n) <span class="sc">*</span> W <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">/</span> n) <span class="sc">*</span> B</span>
+<span id="cb14-34"><a href="#cb14-34" tabindex="-1"></a>  </span>
+<span id="cb14-35"><a href="#cb14-35" tabindex="-1"></a>  <span class="co"># Gelman-Rubin statistic</span></span>
+<span id="cb14-36"><a href="#cb14-36" tabindex="-1"></a>  R_hat <span class="ot">&lt;-</span> var_hat <span class="sc">/</span> W</span>
+<span id="cb14-37"><a href="#cb14-37" tabindex="-1"></a>  <span class="fu">return</span>(R_hat)</span>
+<span id="cb14-38"><a href="#cb14-38" tabindex="-1"></a>}</span>
+<span id="cb14-39"><a href="#cb14-39" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" tabindex="-1"></a><span class="co"># Gibbs sampling loop until convergence</span></span>
+<span id="cb14-41"><a href="#cb14-41" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span>converged) {</span>
+<span id="cb14-42"><a href="#cb14-42" tabindex="-1"></a>  <span class="cf">for</span> (chain <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>chains) {</span>
+<span id="cb14-43"><a href="#cb14-43" tabindex="-1"></a>    <span class="co"># Set different initial values for each chain if starting a new run</span></span>
+<span id="cb14-44"><a href="#cb14-44" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">length</span>(x_samples[[chain]]) <span class="sc">==</span> <span class="dv">0</span>) {</span>
+<span id="cb14-45"><a href="#cb14-45" tabindex="-1"></a>      x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span>n, <span class="dv">1</span>)</span>
+<span id="cb14-46"><a href="#cb14-46" tabindex="-1"></a>      y <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb14-47"><a href="#cb14-47" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb14-48"><a href="#cb14-48" tabindex="-1"></a>      x <span class="ot">&lt;-</span> x_samples[[chain]][<span class="fu">length</span>(x_samples[[chain]])]</span>
+<span id="cb14-49"><a href="#cb14-49" tabindex="-1"></a>      y <span class="ot">&lt;-</span> y_samples[[chain]][<span class="fu">length</span>(y_samples[[chain]])]</span>
+<span id="cb14-50"><a href="#cb14-50" tabindex="-1"></a>    }</span>
+<span id="cb14-51"><a href="#cb14-51" tabindex="-1"></a>    </span>
+<span id="cb14-52"><a href="#cb14-52" tabindex="-1"></a>    <span class="co"># Generate samples for the current batch</span></span>
+<span id="cb14-53"><a href="#cb14-53" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iterations_per_batch) {</span>
+<span id="cb14-54"><a href="#cb14-54" tabindex="-1"></a>      <span class="co"># Conditional sample x | y</span></span>
+<span id="cb14-55"><a href="#cb14-55" tabindex="-1"></a>      x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, n, y)</span>
+<span id="cb14-56"><a href="#cb14-56" tabindex="-1"></a>      </span>
+<span id="cb14-57"><a href="#cb14-57" tabindex="-1"></a>      <span class="co"># Conditional sample y | x</span></span>
+<span id="cb14-58"><a href="#cb14-58" tabindex="-1"></a>      y <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, x <span class="sc">+</span> a, n <span class="sc">-</span> x <span class="sc">+</span> b)</span>
+<span id="cb14-59"><a href="#cb14-59" tabindex="-1"></a>      </span>
+<span id="cb14-60"><a href="#cb14-60" tabindex="-1"></a>      <span class="co"># Store samples</span></span>
+<span id="cb14-61"><a href="#cb14-61" tabindex="-1"></a>      x_samples[[chain]] <span class="ot">&lt;-</span> <span class="fu">c</span>(x_samples[[chain]], x)</span>
+<span id="cb14-62"><a href="#cb14-62" tabindex="-1"></a>      y_samples[[chain]] <span class="ot">&lt;-</span> <span class="fu">c</span>(y_samples[[chain]], y)</span>
+<span id="cb14-63"><a href="#cb14-63" tabindex="-1"></a>    }</span>
+<span id="cb14-64"><a href="#cb14-64" tabindex="-1"></a>  }</span>
+<span id="cb14-65"><a href="#cb14-65" tabindex="-1"></a>  </span>
+<span id="cb14-66"><a href="#cb14-66" tabindex="-1"></a>  <span class="co"># Convert lists to matrices for Gelman-Rubin calculation</span></span>
+<span id="cb14-67"><a href="#cb14-67" tabindex="-1"></a>  x_matrix <span class="ot">&lt;-</span> <span class="fu">do.call</span>(cbind, <span class="fu">lapply</span>(x_samples, <span class="cf">function</span>(x) <span class="fu">tail</span>(x, iterations_per_batch)))</span>
+<span id="cb14-68"><a href="#cb14-68" tabindex="-1"></a>  y_matrix <span class="ot">&lt;-</span> <span class="fu">do.call</span>(cbind, <span class="fu">lapply</span>(y_samples, <span class="cf">function</span>(y) <span class="fu">tail</span>(y, iterations_per_batch)))</span>
+<span id="cb14-69"><a href="#cb14-69" tabindex="-1"></a>  </span>
+<span id="cb14-70"><a href="#cb14-70" tabindex="-1"></a>  <span class="co"># Calculate Gelman-Rubin statistics</span></span>
+<span id="cb14-71"><a href="#cb14-71" tabindex="-1"></a>  R_hat_x <span class="ot">&lt;-</span> <span class="fu">gelman_rubin</span>(x_matrix)</span>
+<span id="cb14-72"><a href="#cb14-72" tabindex="-1"></a>  R_hat_y <span class="ot">&lt;-</span> <span class="fu">gelman_rubin</span>(y_matrix)</span>
+<span id="cb14-73"><a href="#cb14-73" tabindex="-1"></a>  </span>
+<span id="cb14-74"><a href="#cb14-74" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Current R-hat for x:&quot;</span>, R_hat_x, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-75"><a href="#cb14-75" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Current R-hat for y:&quot;</span>, R_hat_y, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-76"><a href="#cb14-76" tabindex="-1"></a>  </span>
+<span id="cb14-77"><a href="#cb14-77" tabindex="-1"></a>  <span class="co"># Check convergence</span></span>
+<span id="cb14-78"><a href="#cb14-78" tabindex="-1"></a>  <span class="cf">if</span> (R_hat_x <span class="sc">&lt;</span> <span class="fl">1.2</span> <span class="sc">&amp;&amp;</span> R_hat_y <span class="sc">&lt;</span> <span class="fl">1.2</span>) {</span>
+<span id="cb14-79"><a href="#cb14-79" tabindex="-1"></a>    converged <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb14-80"><a href="#cb14-80" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;Chains have converged with R-hat &lt; 1.2</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-81"><a href="#cb14-81" tabindex="-1"></a>  }</span>
+<span id="cb14-82"><a href="#cb14-82" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Current R-hat for x: 0.9990369 
+## Current R-hat for y: 0.9990691 
+## Chains have converged with R-hat &lt; 1.2</code></pre>
+<p>The output message confirms that the chains for both <span class="math inline">\({x}\)</span> and <span class="math inline">\({y}\)</span> variables have converged, as their
+respective <span class="math inline">\(\hat{R}\)</span> values are well
+below 1.2 (specifically, 0.9990369 for <span class="math inline">\(x\)</span> and 0.9990691 for <span class="math inline">\(y\)</span>). This indicates that the Gibbs sampler
+has successfully approximated the target distribution with adequate
+convergence across chains.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Prepare data for plotting</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co"># Flatten and store all samples along with their chain labels and iterations</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>x_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>chains, <span class="cf">function</span>(chain) {</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">iter =</span> <span class="fu">seq_along</span>(x_samples[[chain]]), </span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>             <span class="at">chain =</span> <span class="fu">factor</span>(chain), </span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>             <span class="at">x =</span> x_samples[[chain]])</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>}))</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>y_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>chains, <span class="cf">function</span>(chain) {</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">iter =</span> <span class="fu">seq_along</span>(y_samples[[chain]]), </span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>             <span class="at">chain =</span> <span class="fu">factor</span>(chain), </span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>             <span class="at">y =</span> y_samples[[chain]])</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>}))</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(<span class="at">x =</span> iter, <span class="at">y =</span> x, <span class="at">color =</span> chain)) <span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Trace Plot for x&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Iteration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Chain&quot;</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(y_df, <span class="fu">aes</span>(<span class="at">x =</span> iter, <span class="at">y =</span> y, <span class="at">color =</span> chain)) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Trace Plot for y&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Iteration&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Chain&quot;</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a><span class="co"># Plot histograms of x and y samples from all chains</span></span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">fill =</span> chain)) <span class="sc">+</span></span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Histogram of x&quot;</span>, <span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Chain&quot;</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(y_df, <span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">fill =</span> chain)) <span class="sc">+</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Histogram of y&quot;</span>, <span class="at">x =</span> <span class="st">&quot;y&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">name =</span> <span class="st">&quot;Chain&quot;</span>)</span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a><span class="co"># Display all plots in a grid</span></span>
+<span id="cb16-35"><a href="#cb16-35" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, p3, p4, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The visualizations here provide a good indication of convergence for
+the Gibbs sampler:</p>
+<p>Trace Plots for both x and y (top panels) show that the values
+fluctuate around a stable mean across iterations without any apparent
+trends or drifts. This indicates that the chains have likely mixed well
+and reached a stationary distribution.</p>
+<p>Histograms (bottom panels) for both x and y show the overall
+distribution of the samples from each chain. The overlapping histograms
+across the three chains suggest that they are sampling from the same
+distribution, further supporting convergence.</p>
+</div>
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p>In continuous situation:</p>
+<ul>
+<li>target pdf: <span class="math inline">\(f(x)\)</span></li>
+<li>proposal distribution: <span class="math inline">\(g(r|s)\)</span></li>
+<li>acceptance probability: <span class="math inline">\(\alpha(s,r)=min\{\frac{f(r)g(s|r)}{f(s)g(r|s)},1\}\)</span></li>
+<li>transition kernel: <span class="math inline">\(K(r,s)=\alpha(r,s)g(s|r)+\mathbb{I}(s=r)[1-\int
+\alpha(r,s)g(s|r)]\)</span></li>
+</ul>
+<p>prove the stationarity :</p>
+<p><span class="math display">\[
+K(s,r)f(s)=K(r,s)f(r)
+\]</span></p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+<p>If <span class="math inline">\(s\not=r\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+\text{LHS}= &amp;\alpha(s,r)g(r|s)f(s) \\
+=&amp;min\{\frac{f(r)g(s|r)}{f(s)g(r|s)},1\} g(r|s)f(s)\\
+=&amp;min\{f(r)g(s|r),f(s)g(r|s)\}\\
+=&amp;min\{1,\frac{f(s)g(r|s)}{f(r)g(s|r)}\}f(r)g(s|r)\\
+=&amp;\alpha(r,s)g(s|r)f(r) \\
+=&amp;\text{RHS}
+\end{align}
+\]</span></p>
+<p>If <span class="math inline">\(s=r\)</span>, the conclusion is
+trivial.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

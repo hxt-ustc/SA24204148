@@ -1,0 +1,435 @@
+---
+title: "Homework-2024.11.11"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.11.11}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include=FALSE}
+library(lpSolve)
+library(microbenchmark)
+```
+
+
+## Question 11.7
+
+Use the simplex algorithm to solve the following problem.
+Minimize $4x + 2y + 9z$ subject to
+
+$$
+\begin{aligned} & 2 x+y+z \leq 2 \\ & x-y+3 z \leq 3 \\ & x \geq 0, y \geq 0, z \geq 0\end{aligned}
+$$
+
+## Answer
+
+Use the lpSolve package to solve this linear programming problem in R.
+
+```{r}
+# 设置目标函数系数（最小化 4x + 2y + 9z）
+objective <- c(4, 2, 9)
+
+# 设置约束条件系数
+constraints <- matrix(c(2, 1, 1,   # 2x + y + z <= 2
+                        1, -1, 3), # x - y + 3z <= 3
+                      nrow = 2, byrow = TRUE)
+
+# 设置约束条件的右侧值
+rhs <- c(2, 3)
+
+# 设置约束类型
+direction <- c("<=", "<=")
+
+# 使用 lpSolve 求解
+solution <- lp("min", objective, constraints, direction, rhs, all.int = FALSE, all.bin = FALSE)
+
+# 查看结果
+solution$objval      # 最小值
+solution$solution    # x, y, z 的取值
+```
+
+The original function takes a minimum value of 0 at the origin.
+
+## Question 3
+
+Use both for loops and lapply() to fit linear models to the mtcars using the formulas stored in this list:
+
+$$
+\begin{aligned}
+\text{formulas <-  }&\text{list(}\\
+&\text{mpg ~ disp,}\\
+&\text{mpg ~ I(1 / disp),}\\
+&\text{mpg ~ disp + wt,}\\
+&\text{mpg ~ I(1 / disp) + wt}\\
+&\text{)}
+\end{aligned}
+$$
+
+
+
+## Answer
+
+"for loops" method:
+
+```{r}
+formulas <- list(
+  mpg ~ disp,
+  mpg ~ I(1 / disp),
+  mpg ~ disp + wt,
+  mpg ~ I(1 / disp) + wt
+)
+
+models_for <- list()
+
+
+for (i in seq_along(formulas)) {
+  models_for[[i]] <- lm(formulas[[i]], data = mtcars)
+}
+
+lapply(models_for, summary)
+```
+
+"lapply" method:
+
+```{r}
+models_lapply <- lapply(formulas, function(f) lm(f, data = mtcars))
+
+lapply(models_lapply, summary)
+```
+
+Both methods give the same results. 
+
+```{r}
+index <- cbind(lapply(models_for, AIC),lapply(models_for, BIC))
+rownames(index) <- as.character(formulas)
+index
+```
+
+Both AIC and BIC showed that the fourth model was the best fit. The fitting results of the fourth model are visualized below.
+
+```{r}
+plot(lm(formulas[[4]],mtcars))
+```
+ 
+## Question 4
+
+Fit the model $\text{mpg} \sim \text{disp}$ to each of the bootstrap replicates of mtcars in the list below by using a for loop and lapply(). Can you do it without an anonymous function?
+
+$$
+\begin{aligned}
+\text{bootstraps} &<- \text{lapply(1:10, function(i)\{}\\
+&\text{rows <- sample(1:nrow(mtcars), rep = TRUE)}\\
+&\text{mtcars[rows, ]}\\
+&\text{\})}
+\end{aligned}
+$$
+
+
+## Answer
+
+use for loops:
+
+```{r}
+set.seed(0)
+bootstraps <- lapply(1:10, function(i) {
+  rows <- sample(1:nrow(mtcars), rep = TRUE)
+  mtcars[rows, ]
+})
+
+models_for <- list()
+
+for (i in seq_along(bootstraps)) {
+  models_for[[i]] <- lm(mpg ~ disp, data = bootstraps[[i]])
+}
+
+models_for
+```
+
+use lapply without an anonymous function:
+
+```{r}
+set.seed(0)
+generate_bootstrap_sample <- function(data) {
+  rows <- sample(1:nrow(data), rep = TRUE)
+  data[rows, ]
+}
+
+# 创建一个空列表用于存储 bootstrap 样本
+bootstraps <- list()
+
+# 使用 for 循环生成 10 个 bootstrap 样本
+for (i in 1:10) {
+  bootstraps[[i]] <- generate_bootstrap_sample(mtcars)
+}
+
+
+fit_model <- function(data) {
+  lm(mpg ~ disp, data = data)
+}
+
+models_lapply_2 <- lapply(bootstraps, fit_model)
+
+models_lapply_2
+```
+
+The fitting results are the same for both methods and the latter method does not use the anonymous function.
+
+## Question 5
+
+For each model in the previous two exercises, extract $R^2$ using the function below.
+
+rsq <- function(mod) summary(mod)$r.squared
+
+## Answer
+
+```{r}
+rsq <- function(mod) summary(mod)$r.squared
+
+# 使用 lapply 提取每个模型的 R^2 值
+rsq_values_lapply <- lapply(models_lapply, rsq)
+
+# 将结果转换为数值向量（如果需要）
+rsq_values_lapply <- unlist(rsq_values_lapply)
+
+# 查看 R^2 值
+cat("R2 for the four models fitted in Exercise 3:", rsq_values_lapply, "\n")
+
+# 使用 lapply 提取每个模型的 R^2 值
+rsq_values_lapply_2 <- lapply(models_lapply_2, rsq)
+
+# 将结果转换为数值向量（如果需要）
+rsq_values_lapply_2 <- unlist(rsq_values_lapply_2)
+
+# 查看 R^2 值
+cat("R2 for the ten models fitted in Exercise 4:", rsq_values_lapply_2, "\n")
+```
+
+## Question 3
+
+The following code simulates the performance of a t-test for non-normal data. Use sapply() and an anonymous function to extract the p-value from every trial.
+
+$$
+\begin{aligned}
+trials &<- replicate( \\
+&100,\\
+&t.test(rpois(10, 10), rpois(7, 10)),\\
+&simplify = FALSE\\
+)&
+\end{aligned}
+$$
+
+## Answer
+
+```{r}
+set.seed(123)
+# Simulate the trials
+trials <- replicate(
+  100,
+  t.test(rpois(10, 10), rpois(7, 10)),
+  simplify = FALSE
+)
+
+# Use sapply() with an anonymous function to extract the p-value from each trial
+p_values <- sapply(trials, function(test) test$p.value)
+
+# View the extracted p-values
+hist(p_values, breaks = 30, freq = F)
+```
+
+The histogram of the p-values is not concentrated at one point but dispersed, which is partly due to the small size of the sample data and partly to the fact that the t-test assumes a normal distribution, which does not correspond to the real situation.
+
+## Question 6
+
+Implement a combination of Map() and vapply() to create an lapply() variant that iterates in parallel over all of its inputs and stores its outputs in a vector (or a matrix). What arguments should the function take?
+
+## Answer
+
+Function: par_lapply
+
+This function will take the following arguments:
+
+ + FUN – the function to apply to each set of parallel inputs.
+ + ... – any number of lists or vectors to iterate over in parallel.
+ + FUN.VALUE – a template for the type and length of output each call to FUN will produce (used by  vapply() to ensure type consistency).   
+ + vapply() to ensure type consistency).
+ + USE.NAMES (optional) – whether to keep names in the output vector or matrix.
+
+```{r}
+par_lapply <- function(FUN, ..., FUN.VALUE, USE.NAMES = TRUE) {
+  # Use Map() to apply FUN in parallel over all inputs
+  results <- Map(FUN, ...)
+  
+  # Use vapply to simplify the results into a vector or matrix
+  vapply(results, identity, FUN.VALUE, USE.NAMES = USE.NAMES)
+}
+```
+
+In the example bellow, par_lapply iterates over pairs (1,4), (2,5), and (3,6), applies sum_fun to each pair, and returns a vector with the results [5, 7, 9].
+
+```{r}
+# Define a function to sum pairs of numbers
+sum_fun <- function(x, y) x + y
+
+# Call par_lapply with two parallel lists
+result <- par_lapply(sum_fun, list(1, 2, 3), list(4, 5, 6), FUN.VALUE = numeric(1))
+print(result)  # Should output: [1] 5 7 9
+```
+
+## Question 4
+
+Make a faster version of chisq.test() that only computes the chi-square test statistic when the input is two numeric vectors with no missing values. You can try simplifying chisq.test() or by coding from the mathematical definition (http://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test).
+
+## Answer
+
+To create a faster version of chisq.test() that only computes the chi-square test statistic for two numeric vectors with no missing values, we can simplify the calculation by directly implementing the Pearson's chi-squared formula. We’ll bypass the extra checks and features in chisq.test(), focusing on just computing the test statistic.
+
+For a contingency table with observed values $O$ and expected values $E$, the chi-square statistic $X^2$ is computed as:
+  
+$$
+X^2 = \sum \frac{(O - E)^2}{E}  
+$$
+
+Here’s a streamlined function that directly computes this statistic for two numeric vectors:
+
+```{r}
+fast_chisq_test <- function(x, y) {
+  # Check that inputs are numeric vectors of the same length
+  if (!is.numeric(x) || !is.numeric(y) || length(x) != length(y)) {
+    stop("Both inputs must be numeric vectors of the same length.")
+  }
+  
+  # Create a contingency table
+  contingency_table <- table(x, y)
+  
+  # Calculate row and column sums
+  row_totals <- rowSums(contingency_table)
+  col_totals <- colSums(contingency_table)
+  total <- sum(contingency_table)
+  
+  # Compute expected values
+  expected <- outer(row_totals, col_totals) / total
+  
+  # Compute chi-square statistic
+  observed <- as.vector(contingency_table)
+  expected <- as.vector(expected)
+  chisq_stat <- sum((observed - expected)^2 / expected)
+  
+  return(chisq_stat)
+}
+```
+
+Here's an example comparing the speeds of the two methods:
+
+```{r}
+# Load the microbenchmark package
+library(microbenchmark)
+
+# Define the fast version of chi-square test (as described earlier)
+fast_chisq_test <- function(x, y) {
+  if (length(x) != length(y)) {
+    stop("The two vectors must be of the same length.")
+  }
+  
+  # Calculate observed and expected values
+  observed <- table(x, y)
+  row_totals <- rowSums(observed)
+  col_totals <- colSums(observed)
+  grand_total <- sum(observed)
+  
+  expected <- outer(row_totals, col_totals) / grand_total
+  
+  # Calculate the chi-square statistic
+  chi_square_statistic <- sum((observed - expected)^2 / expected)
+  
+  return(chi_square_statistic)
+}
+
+# Generate two random numeric vectors
+set.seed(123)
+x <- sample(1:5, 1000, replace = TRUE)
+y <- sample(1:5, 1000, replace = TRUE)
+
+# Run microbenchmark to compare chisq.test and fast_chisq_test
+benchmark_results <- microbenchmark(
+  chisq_test = chisq.test(x, y)$statistic,
+  fast_chisq_test = fast_chisq_test(x, y),
+  times = 1000
+)
+
+# Print benchmark results
+print(benchmark_results)
+```
+
+Based on the benchmark output, it’s evident that the custom fast_chisq_test function is indeed faster than the standard chisq.test function.
+
+## Question 5
+
+Can you make a faster version of table() for the case of an input of two integer vectors with no missing values? Can you use it to speed up your chi-square test?
+
+## Answer
+
+To create a faster version of table() for two integer vectors, we can use a technique that involves directly indexing into a matrix to count occurrences. This approach leverages R's efficient matrix indexing capabilities, and it's particularly effective when we know the data range of the input vectors, as we can avoid dynamically creating structures.
+
+```{r}
+fast_table <- function(x, y) {
+  # Determine the range of possible values in x and y
+  max_x <- max(x)
+  max_y <- max(y)
+  
+  # Initialize a matrix with zeros to store counts
+  counts <- matrix(0, nrow = max_x, ncol = max_y)
+  
+  # Populate the counts matrix
+  for (i in seq_along(x)) {
+    counts[x[i], y[i]] <- counts[x[i], y[i]] + 1
+  }
+  
+  return(counts)
+}
+```
+
+
+This function creates a contingency table for two integer vectors without any missing values. Note that this code assumes that x and y only contain integers from 1 to their respective maximum values.
+
+Now, we can use fast_table() to speed up the chi-square test by using the precomputed contingency table from fast_table() to calculate the test statistic.
+
+```{r}
+fast_chisq_test <- function(x, y) {
+  # Generate the contingency table using fast_table
+  observed <- fast_table(x, y)
+  
+  # Calculate the chi-square statistic
+  row_totals <- rowSums(observed)
+  col_totals <- colSums(observed)
+  total <- sum(observed)
+  expected <- outer(row_totals, col_totals) / total
+  chisq_stat <- sum((observed - expected)^2 / expected)
+  
+  return(chisq_stat)
+}
+```
+
+Let's compare the speed of fast_chisq_test to the regular chisq.test function.
+
+```{r}
+# Generate example data
+set.seed(42)
+x <- sample(1:10, 1000, replace = TRUE)
+y <- sample(1:10, 1000, replace = TRUE)
+
+# Benchmark the functions
+library(microbenchmark)
+microbenchmark(
+  chisq_test = chisq.test(table(x, y))$statistic,
+  fast_chisq_test = fast_chisq_test(x, y),
+  times = 1000
+)
+
+```
+
+The output from microbenchmark shows fast_chisq_test is faster than chisq.test(table(x, y)) because it skips steps like type checking and output formatting, focusing only on calculating the chi-square statistic directly. This improvement will be especially noticeable for large data vectors.
+

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.11.18</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.11.18</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question-9.8" class="section level2">
+<h2>Question 9.8</h2>
+<p>Write an Rcpp function for Exercise 9.8. This example appears in
+[40]. Consider the bivariate density</p>
+<p><span class="math display">\[
+f(x, y) \propto\binom{n}{x} y^{x+a-1}(1-y)^{n-x+b-1}, \quad x=0,1,
+\ldots, n, 0 \leq y \leq 1
+\]</span></p>
+<p>It can be shown (see e.g. [23]) that for fixed <span class="math inline">\(a, b, n\)</span>, the conditional distributions
+are Binomial<span class="math inline">\((n, y)\)</span> and Beta<span class="math inline">\((x + a, n − x + b)\)</span>. Use the Gibbs sampler
+to generate a chain with target joint density <span class="math inline">\(f(x, y)\)</span>.</p>
+<p>Compare the corresponding generated random numbers with those by the
+R function you wrote using the function “qqplot”.</p>
+<p>Campare the computation time of the two functions with the function
+“microbenchmark”.</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>Here’s the implementation of a Gibbs sampler for generating a chain
+with the given target joint density <span class="math inline">\(f(x,y)\)</span>, where the conditional
+distributions are specified as follows:</p>
+<ul>
+<li><span class="math inline">\(x|y\sim\text{binomial}(n,y)\)</span></li>
+<li><span class="math inline">\(y|x\sim \text{Beta}(x + a, n − x +
+b)\)</span></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">cppFunction</span>(<span class="st">&#39;</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="st">DataFrame gibbs_sampler_rcpp(int iterations, int n, double a, double b, double x_init, double y_init) {</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="st">  // Storage for samples</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="st">  NumericVector x_samples(iterations);</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="st">  NumericVector y_samples(iterations);</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="st">  // Initialize x and y</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="st">  double x = x_init;</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="st">  double y = y_init;</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="st">  // Gibbs Sampling</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="st">  for (int i = 0; i &lt; iterations; i++) {</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="st">    // Step 1: Sample x from Binomial(n, y)</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="st">    x = R::rbinom(n, y);</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="st">    // Step 2: Sample y from Beta(x + a, n - x + b)</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="st">    y = R::rbeta(x + a, n - x + b);</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="st">    </span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="st">    // Store samples</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="st">    x_samples[i] = x;</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="st">    y_samples[i] = y;</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="st">  // Return samples as a DataFrame</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="st">  return DataFrame::create(</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="st">    Named(&quot;x&quot;) = x_samples,</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="st">    Named(&quot;y&quot;) = y_samples</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="st">  );</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="st">&#39;</span>)</span></code></pre></div>
+<p>We can compare methods that use Rcpp with those that don’t.</p>
+<p>Here is the Gibber sampling code without Rcpp:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>gibbs_sampler_r <span class="ot">&lt;-</span> <span class="cf">function</span>(iterations, n, a, b, x_init, y_init) {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="co"># Storage for samples</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  x_samples <span class="ot">&lt;-</span> <span class="fu">numeric</span>(iterations)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  y_samples <span class="ot">&lt;-</span> <span class="fu">numeric</span>(iterations)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="co"># Initialize x and y</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x_init</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  y <span class="ot">&lt;-</span> y_init</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="co"># Gibbs Sampling</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>iterations) {</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    <span class="co"># Step 1: Sample x from Binomial(n, y)</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">prob =</span> y)</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="co"># Step 2: Sample y from Beta(x + a, n - x + b)</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, <span class="at">shape1 =</span> x <span class="sc">+</span> a, <span class="at">shape2 =</span> n <span class="sc">-</span> x <span class="sc">+</span> b)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="co"># Store samples</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    x_samples[i] <span class="ot">&lt;-</span> x</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    y_samples[i] <span class="ot">&lt;-</span> y</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  }</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  </span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="co"># Return samples as a data frame</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">x =</span> x_samples, <span class="at">y =</span> y_samples)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>}</span></code></pre></div>
+<p>To compare the generated random numbers from the Rcpp implementation
+and the pure R implementation, we can use a Q-Q plot. The Q-Q plot is a
+good way to visualize how similar the distributions of the two sets of
+samples are. Here’s how to do it:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Generate samples using both methods</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>iterations <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>x_init <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>y_init <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>samples_r <span class="ot">&lt;-</span> <span class="fu">gibbs_sampler_r</span>(iterations, n, a, b, x_init, y_init)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>samples_rcpp <span class="ot">&lt;-</span> <span class="fu">gibbs_sampler_rcpp</span>(iterations, n, a, b, x_init, y_init)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co"># Q-Q Plot for comparing `y` samples</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="fu">qqplot</span>(</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  samples_r<span class="sc">$</span>y, samples_rcpp<span class="sc">$</span>y,</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Q-Q Plot: R vs. Rcpp (y samples)&quot;</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Quantiles of R Implementation&quot;</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Quantiles of Rcpp Implementation&quot;</span>,</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>)</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)  <span class="co"># Add a 45-degree line for reference</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co"># Q-Q Plot for comparing `x` samples</span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="fu">qqplot</span>(</span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  samples_r<span class="sc">$</span>x, samples_rcpp<span class="sc">$</span>x,</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">&quot;Q-Q Plot: R vs. Rcpp (x samples)&quot;</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Quantiles of R Implementation&quot;</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Quantiles of Rcpp Implementation&quot;</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>)</span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The Q-Q plots suggest that the Rcpp implementation is consistent with
+the R implementation for both variables. The observed minor differences
+in x samples are expected and acceptable given the nature of the problem
+and the stochastic algorithms used.</p>
+<p>To compare the computation time of the R and Rcpp implementations, we
+can use the microbenchmark package, which provides a reliable way to
+benchmark and compare function execution times over multiple runs.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Set parameters for the Gibbs sampler</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>iterations <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>x_init <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>y_init <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co"># Benchmark the two functions</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>benchmark_results <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="at">R_implementation =</span> <span class="fu">gibbs_sampler_r</span>(iterations, n, a, b, x_init, y_init),</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="at">Rcpp_implementation =</span> <span class="fu">gibbs_sampler_rcpp</span>(iterations, n, a, b, x_init, y_init),</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">10</span>  <span class="co"># Number of repetitions</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co"># Print benchmark results</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">print</span>(benchmark_results)</span></code></pre></div>
+<pre><code>## Unit: milliseconds
+##                 expr     min      lq     mean   median      uq     max neval
+##     R_implementation 23.6919 24.1766 25.77450 25.20045 26.0174 30.0738    10
+##  Rcpp_implementation  2.6890  2.7404  3.12658  2.76120  2.9050  4.8421    10
+##  cld
+##   a 
+##    b</code></pre>
+<p>This shows that after multiple runs, Rcpp implementations are usually
+significantly faster than pure R implementations, especially when the
+number of iterations is large.</p>
+<p>Finally, a scatter plot of the sampling results of the two methods is
+shown.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># 运行采样器一次</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>samples_r <span class="ot">&lt;-</span> <span class="fu">gibbs_sampler_r</span>(iterations, n, a, b, x_init, y_init)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>samples_rcpp <span class="ot">&lt;-</span> <span class="fu">gibbs_sampler_rcpp</span>(iterations, n, a, b, x_init, y_init)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co"># 绘制散点图</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu">plot</span>(samples_r<span class="sc">$</span>x, samples_r<span class="sc">$</span>y, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.3</span>), <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;纯 R 实现: x 与 y 联合分布&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">plot</span>(samples_rcpp<span class="sc">$</span>x, samples_rcpp<span class="sc">$</span>y, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.3</span>), <span class="at">pch =</span> <span class="dv">16</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Rcpp 实现: x 与 y 联合分布&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

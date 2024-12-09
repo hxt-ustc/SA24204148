@@ -1,0 +1,216 @@
+---
+title: "Homework-2024.09.09"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.09.09}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question
+
+Use knitr to produce at least 3 examples. For each example,texts should mix with figures and/or tables. Better to have mathematical formulas.
+
+# Exmaple 1
+
+本例拟用重要抽样法来估计一个积分.
+
+先简要介绍重要抽样法:
+
+设被积函数为$g(x)$,对其积分$\theta=\int g(x)dx$的简单估计可以从服从$g(x)$分布的随机变量$X_1,\cdots,X_n$来产生$\hat{\theta}=\frac{1}{n}\sum_{i=1}^nX_i$.
+
+但倘若服从$g(x)$分布的随机变量难以抽取，上述积分可以转化为$\int\frac{g(x)}{f(x)}f(x)dx$,其中$f(x)$是一个易于生成的分布，如此可以得到该积分的估计$\hat{\theta}=\frac{1}{m}\sum^m_{i=1}\frac{g(X_i)}{f(X_i)},X_i\ iid\sim\ f$.
+
+这个估计的方差为$Var(\hat{\theta})=\frac{Var[g(X)/f(X)]}{m}$，为使方差尽量的小,需$g(X)/f(X)$尽可能的接近于常数,即f尽可能接近于g.
+
+本例中被积函数为
+$$
+ g(x)=
+    \begin{cases}
+        \frac{e^{-x}}{1+x^2},0<x<1\\
+        0,else
+    \end{cases}
+$$
+
+有多个重要函数可以选择,这里将他们做一个比较。几个可供选择的重要函数为$$f_0(x)=1,0<x<1$$$$f_1(x)=e^{-x},0<x<\infty$$$$f_2(x)=\frac{1}{\pi(1+x^2)},-\infty<x<\infty$$$$f_3(x)=\frac{e^{-x}}{1-e^{-1}},0<x<1$$$$f_4(x)=\frac{4}{\pi(1+x^2)},0<x<1$$
+
+
+
+下图给出了这几个密度在(0,1)上的图形,可见满足比例g(x)/f(x)最接近常数的函数是$f_3$,根据图形我们更倾向于选择$f_3$以获得最小方差.
+
+```{r}
+f0 <- function(x) return(1)
+f1 <- function(x) return(exp(-x))
+f2 <- function(x) 1/pi/(1+x^2)
+f3 <- function(x) return(1/exp(x)/(1-1/exp(1)))
+f4 <- function(x) 4/pi/(1+x^2)
+g<- function(x){
+  ##  exp(-x - log(1+x^2)) * (x > 0) * (x < 1) 
+  if(x<1 && x>0){
+    return(1/(1+x^2)/exp(x))
+  }
+  else return(0)
+}
+curve(f1,xlim = c(0,1),ylim=c(0,2),lty=3,col="green",ylab="")
+curve(f2,add=T,lty=4,col="skyblue")
+curve(f3,add=T,lty=5,col="orange")
+curve(f4,add=T,lty=6,col="red")
+x = seq(0.01,1-0.01,0.01)
+points(x,sapply(x, g),type = "l")
+points(x,sapply(x, f0),type="l",lty=2,col="gray")
+legend("topright",legend = c("g",as.character(0:4)),lty=c(1:6),col = c(1,"gray","green","skyblue","orange","red"),ncol=2)
+```
+
+```{r}
+set.seed(0)
+m = 10000
+
+g<- function(x){
+  exp(-x - log(1+x^2)) * (x > 0) * (x < 1) 
+}
+
+theta.hat <- se <- numeric(5) 
+x <- runif(m) #using f0
+fg <- g(x) 
+theta.hat[1] <- mean(fg) 
+se[1] <- sd(fg)
+x <- rexp(m, 1) #using f1
+fg <- g(x) / exp(-x) 
+theta.hat[2] <- mean(fg) 
+se[2] <- sd(fg)
+x <- rcauchy(m) #using f2 
+i <- c(which(x > 1), which(x < 0)) 
+x[i] <- 2 #to catch overflow errors in g(x) 
+fg <- g(x) / dcauchy(x) 
+theta.hat[3] <- mean(fg) 
+se[3] <- sd(fg)
+u <- runif(m) #f3, inverse transform method 
+x <- - log(1 - u * (1 - exp(-1))) 
+fg <- g(x) / (exp(-x) / (1 - exp(-1))) 
+theta.hat[4] <- mean(fg) 
+se[4] <- sd(fg)
+u <- runif(m) #f5, inverse transform method 
+x <- tan(pi * u / 4) 
+fg <- g(x) / (4 / ((1 + x^2) * pi)) 
+theta.hat[5] <- mean(fg) 
+se[5] <- sd(fg)
+knitr::kable(rbind(theta.hat, se))
+```
+
+可以看到,$f_3$作为重要函数时的经验方差是最小的，与我们的预测相符.
+
+# Example 2
+
+本例将使用线性概率模型和逻辑斯蒂回归模型对如下表格中的数据进行拟合.
+
+|Snoring|Heart Disease: Yes|Heart Disease: No|
+|:-:|:-:|:-:|
+|Never|24|1355|
+|Occasionally|35|603|
+|Nearly every night|21|192|
+|Every night|30|224|
+
+先简要描述一下上述两个模型:
+
+设二元响应为$Y\sim B(1,\pi(X))$,其中$X$是可观测的协变量.
+
+线性概率模型假设$\pi(x)=\alpha+\beta x$,而逻辑斯蒂回归模型假设$\pi(x)=\frac{exp(\alpha+\beta x)}{1+exp(\alpha+\beta x)}$.
+
+通过最小化MSE得到$\alpha,\beta$的估计.
+
+对于不同的打鼾程度这里分别采用三种打分方式:
+
+(a)(0,2,4,6), (b)(0,1,2,3) and (c)(1,2,3,4).
+
+接下来进行拟合:
+
+```{r}
+data0 = matrix(c(24,35,21,30,1355,603,192,224),byrow = F,ncol = 2)
+data=cbind(data0,data0[,1]/(data0[,1]+data0[,2]))
+
+s2 = c(0,1,2,3)
+s1 = s2*2
+s3 = s2+1
+
+x = rep(rep(s1,2),as.vector(data0))
+y = rep(c(rep(1,4),rep(0,4)),as.vector(data0))
+fit.lm_a = lm(y~x)
+fit.log_a<-glm(data0 ~ s1, family=binomial)
+
+x = rep(rep(s2,2),as.vector(data0))
+y = rep(c(rep(1,4),rep(0,4)),as.vector(data0))
+fit.lm_b = lm(y~x)
+fit.log_b<-glm(data0 ~ s2, family=binomial)
+
+x = rep(rep(s3,2),as.vector(data0))
+y = rep(c(rep(1,4),rep(0,4)),as.vector(data0))
+fit.lm_c = lm(y~x)
+fit.log_c<-glm(data0 ~ s3, family=binomial)
+        
+plot(s1,data[,3],ylim=c(0,0.25),col=2,xlab='Snoring',ylab='prop',pch=16)
+points(s2,data[,3],col=3,pch=16)
+points(s3,data[,3],col=4,pch=16)
+xs<-seq(0,6,0.01)
+pr.lm_a<-fit.lm_a$coef[1]+xs*fit.lm_a$coef[2]
+lines(xs,pr.lm_a,col=2,lwd=2)
+pr.log_a<-fit.log_a$coef[1] + fit.log_a$coef[2]*xs
+lines(xs,exp(pr.log_a)/(1+exp(pr.log_a)),col=2,lwd=2,lty=2)
+pr.lm_b<-fit.lm_b$coef[1]+xs*fit.lm_b$coef[2]
+lines(xs,pr.lm_b,col=3,lwd=2)
+pr.log_b<-fit.log_b$coef[1] + fit.log_b$coef[2]*xs
+lines(xs,exp(pr.log_b)/(1+exp(pr.log_b)),col=3,lwd=2,lty=2)
+pr.lm_c<-fit.lm_c$coef[1]+xs*fit.lm_c$coef[2]
+lines(xs,pr.lm_c,col=4,lwd=2)
+pr.log_c<-fit.log_c$coef[1] + fit.log_c$coef[2]*xs
+lines(xs,exp(pr.log_c)/(1+exp(pr.log_c)),col=4,lwd=2,lty=2)
+legend("topleft",legend = c("(a)linear","(b)linear","(c)linear","(a)logistic","(b)logistic","(c)logistic"),ncol=2,lty=c(1,1,1,2,2,2),col=c(2,3,4),cex = 0.7)
+```
+
+由上图可见,三种打分方式的线性拟合效果均较好。(b)和(c)的打分方式只差了一个常数,拟合系数$\beta$也相同.
+
+$\hat{\beta}$如下:
+
+```{r}
+beta = matrix(c(fit.lm_a$coefficients[2],fit.lm_b$coefficients[2],fit.lm_c$coefficients[2],fit.log_a$coefficients[2],fit.log_b$coefficients[2],fit.log_c$coefficients[2]),nrow=2,byrow = T)
+colnames(beta)=c("a","b","c")
+rownames(beta)=c("linear","logistic")
+knitr::kable(beta)
+```
+
+
+# Example 3
+
+本例将从模拟和理论两个角度求二维单位球面上的均匀分布的一元边际.
+
+设$Y\sim U(0,2\pi)$，令$X_1=cosY,X_2=sinY$，则$(X_1,X_2)$服从二维单位球面上的均匀分布，我们的目标是求$X_1$的边际分布.
+
+## 模拟
+
+```{r}
+set.seed(0)
+n = 10000
+Y = runif(n)*2*pi
+X1 = cos(Y)
+hist(X1,breaks = 50)
+```
+
+图中可以明显看到$X_1$服从一个对称分布，且在两端分布更为密集.
+
+## 理论
+
+$Y$的pdf为$f_Y(t)=\frac{1}{2\pi},y\in(0,2\pi)$，考虑到$X_1$在x轴上下分布对称则$f_{x_1}(t)=2*f_Y(\arccos t)*|(\arccos t)'| =\frac{1}{\pi\sqrt(1-t^2)}$
+
+```{r}
+f <- function(x) 1/pi/sqrt(1-x^2)
+hist(X1,breaks = 50,freq = F)
+curve(f,from = -1,to = 1,add=T,col="red")
+```
+
+红线即为所求理论pdf，模拟样本的分布与之基本符合.
+

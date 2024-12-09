@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.09.09</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.09.09</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question" class="section level1">
+<h1>Question</h1>
+<p>Use knitr to produce at least 3 examples. For each example,texts
+should mix with figures and/or tables. Better to have mathematical
+formulas.</p>
+</div>
+<div id="exmaple-1" class="section level1">
+<h1>Exmaple 1</h1>
+<p>本例拟用重要抽样法来估计一个积分.</p>
+<p>先简要介绍重要抽样法:</p>
+<p>设被积函数为<span class="math inline">\(g(x)\)</span>,对其积分<span class="math inline">\(\theta=\int
+g(x)dx\)</span>的简单估计可以从服从<span class="math inline">\(g(x)\)</span>分布的随机变量<span class="math inline">\(X_1,\cdots,X_n\)</span>来产生<span class="math inline">\(\hat{\theta}=\frac{1}{n}\sum_{i=1}^nX_i\)</span>.</p>
+<p>但倘若服从<span class="math inline">\(g(x)\)</span>分布的随机变量难以抽取，上述积分可以转化为<span class="math inline">\(\int\frac{g(x)}{f(x)}f(x)dx\)</span>,其中<span class="math inline">\(f(x)\)</span>是一个易于生成的分布，如此可以得到该积分的估计<span class="math inline">\(\hat{\theta}=\frac{1}{m}\sum^m_{i=1}\frac{g(X_i)}{f(X_i)},X_i\
+iid\sim\ f\)</span>.</p>
+<p>这个估计的方差为<span class="math inline">\(Var(\hat{\theta})=\frac{Var[g(X)/f(X)]}{m}\)</span>，为使方差尽量的小,需<span class="math inline">\(g(X)/f(X)\)</span>尽可能的接近于常数,即f尽可能接近于g.</p>
+<p>本例中被积函数为 <span class="math display">\[
+g(x)=
+    \begin{cases}
+        \frac{e^{-x}}{1+x^2},0&lt;x&lt;1\\
+        0,else
+    \end{cases}
+\]</span></p>
+<p>有多个重要函数可以选择,这里将他们做一个比较。几个可供选择的重要函数为<span class="math display">\[f_0(x)=1,0&lt;x&lt;1\]</span><span class="math display">\[f_1(x)=e^{-x},0&lt;x&lt;\infty\]</span><span class="math display">\[f_2(x)=\frac{1}{\pi(1+x^2)},-\infty&lt;x&lt;\infty\]</span><span class="math display">\[f_3(x)=\frac{e^{-x}}{1-e^{-1}},0&lt;x&lt;1\]</span><span class="math display">\[f_4(x)=\frac{4}{\pi(1+x^2)},0&lt;x&lt;1\]</span></p>
+<p>下图给出了这几个密度在(0,1)上的图形,可见满足比例g(x)/f(x)最接近常数的函数是<span class="math inline">\(f_3\)</span>,根据图形我们更倾向于选择<span class="math inline">\(f_3\)</span>以获得最小方差.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>f0 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">return</span>(<span class="dv">1</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">return</span>(<span class="fu">exp</span>(<span class="sc">-</span>x))</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span><span class="sc">/</span>pi<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">return</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">exp</span>(x)<span class="sc">/</span>(<span class="dv">1-1</span><span class="sc">/</span><span class="fu">exp</span>(<span class="dv">1</span>)))</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">4</span><span class="sc">/</span>pi<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>g<span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="do">##  exp(-x - log(1+x^2)) * (x &gt; 0) * (x &lt; 1) </span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="cf">if</span>(x<span class="sc">&lt;</span><span class="dv">1</span> <span class="sc">&amp;&amp;</span> x<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span>x<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span><span class="fu">exp</span>(x))</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  }</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="cf">else</span> <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">curve</span>(f1,<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">2</span>),<span class="at">lty=</span><span class="dv">3</span>,<span class="at">col=</span><span class="st">&quot;green&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">curve</span>(f2,<span class="at">add=</span>T,<span class="at">lty=</span><span class="dv">4</span>,<span class="at">col=</span><span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">curve</span>(f3,<span class="at">add=</span>T,<span class="at">lty=</span><span class="dv">5</span>,<span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">curve</span>(f4,<span class="at">add=</span>T,<span class="at">lty=</span><span class="dv">6</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="dv">1</span><span class="fl">-0.01</span>,<span class="fl">0.01</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="fu">points</span>(x,<span class="fu">sapply</span>(x, g),<span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="fu">points</span>(x,<span class="fu">sapply</span>(x, f0),<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;g&quot;</span>,<span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),<span class="at">col =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="st">&quot;gray&quot;</span>,<span class="st">&quot;green&quot;</span>,<span class="st">&quot;skyblue&quot;</span>,<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>m <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>g<span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">exp</span>(<span class="sc">-</span>x <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span><span class="sc">+</span>x<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">*</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">*</span> (x <span class="sc">&lt;</span> <span class="dv">1</span>) </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>theta.hat <span class="ot">&lt;-</span> se <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">5</span>) </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(m) <span class="co">#using f0</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>fg <span class="ot">&lt;-</span> <span class="fu">g</span>(x) </span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>theta.hat[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(fg) </span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>se[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(fg)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rexp</span>(m, <span class="dv">1</span>) <span class="co">#using f1</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>fg <span class="ot">&lt;-</span> <span class="fu">g</span>(x) <span class="sc">/</span> <span class="fu">exp</span>(<span class="sc">-</span>x) </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>theta.hat[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(fg) </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>se[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(fg)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rcauchy</span>(m) <span class="co">#using f2 </span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">which</span>(x <span class="sc">&gt;</span> <span class="dv">1</span>), <span class="fu">which</span>(x <span class="sc">&lt;</span> <span class="dv">0</span>)) </span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>x[i] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co">#to catch overflow errors in g(x) </span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>fg <span class="ot">&lt;-</span> <span class="fu">g</span>(x) <span class="sc">/</span> <span class="fu">dcauchy</span>(x) </span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>theta.hat[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(fg) </span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>se[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(fg)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(m) <span class="co">#f3, inverse transform method </span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> u <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span>))) </span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>fg <span class="ot">&lt;-</span> <span class="fu">g</span>(x) <span class="sc">/</span> (<span class="fu">exp</span>(<span class="sc">-</span>x) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">1</span>))) </span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>theta.hat[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(fg) </span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>se[<span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(fg)</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">runif</span>(m) <span class="co">#f5, inverse transform method </span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tan</span>(pi <span class="sc">*</span> u <span class="sc">/</span> <span class="dv">4</span>) </span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>fg <span class="ot">&lt;-</span> <span class="fu">g</span>(x) <span class="sc">/</span> (<span class="dv">4</span> <span class="sc">/</span> ((<span class="dv">1</span> <span class="sc">+</span> x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">*</span> pi)) </span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>theta.hat[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">mean</span>(fg) </span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>se[<span class="dv">5</span>] <span class="ot">&lt;-</span> <span class="fu">sd</span>(fg)</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">rbind</span>(theta.hat, se))</span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">theta.hat</td>
+<td align="right">0.5251946</td>
+<td align="right">0.5239965</td>
+<td align="right">0.5166649</td>
+<td align="right">0.5245881</td>
+<td align="right">0.5229831</td>
+</tr>
+<tr class="even">
+<td align="left">se</td>
+<td align="right">0.2465233</td>
+<td align="right">0.4189672</td>
+<td align="right">0.9449738</td>
+<td align="right">0.0962139</td>
+<td align="right">0.1420681</td>
+</tr>
+</tbody>
+</table>
+<p>可以看到,<span class="math inline">\(f_3\)</span>作为重要函数时的经验方差是最小的，与我们的预测相符.</p>
+</div>
+<div id="example-2" class="section level1">
+<h1>Example 2</h1>
+<p>本例将使用线性概率模型和逻辑斯蒂回归模型对如下表格中的数据进行拟合.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Snoring</th>
+<th align="center">Heart Disease: Yes</th>
+<th align="center">Heart Disease: No</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Never</td>
+<td align="center">24</td>
+<td align="center">1355</td>
+</tr>
+<tr class="even">
+<td align="center">Occasionally</td>
+<td align="center">35</td>
+<td align="center">603</td>
+</tr>
+<tr class="odd">
+<td align="center">Nearly every night</td>
+<td align="center">21</td>
+<td align="center">192</td>
+</tr>
+<tr class="even">
+<td align="center">Every night</td>
+<td align="center">30</td>
+<td align="center">224</td>
+</tr>
+</tbody>
+</table>
+<p>先简要描述一下上述两个模型:</p>
+<p>设二元响应为<span class="math inline">\(Y\sim
+B(1,\pi(X))\)</span>,其中<span class="math inline">\(X\)</span>是可观测的协变量.</p>
+<p>线性概率模型假设<span class="math inline">\(\pi(x)=\alpha+\beta
+x\)</span>,而逻辑斯蒂回归模型假设<span class="math inline">\(\pi(x)=\frac{exp(\alpha+\beta
+x)}{1+exp(\alpha+\beta x)}\)</span>.</p>
+<p>通过最小化MSE得到<span class="math inline">\(\alpha,\beta\)</span>的估计.</p>
+<p>对于不同的打鼾程度这里分别采用三种打分方式:</p>
+<p>(a)(0,2,4,6), (b)(0,1,2,3) and (c)(1,2,3,4).</p>
+<p>接下来进行拟合:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data0 <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">24</span>,<span class="dv">35</span>,<span class="dv">21</span>,<span class="dv">30</span>,<span class="dv">1355</span>,<span class="dv">603</span>,<span class="dv">192</span>,<span class="dv">224</span>),<span class="at">byrow =</span> F,<span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">cbind</span>(data0,data0[,<span class="dv">1</span>]<span class="sc">/</span>(data0[,<span class="dv">1</span>]<span class="sc">+</span>data0[,<span class="dv">2</span>]))</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>s2 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>s1 <span class="ot">=</span> s2<span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>s3 <span class="ot">=</span> s2<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">rep</span>(s1,<span class="dv">2</span>),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>)),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>fit.lm_a <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>fit.log_a<span class="ot">&lt;-</span><span class="fu">glm</span>(data0 <span class="sc">~</span> s1, <span class="at">family=</span>binomial)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">rep</span>(s2,<span class="dv">2</span>),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>)),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>fit.lm_b <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>fit.log_b<span class="ot">&lt;-</span><span class="fu">glm</span>(data0 <span class="sc">~</span> s2, <span class="at">family=</span>binomial)</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">rep</span>(s3,<span class="dv">2</span>),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>),<span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>)),<span class="fu">as.vector</span>(data0))</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>fit.lm_c <span class="ot">=</span> <span class="fu">lm</span>(y<span class="sc">~</span>x)</span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>fit.log_c<span class="ot">&lt;-</span><span class="fu">glm</span>(data0 <span class="sc">~</span> s3, <span class="at">family=</span>binomial)</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>        </span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="fu">plot</span>(s1,data[,<span class="dv">3</span>],<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.25</span>),<span class="at">col=</span><span class="dv">2</span>,<span class="at">xlab=</span><span class="st">&#39;Snoring&#39;</span>,<span class="at">ylab=</span><span class="st">&#39;prop&#39;</span>,<span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="fu">points</span>(s2,data[,<span class="dv">3</span>],<span class="at">col=</span><span class="dv">3</span>,<span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="fu">points</span>(s3,data[,<span class="dv">3</span>],<span class="at">col=</span><span class="dv">4</span>,<span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>xs<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">6</span>,<span class="fl">0.01</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>pr.lm_a<span class="ot">&lt;-</span>fit.lm_a<span class="sc">$</span>coef[<span class="dv">1</span>]<span class="sc">+</span>xs<span class="sc">*</span>fit.lm_a<span class="sc">$</span>coef[<span class="dv">2</span>]</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="fu">lines</span>(xs,pr.lm_a,<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>pr.log_a<span class="ot">&lt;-</span>fit.log_a<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> fit.log_a<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>xs</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="fu">lines</span>(xs,<span class="fu">exp</span>(pr.log_a)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(pr.log_a)),<span class="at">col=</span><span class="dv">2</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>pr.lm_b<span class="ot">&lt;-</span>fit.lm_b<span class="sc">$</span>coef[<span class="dv">1</span>]<span class="sc">+</span>xs<span class="sc">*</span>fit.lm_b<span class="sc">$</span>coef[<span class="dv">2</span>]</span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="fu">lines</span>(xs,pr.lm_b,<span class="at">col=</span><span class="dv">3</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>pr.log_b<span class="ot">&lt;-</span>fit.log_b<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> fit.log_b<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>xs</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="fu">lines</span>(xs,<span class="fu">exp</span>(pr.log_b)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(pr.log_b)),<span class="at">col=</span><span class="dv">3</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>pr.lm_c<span class="ot">&lt;-</span>fit.lm_c<span class="sc">$</span>coef[<span class="dv">1</span>]<span class="sc">+</span>xs<span class="sc">*</span>fit.lm_c<span class="sc">$</span>coef[<span class="dv">2</span>]</span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="fu">lines</span>(xs,pr.lm_c,<span class="at">col=</span><span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>pr.log_c<span class="ot">&lt;-</span>fit.log_c<span class="sc">$</span>coef[<span class="dv">1</span>] <span class="sc">+</span> fit.log_c<span class="sc">$</span>coef[<span class="dv">2</span>]<span class="sc">*</span>xs</span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="fu">lines</span>(xs,<span class="fu">exp</span>(pr.log_c)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(pr.log_c)),<span class="at">col=</span><span class="dv">4</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;(a)linear&quot;</span>,<span class="st">&quot;(b)linear&quot;</span>,<span class="st">&quot;(c)linear&quot;</span>,<span class="st">&quot;(a)logistic&quot;</span>,<span class="st">&quot;(b)logistic&quot;</span>,<span class="st">&quot;(c)logistic&quot;</span>),<span class="at">ncol=</span><span class="dv">2</span>,<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>),<span class="at">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>由上图可见,三种打分方式的线性拟合效果均较好。(b)和(c)的打分方式只差了一个常数,拟合系数<span class="math inline">\(\beta\)</span>也相同.</p>
+<p><span class="math inline">\(\hat{\beta}\)</span>如下:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">c</span>(fit.lm_a<span class="sc">$</span>coefficients[<span class="dv">2</span>],fit.lm_b<span class="sc">$</span>coefficients[<span class="dv">2</span>],fit.lm_c<span class="sc">$</span>coefficients[<span class="dv">2</span>],fit.log_a<span class="sc">$</span>coefficients[<span class="dv">2</span>],fit.log_b<span class="sc">$</span>coefficients[<span class="dv">2</span>],fit.log_c<span class="sc">$</span>coefficients[<span class="dv">2</span>]),<span class="at">nrow=</span><span class="dv">2</span>,<span class="at">byrow =</span> T)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">colnames</span>(beta)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">rownames</span>(beta)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;linear&quot;</span>,<span class="st">&quot;logistic&quot;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(beta)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">a</th>
+<th align="right">b</th>
+<th align="right">c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">linear</td>
+<td align="right">0.0176970</td>
+<td align="right">0.0353941</td>
+<td align="right">0.0353941</td>
+</tr>
+<tr class="even">
+<td align="left">logistic</td>
+<td align="right">0.3272648</td>
+<td align="right">0.6545296</td>
+<td align="right">0.6545296</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="example-3" class="section level1">
+<h1>Example 3</h1>
+<p>本例将从模拟和理论两个角度求二维单位球面上的均匀分布的一元边际.</p>
+<p>设<span class="math inline">\(Y\sim U(0,2\pi)\)</span>，令<span class="math inline">\(X_1=cosY,X_2=sinY\)</span>，则<span class="math inline">\((X_1,X_2)\)</span>服从二维单位球面上的均匀分布，我们的目标是求<span class="math inline">\(X_1\)</span>的边际分布.</p>
+<div id="模拟" class="section level2">
+<h2>模拟</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">10000</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">runif</span>(n)<span class="sc">*</span><span class="dv">2</span><span class="sc">*</span>pi</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>X1 <span class="ot">=</span> <span class="fu">cos</span>(Y)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="fu">hist</span>(X1,<span class="at">breaks =</span> <span class="dv">50</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>图中可以明显看到<span class="math inline">\(X_1\)</span>服从一个对称分布，且在两端分布更为密集.</p>
+</div>
+<div id="理论" class="section level2">
+<h2>理论</h2>
+<p><span class="math inline">\(Y\)</span>的pdf为<span class="math inline">\(f_Y(t)=\frac{1}{2\pi},y\in(0,2\pi)\)</span>，考虑到<span class="math inline">\(X_1\)</span>在x轴上下分布对称则<span class="math inline">\(f_{x_1}(t)=2*f_Y(\arccos t)*|(\arccos t)&#39;|
+=\frac{1}{\pi\sqrt(1-t^2)}\)</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="dv">1</span><span class="sc">/</span>pi<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">hist</span>(X1,<span class="at">breaks =</span> <span class="dv">50</span>,<span class="at">freq =</span> F)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">curve</span>(f,<span class="at">from =</span> <span class="sc">-</span><span class="dv">1</span>,<span class="at">to =</span> <span class="dv">1</span>,<span class="at">add=</span>T,<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>红线即为所求理论pdf，模拟样本的分布与之基本符合.</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

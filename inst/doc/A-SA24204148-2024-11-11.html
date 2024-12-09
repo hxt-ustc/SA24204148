@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.11.11</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.11.11</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question-11.7" class="section level2">
+<h2>Question 11.7</h2>
+<p>Use the simplex algorithm to solve the following problem. Minimize
+<span class="math inline">\(4x + 2y + 9z\)</span> subject to</p>
+<p><span class="math display">\[
+\begin{aligned} &amp; 2 x+y+z \leq 2 \\ &amp; x-y+3 z \leq 3 \\ &amp; x
+\geq 0, y \geq 0, z \geq 0\end{aligned}
+\]</span></p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>Use the lpSolve package to solve this linear programming problem in
+R.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># 设置目标函数系数（最小化 4x + 2y + 9z）</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>objective <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># 设置约束条件系数</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>constraints <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>,   <span class="co"># 2x + y + z &lt;= 2</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>                        <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>), <span class="co"># x - y + 3z &lt;= 3</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>                      <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># 设置约束条件的右侧值</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>rhs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co"># 设置约束类型</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>direction <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;&lt;=&quot;</span>, <span class="st">&quot;&lt;=&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co"># 使用 lpSolve 求解</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">lp</span>(<span class="st">&quot;min&quot;</span>, objective, constraints, direction, rhs, <span class="at">all.int =</span> <span class="cn">FALSE</span>, <span class="at">all.bin =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>solution<span class="sc">$</span>objval      <span class="co"># 最小值</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>solution<span class="sc">$</span>solution    <span class="co"># x, y, z 的取值</span></span></code></pre></div>
+<pre><code>## [1] 0 0 0</code></pre>
+<p>The original function takes a minimum value of 0 at the origin.</p>
+</div>
+<div id="question-3" class="section level2">
+<h2>Question 3</h2>
+<p>Use both for loops and lapply() to fit linear models to the mtcars
+using the formulas stored in this list:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{formulas &lt;-  }&amp;\text{list(}\\
+&amp;\text{mpg ~ disp,}\\
+&amp;\text{mpg ~ I(1 / disp),}\\
+&amp;\text{mpg ~ disp + wt,}\\
+&amp;\text{mpg ~ I(1 / disp) + wt}\\
+&amp;\text{)}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<p>“for loops” method:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>formulas <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  mpg <span class="sc">~</span> disp,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp),</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  mpg <span class="sc">~</span> disp <span class="sc">+</span> wt,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  mpg <span class="sc">~</span> <span class="fu">I</span>(<span class="dv">1</span> <span class="sc">/</span> disp) <span class="sc">+</span> wt</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>models_for <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(formulas)) {</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  models_for[[i]] <span class="ot">&lt;-</span> <span class="fu">lm</span>(formulas[[i]], <span class="at">data =</span> mtcars)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>}</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="fu">lapply</span>(models_for, summary)</span></code></pre></div>
+<pre><code>## [[1]]
+## 
+## Call:
+## lm(formula = formulas[[i]], data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8922 -2.2022 -0.9631  1.6272  7.2305 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***
+## disp        -0.041215   0.004712  -8.747 9.38e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.251 on 30 degrees of freedom
+## Multiple R-squared:  0.7183, Adjusted R-squared:  0.709 
+## F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10
+## 
+## 
+## [[2]]
+## 
+## Call:
+## lm(formula = formulas[[i]], data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7383 -1.8216 -0.0751  1.0487  4.6105 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   10.7520     0.7994   13.45 3.06e-14 ***
+## I(1/disp)   1557.6739   114.8935   13.56 2.49e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.295 on 30 degrees of freedom
+## Multiple R-squared:  0.8597, Adjusted R-squared:  0.855 
+## F-statistic: 183.8 on 1 and 30 DF,  p-value: 2.494e-14
+## 
+## 
+## [[3]]
+## 
+## Call:
+## lm(formula = formulas[[i]], data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+## 
+## 
+## [[4]]
+## 
+## Call:
+## lm(formula = formulas[[i]], data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7085 -1.5121 -0.6191  1.5142  4.2314 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   19.0242     3.4520   5.511 6.13e-06 ***
+## I(1/disp)   1142.5600   199.8427   5.717 3.47e-06 ***
+## wt            -1.7976     0.7327  -2.453   0.0204 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.124 on 29 degrees of freedom
+## Multiple R-squared:  0.8838, Adjusted R-squared:  0.8758 
+## F-statistic: 110.3 on 2 and 29 DF,  p-value: 2.788e-14</code></pre>
+<p>“lapply” method:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>models_lapply <span class="ot">&lt;-</span> <span class="fu">lapply</span>(formulas, <span class="cf">function</span>(f) <span class="fu">lm</span>(f, <span class="at">data =</span> mtcars))</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">lapply</span>(models_lapply, summary)</span></code></pre></div>
+<pre><code>## [[1]]
+## 
+## Call:
+## lm(formula = f, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.8922 -2.2022 -0.9631  1.6272  7.2305 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 29.599855   1.229720  24.070  &lt; 2e-16 ***
+## disp        -0.041215   0.004712  -8.747 9.38e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.251 on 30 degrees of freedom
+## Multiple R-squared:  0.7183, Adjusted R-squared:  0.709 
+## F-statistic: 76.51 on 1 and 30 DF,  p-value: 9.38e-10
+## 
+## 
+## [[2]]
+## 
+## Call:
+## lm(formula = f, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.7383 -1.8216 -0.0751  1.0487  4.6105 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   10.7520     0.7994   13.45 3.06e-14 ***
+## I(1/disp)   1557.6739   114.8935   13.56 2.49e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.295 on 30 degrees of freedom
+## Multiple R-squared:  0.8597, Adjusted R-squared:  0.855 
+## F-statistic: 183.8 on 1 and 30 DF,  p-value: 2.494e-14
+## 
+## 
+## [[3]]
+## 
+## Call:
+## lm(formula = f, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+## 
+## 
+## [[4]]
+## 
+## Call:
+## lm(formula = f, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.7085 -1.5121 -0.6191  1.5142  4.2314 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   19.0242     3.4520   5.511 6.13e-06 ***
+## I(1/disp)   1142.5600   199.8427   5.717 3.47e-06 ***
+## wt            -1.7976     0.7327  -2.453   0.0204 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.124 on 29 degrees of freedom
+## Multiple R-squared:  0.8838, Adjusted R-squared:  0.8758 
+## F-statistic: 110.3 on 2 and 29 DF,  p-value: 2.788e-14</code></pre>
+<p>Both methods give the same results.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>index <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">lapply</span>(models_for, AIC),<span class="fu">lapply</span>(models_for, BIC))</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">rownames</span>(index) <span class="ot">&lt;-</span> <span class="fu">as.character</span>(formulas)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>index</span></code></pre></div>
+<pre><code>##                      [,1]     [,2]    
+## mpg ~ disp           170.2094 174.6066
+## mpg ~ I(1/disp)      147.9115 152.3087
+## mpg ~ disp + wt      164.1678 170.0307
+## mpg ~ I(1/disp) + wt 143.8763 149.7392</code></pre>
+<p>Both AIC and BIC showed that the fourth model was the best fit. The
+fitting results of the fourth model are visualized below.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(formulas[[<span class="dv">4</span>]],mtcars))</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --><img src="data:image/png;base64,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" /><!-- --><img src="data:image/png;base64,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" /><!-- --><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="question-4" class="section level2">
+<h2>Question 4</h2>
+<p>Fit the model <span class="math inline">\(\text{mpg} \sim
+\text{disp}\)</span> to each of the bootstrap replicates of mtcars in
+the list below by using a for loop and lapply(). Can you do it without
+an anonymous function?</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{bootstraps} &amp;&lt;- \text{lapply(1:10, function(i)\{}\\
+&amp;\text{rows &lt;- sample(1:nrow(mtcars), rep = TRUE)}\\
+&amp;\text{mtcars[rows, ]}\\
+&amp;\text{\})}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+<p>use for loops:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(mtcars), <span class="at">rep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  mtcars[rows, ]</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>})</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>models_for <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(bootstraps)) {</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  models_for[[i]] <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> bootstraps[[i]])</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>}</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>models_for</span></code></pre></div>
+<pre><code>## [[1]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    26.66841     -0.03051  
+## 
+## 
+## [[2]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.19074     -0.04154  
+## 
+## 
+## [[3]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.40014     -0.04445  
+## 
+## 
+## [[4]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.44286     -0.04566  
+## 
+## 
+## [[5]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    29.34661     -0.04429  
+## 
+## 
+## [[6]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    31.72026     -0.04563  
+## 
+## 
+## [[7]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.57421     -0.04612  
+## 
+## 
+## [[8]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    28.60093     -0.03704  
+## 
+## 
+## [[9]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    27.50750     -0.03559  
+## 
+## 
+## [[10]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = bootstraps[[i]])
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    27.64187     -0.03027</code></pre>
+<p>use lapply without an anonymous function:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>generate_bootstrap_sample <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  rows <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(data), <span class="at">rep =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  data[rows, ]</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>}</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co"># 创建一个空列表用于存储 bootstrap 样本</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>bootstraps <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co"># 使用 for 循环生成 10 个 bootstrap 样本</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  bootstraps[[i]] <span class="ot">&lt;-</span> <span class="fu">generate_bootstrap_sample</span>(mtcars)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>}</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>fit_model <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>  <span class="fu">lm</span>(mpg <span class="sc">~</span> disp, <span class="at">data =</span> data)</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>}</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a>models_lapply_2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(bootstraps, fit_model)</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>models_lapply_2</span></code></pre></div>
+<pre><code>## [[1]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    26.66841     -0.03051  
+## 
+## 
+## [[2]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.19074     -0.04154  
+## 
+## 
+## [[3]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.40014     -0.04445  
+## 
+## 
+## [[4]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.44286     -0.04566  
+## 
+## 
+## [[5]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    29.34661     -0.04429  
+## 
+## 
+## [[6]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    31.72026     -0.04563  
+## 
+## 
+## [[7]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    30.57421     -0.04612  
+## 
+## 
+## [[8]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    28.60093     -0.03704  
+## 
+## 
+## [[9]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    27.50750     -0.03559  
+## 
+## 
+## [[10]]
+## 
+## Call:
+## lm(formula = mpg ~ disp, data = data)
+## 
+## Coefficients:
+## (Intercept)         disp  
+##    27.64187     -0.03027</code></pre>
+<p>The fitting results are the same for both methods and the latter
+method does not use the anonymous function.</p>
+</div>
+<div id="question-5" class="section level2">
+<h2>Question 5</h2>
+<p>For each model in the previous two exercises, extract <span class="math inline">\(R^2\)</span> using the function below.</p>
+<p>rsq &lt;- function(mod) summary(mod)$r.squared</p>
+</div>
+<div id="answer-3" class="section level2">
+<h2>Answer</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>rsq <span class="ot">&lt;-</span> <span class="cf">function</span>(mod) <span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co"># 使用 lapply 提取每个模型的 R^2 值</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>rsq_values_lapply <span class="ot">&lt;-</span> <span class="fu">lapply</span>(models_lapply, rsq)</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co"># 将结果转换为数值向量（如果需要）</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>rsq_values_lapply <span class="ot">&lt;-</span> <span class="fu">unlist</span>(rsq_values_lapply)</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co"># 查看 R^2 值</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;R2 for the four models fitted in Exercise 3:&quot;</span>, rsq_values_lapply, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 for the four models fitted in Exercise 3: 0.7183433 0.8596865 0.7809306 0.8838038</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># 使用 lapply 提取每个模型的 R^2 值</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>rsq_values_lapply_2 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(models_lapply_2, rsq)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co"># 将结果转换为数值向量（如果需要）</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>rsq_values_lapply_2 <span class="ot">&lt;-</span> <span class="fu">unlist</span>(rsq_values_lapply_2)</span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co"># 查看 R^2 值</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;R2 for the ten models fitted in Exercise 4:&quot;</span>, rsq_values_lapply_2, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## R2 for the ten models fitted in Exercise 4: 0.5570039 0.6558963 0.7000628 0.7995445 0.8215032 0.7983167 0.8143575 0.67799 0.62433 0.6179178</code></pre>
+</div>
+<div id="question-3-1" class="section level2">
+<h2>Question 3</h2>
+<p>The following code simulates the performance of a t-test for
+non-normal data. Use sapply() and an anonymous function to extract the
+p-value from every trial.</p>
+<p><span class="math display">\[
+\begin{aligned}
+trials &amp;&lt;- replicate( \\
+&amp;100,\\
+&amp;t.test(rpois(10, 10), rpois(7, 10)),\\
+&amp;simplify = FALSE\\
+)&amp;
+\end{aligned}
+\]</span></p>
+</div>
+<div id="answer-4" class="section level2">
+<h2>Answer</h2>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="co"># Simulate the trials</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>trials <span class="ot">&lt;-</span> <span class="fu">replicate</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="dv">100</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="fu">t.test</span>(<span class="fu">rpois</span>(<span class="dv">10</span>, <span class="dv">10</span>), <span class="fu">rpois</span>(<span class="dv">7</span>, <span class="dv">10</span>)),</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>  <span class="at">simplify =</span> <span class="cn">FALSE</span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>)</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="co"># Use sapply() with an anonymous function to extract the p-value from each trial</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>p_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(trials, <span class="cf">function</span>(test) test<span class="sc">$</span>p.value)</span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="co"># View the extracted p-values</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="fu">hist</span>(p_values, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">freq =</span> F)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The histogram of the p-values is not concentrated at one point but
+dispersed, which is partly due to the small size of the sample data and
+partly to the fact that the t-test assumes a normal distribution, which
+does not correspond to the real situation.</p>
+</div>
+<div id="question-6" class="section level2">
+<h2>Question 6</h2>
+<p>Implement a combination of Map() and vapply() to create an lapply()
+variant that iterates in parallel over all of its inputs and stores its
+outputs in a vector (or a matrix). What arguments should the function
+take?</p>
+</div>
+<div id="answer-5" class="section level2">
+<h2>Answer</h2>
+<p>Function: par_lapply</p>
+<p>This function will take the following arguments:</p>
+<ul>
+<li>FUN – the function to apply to each set of parallel inputs.</li>
+<li>… – any number of lists or vectors to iterate over in parallel.</li>
+<li>FUN.VALUE – a template for the type and length of output each call
+to FUN will produce (used by vapply() to ensure type consistency).<br />
+</li>
+<li>vapply() to ensure type consistency).</li>
+<li>USE.NAMES (optional) – whether to keep names in the output vector or
+matrix.</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>par_lapply <span class="ot">&lt;-</span> <span class="cf">function</span>(FUN, ..., FUN.VALUE, <span class="at">USE.NAMES =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  <span class="co"># Use Map() to apply FUN in parallel over all inputs</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">Map</span>(FUN, ...)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>  </span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="co"># Use vapply to simplify the results into a vector or matrix</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="fu">vapply</span>(results, identity, FUN.VALUE, <span class="at">USE.NAMES =</span> USE.NAMES)</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>In the example bellow, par_lapply iterates over pairs (1,4), (2,5),
+and (3,6), applies sum_fun to each pair, and returns a vector with the
+results [5, 7, 9].</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># Define a function to sum pairs of numbers</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>sum_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">+</span> y</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co"># Call par_lapply with two parallel lists</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">par_lapply</span>(sum_fun, <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="fu">list</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="at">FUN.VALUE =</span> <span class="fu">numeric</span>(<span class="dv">1</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="fu">print</span>(result)  <span class="co"># Should output: [1] 5 7 9</span></span></code></pre></div>
+<pre><code>## [1] 5 7 9</code></pre>
+</div>
+<div id="question-4-1" class="section level2">
+<h2>Question 4</h2>
+<p>Make a faster version of chisq.test() that only computes the
+chi-square test statistic when the input is two numeric vectors with no
+missing values. You can try simplifying chisq.test() or by coding from
+the mathematical definition (<a href="http://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test" class="uri">http://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test</a>).</p>
+</div>
+<div id="answer-6" class="section level2">
+<h2>Answer</h2>
+<p>To create a faster version of chisq.test() that only computes the
+chi-square test statistic for two numeric vectors with no missing
+values, we can simplify the calculation by directly implementing the
+Pearson’s chi-squared formula. We’ll bypass the extra checks and
+features in chisq.test(), focusing on just computing the test
+statistic.</p>
+<p>For a contingency table with observed values <span class="math inline">\(O\)</span> and expected values <span class="math inline">\(E\)</span>, the chi-square statistic <span class="math inline">\(X^2\)</span> is computed as:</p>
+<p><span class="math display">\[
+X^2 = \sum \frac{(O - E)^2}{E}  
+\]</span></p>
+<p>Here’s a streamlined function that directly computes this statistic
+for two numeric vectors:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>fast_chisq_test <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="co"># Check that inputs are numeric vectors of the same length</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(x) <span class="sc">||</span> <span class="sc">!</span><span class="fu">is.numeric</span>(y) <span class="sc">||</span> <span class="fu">length</span>(x) <span class="sc">!=</span> <span class="fu">length</span>(y)) {</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;Both inputs must be numeric vectors of the same length.&quot;</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>  }</span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a>  </span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a>  <span class="co"># Create a contingency table</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>  contingency_table <span class="ot">&lt;-</span> <span class="fu">table</span>(x, y)</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>  </span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>  <span class="co"># Calculate row and column sums</span></span>
+<span id="cb24-11"><a href="#cb24-11" tabindex="-1"></a>  row_totals <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(contingency_table)</span>
+<span id="cb24-12"><a href="#cb24-12" tabindex="-1"></a>  col_totals <span class="ot">&lt;-</span> <span class="fu">colSums</span>(contingency_table)</span>
+<span id="cb24-13"><a href="#cb24-13" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">sum</span>(contingency_table)</span>
+<span id="cb24-14"><a href="#cb24-14" tabindex="-1"></a>  </span>
+<span id="cb24-15"><a href="#cb24-15" tabindex="-1"></a>  <span class="co"># Compute expected values</span></span>
+<span id="cb24-16"><a href="#cb24-16" tabindex="-1"></a>  expected <span class="ot">&lt;-</span> <span class="fu">outer</span>(row_totals, col_totals) <span class="sc">/</span> total</span>
+<span id="cb24-17"><a href="#cb24-17" tabindex="-1"></a>  </span>
+<span id="cb24-18"><a href="#cb24-18" tabindex="-1"></a>  <span class="co"># Compute chi-square statistic</span></span>
+<span id="cb24-19"><a href="#cb24-19" tabindex="-1"></a>  observed <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(contingency_table)</span>
+<span id="cb24-20"><a href="#cb24-20" tabindex="-1"></a>  expected <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(expected)</span>
+<span id="cb24-21"><a href="#cb24-21" tabindex="-1"></a>  chisq_stat <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb24-22"><a href="#cb24-22" tabindex="-1"></a>  </span>
+<span id="cb24-23"><a href="#cb24-23" tabindex="-1"></a>  <span class="fu">return</span>(chisq_stat)</span>
+<span id="cb24-24"><a href="#cb24-24" tabindex="-1"></a>}</span></code></pre></div>
+<p>Here’s an example comparing the speeds of the two methods:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Load the microbenchmark package</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co"># Define the fast version of chi-square test (as described earlier)</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>fast_chisq_test <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(x) <span class="sc">!=</span> <span class="fu">length</span>(y)) {</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;The two vectors must be of the same length.&quot;</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  }</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>  </span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="co"># Calculate observed and expected values</span></span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>  observed <span class="ot">&lt;-</span> <span class="fu">table</span>(x, y)</span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>  row_totals <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observed)</span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>  col_totals <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observed)</span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>  grand_total <span class="ot">&lt;-</span> <span class="fu">sum</span>(observed)</span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>  </span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>  expected <span class="ot">&lt;-</span> <span class="fu">outer</span>(row_totals, col_totals) <span class="sc">/</span> grand_total</span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a>  </span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a>  <span class="co"># Calculate the chi-square statistic</span></span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a>  chi_square_statistic <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb25-20"><a href="#cb25-20" tabindex="-1"></a>  </span>
+<span id="cb25-21"><a href="#cb25-21" tabindex="-1"></a>  <span class="fu">return</span>(chi_square_statistic)</span>
+<span id="cb25-22"><a href="#cb25-22" tabindex="-1"></a>}</span>
+<span id="cb25-23"><a href="#cb25-23" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" tabindex="-1"></a><span class="co"># Generate two random numeric vectors</span></span>
+<span id="cb25-25"><a href="#cb25-25" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb25-26"><a href="#cb25-26" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-27"><a href="#cb25-27" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-28"><a href="#cb25-28" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" tabindex="-1"></a><span class="co"># Run microbenchmark to compare chisq.test and fast_chisq_test</span></span>
+<span id="cb25-30"><a href="#cb25-30" tabindex="-1"></a>benchmark_results <span class="ot">&lt;-</span> <span class="fu">microbenchmark</span>(</span>
+<span id="cb25-31"><a href="#cb25-31" tabindex="-1"></a>  <span class="at">chisq_test =</span> <span class="fu">chisq.test</span>(x, y)<span class="sc">$</span>statistic,</span>
+<span id="cb25-32"><a href="#cb25-32" tabindex="-1"></a>  <span class="at">fast_chisq_test =</span> <span class="fu">fast_chisq_test</span>(x, y),</span>
+<span id="cb25-33"><a href="#cb25-33" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">1000</span></span>
+<span id="cb25-34"><a href="#cb25-34" tabindex="-1"></a>)</span>
+<span id="cb25-35"><a href="#cb25-35" tabindex="-1"></a></span>
+<span id="cb25-36"><a href="#cb25-36" tabindex="-1"></a><span class="co"># Print benchmark results</span></span>
+<span id="cb25-37"><a href="#cb25-37" tabindex="-1"></a><span class="fu">print</span>(benchmark_results)</span></code></pre></div>
+<pre><code>## Unit: microseconds
+##             expr   min    lq     mean median     uq    max neval cld
+##       chisq_test 299.2 333.9 385.5704 352.30 370.95 9817.1  1000  a 
+##  fast_chisq_test 203.5 235.0 271.9090 248.65 261.50 9321.1  1000   b</code></pre>
+<p>Based on the benchmark output, it’s evident that the custom
+fast_chisq_test function is indeed faster than the standard chisq.test
+function.</p>
+</div>
+<div id="question-5-1" class="section level2">
+<h2>Question 5</h2>
+<p>Can you make a faster version of table() for the case of an input of
+two integer vectors with no missing values? Can you use it to speed up
+your chi-square test?</p>
+</div>
+<div id="answer-7" class="section level2">
+<h2>Answer</h2>
+<p>To create a faster version of table() for two integer vectors, we can
+use a technique that involves directly indexing into a matrix to count
+occurrences. This approach leverages R’s efficient matrix indexing
+capabilities, and it’s particularly effective when we know the data
+range of the input vectors, as we can avoid dynamically creating
+structures.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>fast_table <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="co"># Determine the range of possible values in x and y</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  max_x <span class="ot">&lt;-</span> <span class="fu">max</span>(x)</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  max_y <span class="ot">&lt;-</span> <span class="fu">max</span>(y)</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>  </span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>  <span class="co"># Initialize a matrix with zeros to store counts</span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>  counts <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> max_x, <span class="at">ncol =</span> max_y)</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>  </span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>  <span class="co"># Populate the counts matrix</span></span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a>    counts[x[i], y[i]] <span class="ot">&lt;-</span> counts[x[i], y[i]] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a>  }</span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>  </span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a>  <span class="fu">return</span>(counts)</span>
+<span id="cb27-15"><a href="#cb27-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>This function creates a contingency table for two integer vectors
+without any missing values. Note that this code assumes that x and y
+only contain integers from 1 to their respective maximum values.</p>
+<p>Now, we can use fast_table() to speed up the chi-square test by using
+the precomputed contingency table from fast_table() to calculate the
+test statistic.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>fast_chisq_test <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="co"># Generate the contingency table using fast_table</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  observed <span class="ot">&lt;-</span> <span class="fu">fast_table</span>(x, y)</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  </span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  <span class="co"># Calculate the chi-square statistic</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>  row_totals <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observed)</span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>  col_totals <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observed)</span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">sum</span>(observed)</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>  expected <span class="ot">&lt;-</span> <span class="fu">outer</span>(row_totals, col_totals) <span class="sc">/</span> total</span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>  chisq_stat <span class="ot">&lt;-</span> <span class="fu">sum</span>((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> expected)</span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>  </span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>  <span class="fu">return</span>(chisq_stat)</span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>}</span></code></pre></div>
+<p>Let’s compare the speed of fast_chisq_test to the regular chisq.test
+function.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Generate example data</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1000</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="co"># Benchmark the functions</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a><span class="fu">microbenchmark</span>(</span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>  <span class="at">chisq_test =</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(x, y))<span class="sc">$</span>statistic,</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a>  <span class="at">fast_chisq_test =</span> <span class="fu">fast_chisq_test</span>(x, y),</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>  <span class="at">times =</span> <span class="dv">1000</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Unit: microseconds
+##             expr   min    lq     mean median     uq     max neval cld
+##       chisq_test 293.5 325.7 369.9418  338.9 350.85 11321.5  1000  a 
+##  fast_chisq_test 137.1 143.5 161.0512  146.8 151.35  5944.5  1000   b</code></pre>
+<p>The output from microbenchmark shows fast_chisq_test is faster than
+chisq.test(table(x, y)) because it skips steps like type checking and
+output formatting, focusing only on calculating the chi-square statistic
+directly. This improvement will be especially noticeable for large data
+vectors.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

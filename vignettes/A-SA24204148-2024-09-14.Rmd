@@ -1,0 +1,201 @@
+---
+title: "Homework-2024.09.14"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.09.14}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include=TRUE,echo=FALSE}
+library("latex2exp")
+library("ggplot2")
+```
+
+
+## Question 3.4
+
+The Rayleigh density is
+
+$$
+f(x)=\frac{x}{\sigma^2}e^{-x^2/(2\sigma^2)},\  x\ge0,\sigma>0.
+$$
+Develop an algorithm to generate random samples from a Rayleigh($\sigma$) distribution. Generate Rayleigh($\sigma$) samples for several choices of $\sigma>0$ and check that the mode of the generated samples is close to the theoretical mode $\sigma$(check the histogram).
+
+## Answer
+
+Use the inverse transform method to generate random samples from Rayleigh($\sigma$) with density above.  
+ 
+Here $F_X(x)=1-e^{-x^2/(2\sigma^2)}$, for $0\leq x$,and $F_X^{-1}(u)=\sqrt{-2\sigma^2\ln(1-u)}$.Generate all $n$ required random uniform numbers as vector $\textbf{u}$. Then $F_X^{-1}(\textbf{u})$ is a vector of length n containing the sample $x_1,\cdots,x_n$.
+
+```{r}
+rRayleigh <- function(n = 1000, sigma, seed = 0){
+  f <- function(x, sigma){
+    return(x/sigma^2*exp(-x^2/2/sigma^2))
+  }
+  F_inverse <- function(x, sigma){
+    return(sqrt(-2*sigma^2*log(1-x))) 
+  }
+  set.seed(seed)
+  u <- runif(n)
+  x <- sapply(u,function(t) F_inverse(t,sigma))
+  return(x)
+}
+
+n = 5000
+x_1 = rRayleigh(n = n, sigma = 1)
+p = sqrt(-2*log(1-seq(0.1,0.9,0.2)))
+knitr::kable(round(rbind(quantile(x_1,probs = seq(0.1,0.9,0.2)),p),3))
+
+```
+
+
+The table above shows that the relative quantile numbers of the sample (first line) from Rayleigh($1$) basically match the theoretical distribution (second line).
+
+In the following results, the probability density histograms of the generated samples for several choices of $\sigma$ with the theoretical density superimposed illustrate that the mode of the generated samples is **close** to the theoretical ones. For any selected $\sigma$, the highest part of the histogram is mild to the peak of the theoretical density. Here $\sigma$ is selected as 0.5,1,2,5,10 and 20 in order.
+
+```{r}
+op <- par(mfrow = c(2, 3),pty = "s")       
+sigma_set = c(0.5,1,2,5,10,20)
+for(sigma in sigma_set){
+  x = rRayleigh(n = 5000, sigma = sigma)
+  hist(x,breaks = 30,prob = T, main = bquote(sigma == ~ .(sigma)), xlab = "x",col = "white")
+  y = seq(0,max(x),.01)
+  lines(y,sapply(y,function(t) t/sigma^2*exp(-t^2/2/sigma^2)),col="red")
+}
+par(op)
+```
+
+## Question 3.11
+
+Generate a random sample of size 1000 from a normal location mixture. The
+components of the mixture have $N(0, 1)$ and $N(3, 1)$ distributions with mixing probabilities $p_1$ and $p_2 = 1 − p_1$. Graph the histogram of the sample with density superimposed, for $p_1 = 0.75$. Repeat with different values for $p_1$ and observe whether the empirical distribution of the mixture appears to be bimodal. Make a conjecture about the values of $p_1$ that produce bimodal mixtures.
+
+## Answer
+
+To simulate the mixture:
+
+ + Generate an integer $k\in\{0,1\}$, where $P(0)=p_1=1-P(1)$.
+ + If $k = 0$ deliver random x from $N(0,1)$;
+ + If $k = 1$ deliver random x from $N(3,1)$.
+
+```{r}
+normal_mixture <- function(n,p1,seed=0){
+  set.seed(0)
+  z = sample(0:1, size = n, replace = T, prob = c(p1,1-p1))
+  x = rnorm(n)+z*3
+  return(x)
+}
+
+n = 1000
+x = normal_mixture(n, 0.75)
+plot(density(x),ylim=c(0,0.4),main = TeX('$p_1=0.75$'),xlab = "",col="blue")
+hist(x,breaks = 50,add=T,probability = T,col = "white")
+curve(1/sqrt(2*pi)*exp(-x^2/2),add = T,col="gray")
+curve(1/sqrt(2*pi)*exp(-(x-3)^2/2),add = T,col="gray")
+```
+
+The plot above shows the the histogram of the sample with density superimposed for $p_1 = 0.75$ (blue line) as well as the densities of $N(0,1)$ and $N(3,1)$ (gray line). From the diagram, two peaks can be faintly seen. 
+
+On the purpose of briefly exploring when the empirical distribution of the mixture appears to be bimodal, the simulations are repeated with  different values for $p_1$, ranging from 0 to 0.5.
+
+```{r}
+plot(density(normal_mixture(1000, 0.5)),ylim=c(0,0.4),main = "",xlab = "x")
+for(p in c(seq(0.01,0.1,0.02), seq(0.1,0.4,0.1))){
+  lines(density(normal_mixture(1000, p)))
+}
+```
+
+It is obvious that the closer $p_1$ is to 0.5, the more pronounced the bimodal distribution becomes. When $p_1$ is at a certain value between 0.05 and 0.07, the bimodal distribution appears. Actually, Whether or not a bimodal distribution occurs depends on whether the probability density function $F_X(x)=p_1N(0,1)+(1-p_1)N(3,1)$ has two peaks, i.e., $F_X'(x)$ has several zeros. More specifically, in the context of the plot, the key question is whether there is a solution to $F_X'’(x)>0$.
+
+An analogy can be given for the case where $p_1$ is between 0.5 and 1, because $N(0,1)$ and $N(3,1)$ are symmetrical with respect to x = 1.5.
+
+## Question 3.20
+
+A *compound Poisson process* is a stochastic process $\{X(t), t \ge 0\}$ that can be represented as the random sum $X(t) = \sum_{i=1}^{N(t)} Yi, t \ge 0$, where $\{N(t), t \ge 0\}$ is a Poisson process and $Y_1, Y_2,\cdots$ are iid and independent of $\{N(t), t \ge 0\}$.Write a program to simulate a compound Poisson($\lambda$)-Gamma process ($Y$ has a Gamma distribution). Estimate the mean and the variance of $X(10)$ for several choices of the parameters and compare with the theoretical values.
+
+Hint: Show that $E[X(t)] = \lambda tE[Y_1]$ and $Var(X(t)) = \lambda tE[Y^ 2_1 ]$.
+
+## Answer
+
+ + describe your basic idea
+ + present the answer details using texts, tables, and figures
+ + discuss results: make sense? any problems (if any, why)?implications? mechanism?
+ + include your R code in the markdown document
+
+To simulate the compound Poisson($\lambda$)-Gamma process:
+
+ + Generate an integer $Z\in\mathbb{N}$, where $P(Z=n)=e^{-\lambda t}\frac{(\lambda t)^n}{n!}$.
+ + Generate a list of samples $Y_1,\cdots,Y_Z$ from $Gamma(\alpha,\beta)$,where $\alpha$ is the shape parameter and $\beta$ is the inverse scale parameter.
+ + Deliver $X(t)=\sum_{i=1}^ZY_i$ 
+
+```{r}
+cpp <- function(n,t,lambda,alpha,beta,seed=0){
+  set.seed(seed)
+  x = sapply(rpois(n,lambda*t),function(t) sum(rgamma(t,alpha,beta)))
+  return(x)
+}
+```
+ 
+From the Wald equation, $E[X(t)]=E[Z]E[Y_1]=\lambda tE[Y_1]=\lambda t\frac{\alpha}{\beta}$ and $E[X^2(t)]=E[N]E[Y_1^2]+E[N(N-1)]E[Y_1^2]=\lambda tE[Y_1^2]+(\lambda t)^2(E[Y_1])^2$.
+
+Therefor, $Var[X(t)]=\lambda t E[Y_1^2]=\lambda t\frac{\alpha(1+\alpha)}{\beta^2}$.
+
+
+```{r}
+op <- par(mfrow = c(1, 2),pty = "s")
+t = 10
+n = 1000
+lambda = 1
+alpha = c(1,2,3,4)
+beta = seq(0.5,10,0.5)
+for (i in seq(length(alpha))) {
+  x = sapply(beta,function(z) cpp(n,t,lambda,alpha[i],z))
+  if(i==1){plot(x=beta,y=apply(x,2,mean),col=i,xlab=bquote(beta),ylab="mean",pch=2)}
+  else {points(beta,y=apply(x,2,mean),col=i,pch=2)}
+  curve(i/x*lambda*t,add=T,col=i)
+}
+legend("topright",legend = sapply(seq(4),function(t) bquote(alpha==~.(t))),col = seq(4),lty=c(1,1,1,1))
+
+for (i in seq(length(alpha))) {
+  x = sapply(beta,function(z) cpp(n,t,lambda,alpha[i],z))
+  if(i==1){plot(x=beta,y=apply(x,2,var),col=i,xlab=bquote(beta),ylab="var",pch=5,cex=0.5)}
+  else {points(beta,y=apply(x,2,var),col=i,pch=5,cex=0.5)}
+  curve(i*(1+i)/x^2*lambda*t,add=T,col=i)
+}
+legend("topright",legend = sapply(seq(4),function(t) bquote(alpha==~.(t))),col = seq(4),lty=c(1,1,1,1))
+
+```
+
+For a fixed $\lambda=1$,  the estimated mean and the variance of $X(10)$ for several choices of $\alpha$ and $\beta$ are demonstrated above with the theoretical values(the curve parts). As can be seen from the graphs, the estimated value is all close to the theoretical one, and the values of them are proportional to $\alpha$ while inversely proportional to $\beta$.
+
+
+
+```{r}
+alpha = 1
+beta = 1/2
+lambda = c(1,3,8,20)
+n = c(10,100,1000,10000)
+mean_hat = NULL
+var_hat = NULL
+for(j in seq(length(n))){
+  x = sapply(lambda,function(z) cpp(n[j],t,z,alpha,beta))
+  mean_hat = rbind(mean_hat,apply(x,2,mean))
+  var_hat = rbind(var_hat,apply(x,2,var))
+}
+
+mean_hat = rbind(mean_hat,lambda*t*alpha/beta)
+colnames(mean_hat) <- lambda
+rownames(mean_hat) <- c(n,"True")
+mean_hat
+var_hat = rbind(var_hat,lambda*t*alpha*(1+alpha)/beta^2)
+colnames(var_hat) <- lambda
+rownames(var_hat) <- c(n,"True")
+var_hat
+```
+
+These two tables show the estimated mean and variance for different n and $\lambda$ at $\alpha=1$ and $\beta=0.5$, respectively with the theoretical values at the last row. When the sample size is large enough, the estimated value is in good agreement with the true value.
+
+

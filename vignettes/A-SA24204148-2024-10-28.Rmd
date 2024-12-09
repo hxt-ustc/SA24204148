@@ -1,0 +1,346 @@
+---
+title: "Homework-2024.10.28"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.10.28}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+For each of the exercise, use the Gelman-Rubin method to monitor convergence of the chain, and run the chain until it converges approximately to the target distribution according to $\hat{R} < 1.2$.
+
+```{r include=TRUE, echo=FALSE, warning=FALSE}
+library(coda)
+library(ggplot2)
+library(gridExtra)
+```
+
+## Question 9.3
+
+Use the Metropolis-Hastings sampler to generate random variables from a standard Cauchy distribution. Discard the first 1000 of the chain, and compare the deciles of the generated observations with the deciles of the standard Cauchy distribution (see qcauchy or qt with df=1). Recall that a Cauchy($\theta, \eta$) distribution has density function
+
+$$
+f(x)=\frac{1}{\theta\pi(1+[(x-\eta)/\theta]^2)},\ \ \ -\infty<x<\infty
+$$
+
+The standard Cauchy has the Cauchy($\theta=1, \eta=0$) density. (Note that the standard Cauchy density is equal to the Student t density with one degree of freedom.)
+
+## Answer
+
+The Metropolis-Hastings sampler generates the Markov chain {$X_0, X_1,\cdots $} as follows:
+
+ + Choose a proposal distribution $g(·|X_t)$ (here using a normal proposal distribution).
+ + Repeat (until the chain has converged to a stationary distribution according to some criterion):
+    + Generate $Y$ from $g(·|X_t)$
+    + Generate U from Uniform(0,1)
+    + if$U\leq\frac{f(Y)g(X_t|Y)}{f(X_t)g(Y|X_t)}$, accept $Y$ and set $X_{t+1} = Y$ ; otherwise set $X_{t+1} = X_t$.
+    + Increment t
+
+```{r}
+# Set parameters
+n_chains <- 3        # Number of chains
+n_samples <- 5000    # Samples per chain
+burn_in <- 1000      # Burn-in period
+theta <- 1           # Scale parameter for standard Cauchy
+eta <- 0             # Location parameter for standard Cauchy
+
+# Metropolis-Hastings function to sample from standard Cauchy
+mh_cauchy <- function(n, theta = 1, eta = 0) {
+  samples <- numeric(n)
+  samples[1] <- 0  # Initial value
+  for (i in 2:n) {
+    proposal <- samples[i - 1] + rnorm(1, mean = 0, sd = 1)
+    acceptance_ratio <- dcauchy(proposal, location = eta, scale = theta) /
+                        dcauchy(samples[i - 1], location = eta, scale = theta)
+    if (runif(1) < acceptance_ratio) {
+      samples[i] <- proposal
+    } else {
+      samples[i] <- samples[i - 1]
+    }
+  }
+  return(samples)
+}
+```
+
+To monitor convergence of the M-H chain by the Gelman-Rubin method:
+
+ + use sample mean to be the scalar summary statistic
+ + $B=\frac{n}{k-1}\sum_{i=1}^k(\bar{\psi}_{i·}-\bar{\psi}_{··})^2$
+ + $s_i^2=\frac{1}{n}\sum_{j=1}^n(\psi_{ij}-\bar{\psi}_{i·})^2$
+ + $W=\frac{1}{k}\sum_{i=1}^k s_i^2$
+ + $\hat{Var}(\psi)=\frac{n-1}{n}W+\frac{1}{n}B$
+ + $\hat{R}=\frac{\hat{Var}(\psi)}{W}$
+ 
+```{r}
+# Function to calculate Gelman-Rubin diagnostic
+gelman_rubin <- function(chains) {
+  M <- length(chains)                   # Number of chains
+  N <- length(chains[[1]])               # Length of each chain
+  
+  # Calculate mean and variance within each chain
+  chain_means <- sapply(chains, mean)
+  chain_variances <- sapply(chains, var)/N*(N+1)
+  
+  # Calculate the overall mean of all chains
+  overall_mean <- mean(unlist(chains))
+  
+  # Calculate B (between-chain variance)
+  B <- N * var(chain_means)
+  
+  # Calculate W (within-chain variance)
+  W <- mean(chain_variances)
+  
+  # Calculate V_hat (estimated variance)
+  V_hat <- (N - 1) / N * W + B / N
+  
+  # Calculate R_hat
+  R_hat <- V_hat / W
+  return(R_hat)
+}
+```
+
+The code runs until $\hat{R}$ is less than 1.2. Each time convergence is not achieved, the number of samples is increased by 1000 and the chains are re-run.
+
+```{r}
+# Function to run multiple chains and check convergence
+run_chains <- function(n_chains, n_samples, burn_in) {
+  # Run each chain independently
+  chains <- lapply(1:n_chains, function(x) mh_cauchy(n_samples))
+  
+  # Discard burn-in samples
+  chains <- lapply(chains, function(chain) chain[(burn_in + 1):n_samples])
+  
+  # Calculate Gelman-Rubin diagnostic
+  r_hat <- gelman_rubin(chains)
+  
+  return(list(r_hat = r_hat, chains = chains))
+}
+
+set.seed(12345)
+
+# Run chains and monitor convergence
+converged <- FALSE
+iteration <- 1
+while (!converged) {
+  result <- run_chains(n_chains, n_samples, burn_in)
+  r_hat <- result$r_hat
+  
+  cat("Iteration:", iteration, "R-hat:", r_hat, "\n")
+  
+  # Check if R-hat is below the threshold
+  if (r_hat < 1.2) {
+    converged <- TRUE
+    cat("Chains have converged with R-hat <", r_hat, "\n")
+  } else {
+    iteration <- iteration + 1
+    n_samples <- n_samples + 1000  # Increase sample size if not converged
+  }
+}
+
+# Analyze the resulting chains
+mcmc_samples <- unlist(result$chains)
+generated_deciles <- quantile(mcmc_samples, probs = seq(0.1, 0.9, by = 0.1))
+theoretical_deciles <- qcauchy(seq(0.1, 0.9, by = 0.1))
+
+# Print results
+print("Generated Deciles:")
+print(generated_deciles)
+print("Theoretical Deciles:")
+print(theoretical_deciles)
+
+par(mfrow = c(1, 2))
+plot(mcmc_samples, type="l")
+hist(mcmc_samples, breaks="scott", main="", xlab="", freq=FALSE, col = "white")
+curve(dcauchy, add = T)
+```
+
+From the results, it appears that the Metropolis-Hastings chain has converged quickly, as it meets the Gelman-Rubin convergence criterion $\hat{R}<1.2$ on the first iteration (with $\hat{R}\approx1.0098$). This is a good outcome, indicating that the samples from the chain are close to the target distribution(which could also be seen from the sample histogram).
+
+From the contrast of the quantile, the generated samples are very close to the theoretical ones, though there is some slight discrepancy likely due to the finite sample size. We might consider increasing the length of the chain to achieve a more precise approximation of the distribution.
+
+## Question 9.8
+
+This example appears in [40]. Consider the bivariate density
+
+$$
+f(x, y) \propto \binom{n}{x} y^{x + a - 1} (1 - y)^{n - x + b - 1}, \quad x = 0, 1, \dots, n, \quad 0 \leq y \leq 1.
+$$
+
+It can be shown (see e.g. [23]) that for fixed a, b, n, the conditional distributions are Binomial($n, y$) and Beta($x + a, n − x + b$). Use the Gibbs sampler to generate a chain with target joint density $f(x, y)$.
+
+## Answer
+
+In this experiment, set $a=2,b=3,n=10$.
+
+To use the Gibbs sampler to generate a chain:
+
+ + initialize $y$
+ + repeat:
+      + sample $x_t$ from B$(n, y_{t-1})$
+      + sample $y_t$ from Beta$(x_t+a,n-x_t+b)$
+
+```{r}
+set.seed(123)
+
+# Parameters
+a <- 2     # Parameter a
+b <- 3     # Parameter b
+n <- 10    # Parameter n
+iterations_per_batch <- 1000  # Number of iterations to generate per batch for each chain
+chains <- 3          # Number of chains
+converged <- FALSE   # Convergence flag
+
+# Initialize storage for each chain's samples
+x_samples <- list()
+y_samples <- list()
+for (i in 1:chains) {
+  x_samples[[i]] <- numeric()
+  y_samples[[i]] <- numeric()
+}
+
+# Gelman-Rubin calculation function
+gelman_rubin <- function(chains_matrix) {
+  m <- ncol(chains_matrix)  # Number of chains
+  n <- nrow(chains_matrix)  # Number of samples per chain
+  
+  # Calculate mean for each chain and overall mean
+  chain_means <- colMeans(chains_matrix)
+  overall_mean <- mean(chains_matrix)
+  
+  # Calculate B (between-chain variance) and W (within-chain variance)
+  B <- n * var(chain_means)
+  W <- mean(apply(chains_matrix, 2, var))
+  
+  # Estimate of marginal posterior variance
+  var_hat <- ((n - 1) / n) * W + (1 / n) * B
+  
+  # Gelman-Rubin statistic
+  R_hat <- var_hat / W
+  return(R_hat)
+}
+
+# Gibbs sampling loop until convergence
+while (!converged) {
+  for (chain in 1:chains) {
+    # Set different initial values for each chain if starting a new run
+    if (length(x_samples[[chain]]) == 0) {
+      x <- sample(0:n, 1)
+      y <- runif(1)
+    } else {
+      x <- x_samples[[chain]][length(x_samples[[chain]])]
+      y <- y_samples[[chain]][length(y_samples[[chain]])]
+    }
+    
+    # Generate samples for the current batch
+    for (i in 1:iterations_per_batch) {
+      # Conditional sample x | y
+      x <- rbinom(1, n, y)
+      
+      # Conditional sample y | x
+      y <- rbeta(1, x + a, n - x + b)
+      
+      # Store samples
+      x_samples[[chain]] <- c(x_samples[[chain]], x)
+      y_samples[[chain]] <- c(y_samples[[chain]], y)
+    }
+  }
+  
+  # Convert lists to matrices for Gelman-Rubin calculation
+  x_matrix <- do.call(cbind, lapply(x_samples, function(x) tail(x, iterations_per_batch)))
+  y_matrix <- do.call(cbind, lapply(y_samples, function(y) tail(y, iterations_per_batch)))
+  
+  # Calculate Gelman-Rubin statistics
+  R_hat_x <- gelman_rubin(x_matrix)
+  R_hat_y <- gelman_rubin(y_matrix)
+  
+  cat("Current R-hat for x:", R_hat_x, "\n")
+  cat("Current R-hat for y:", R_hat_y, "\n")
+  
+  # Check convergence
+  if (R_hat_x < 1.2 && R_hat_y < 1.2) {
+    converged <- TRUE
+    cat("Chains have converged with R-hat < 1.2\n")
+  }
+}
+```
+
+The output message confirms that the chains for both ${x}$ and ${y}$ variables have converged, as their respective $\hat{R}$ values are well below 1.2 (specifically, 0.9990369 for $x$ and 0.9990691 for $y$). This indicates that the Gibbs sampler has successfully approximated the target distribution with adequate convergence across chains.
+
+```{r}
+# Prepare data for plotting
+# Flatten and store all samples along with their chain labels and iterations
+x_df <- do.call(rbind, lapply(1:chains, function(chain) {
+  data.frame(iter = seq_along(x_samples[[chain]]), 
+             chain = factor(chain), 
+             x = x_samples[[chain]])
+}))
+
+y_df <- do.call(rbind, lapply(1:chains, function(chain) {
+  data.frame(iter = seq_along(y_samples[[chain]]), 
+             chain = factor(chain), 
+             y = y_samples[[chain]])
+}))
+
+p1 <- ggplot(x_df, aes(x = iter, y = x, color = chain)) +
+  geom_line() + theme_minimal() + labs(title = "Trace Plot for x", x = "Iteration", y = "x") +
+  scale_color_discrete(name = "Chain")
+
+p2 <- ggplot(y_df, aes(x = iter, y = y, color = chain)) +
+  geom_line() + theme_minimal() + labs(title = "Trace Plot for y", x = "Iteration", y = "y") +
+  scale_color_discrete(name = "Chain")
+
+# Plot histograms of x and y samples from all chains
+p3 <- ggplot(x_df, aes(x = x, fill = chain)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+  theme_minimal() + labs(title = "Histogram of x", x = "x", y = "Frequency") +
+  scale_fill_discrete(name = "Chain")
+
+p4 <- ggplot(y_df, aes(x = y, fill = chain)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 30) +
+  theme_minimal() + labs(title = "Histogram of y", x = "y", y = "Frequency") +
+  scale_fill_discrete(name = "Chain")
+
+# Display all plots in a grid
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+
+```
+
+The visualizations here provide a good indication of convergence for the Gibbs sampler:
+
+Trace Plots for both x and y (top panels) show that the values fluctuate around a stable mean across iterations without any apparent trends or drifts. This indicates that the chains have likely mixed well and reached a stationary distribution.
+
+Histograms (bottom panels) for both x and y show the overall distribution of the samples from each chain. The overlapping histograms across the three chains suggest that they are sampling from the same distribution, further supporting convergence.
+
+## Question 
+
+In continuous situation:
+
+ + target pdf: $f(x)$
+ + proposal distribution: $g(r|s)$
+ + acceptance probability: $\alpha(s,r)=min\{\frac{f(r)g(s|r)}{f(s)g(r|s)},1\}$
+ + transition kernel: $K(r,s)=\alpha(r,s)g(s|r)+\mathbb{I}(s=r)[1-\int \alpha(r,s)g(s|r)]$
+ 
+prove the stationarity :
+
+$$
+K(s,r)f(s)=K(r,s)f(r)
+$$
+
+## Answer
+
+If $s\not=r$:
+
+$$
+\begin{align}
+\text{LHS}= &\alpha(s,r)g(r|s)f(s) \\
+ =&min\{\frac{f(r)g(s|r)}{f(s)g(r|s)},1\} g(r|s)f(s)\\
+ =&min\{f(r)g(s|r),f(s)g(r|s)\}\\
+ =&min\{1,\frac{f(s)g(r|s)}{f(r)g(s|r)}\}f(r)g(s|r)\\
+ =&\alpha(r,s)g(s|r)f(r) \\
+ =&\text{RHS}
+\end{align}
+$$
+
+If $s=r$, the conclusion is trivial.

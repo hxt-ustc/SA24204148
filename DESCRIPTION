@@ -1,0 +1,17 @@
+Package: SA24204148
+Type: Package
+Title: Network-Assisted Quantile Regression
+Version: 1.0
+Date: 2024-12-08
+Author: Xinting Huang
+Maintainer: Xinting Huang <1792528405@email.com>
+Description:   The package is useful for applications where both network structure and quantile regression are important, such as finance, social network analysis, and econometrics.
+License: GPL (>= 2)
+Imports: Rcpp, RcppArmadillo, irlba, stats, microbenchmark, latex2exp, ggplot2, bootstrap, GGally, boot, DAAG, coda, gridExtra, lpSolve
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.3.1
+Encoding: UTF-8
+URL: http://github.com/hxt-ustc/SA24204148
+BugReports: http://github.com/hxt-ustc/SA24204148/issues

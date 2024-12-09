@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.09.14</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.09.14</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question-3.4" class="section level2">
+<h2>Question 3.4</h2>
+<p>The Rayleigh density is</p>
+<p><span class="math display">\[
+f(x)=\frac{x}{\sigma^2}e^{-x^2/(2\sigma^2)},\  x\ge0,\sigma&gt;0.
+\]</span> Develop an algorithm to generate random samples from a
+Rayleigh(<span class="math inline">\(\sigma\)</span>) distribution.
+Generate Rayleigh(<span class="math inline">\(\sigma\)</span>) samples
+for several choices of <span class="math inline">\(\sigma&gt;0\)</span>
+and check that the mode of the generated samples is close to the
+theoretical mode <span class="math inline">\(\sigma\)</span>(check the
+histogram).</p>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<p>Use the inverse transform method to generate random samples from
+Rayleigh(<span class="math inline">\(\sigma\)</span>) with density
+above.</p>
+<p>Here <span class="math inline">\(F_X(x)=1-e^{-x^2/(2\sigma^2)}\)</span>, for <span class="math inline">\(0\leq x\)</span>,and <span class="math inline">\(F_X^{-1}(u)=\sqrt{-2\sigma^2\ln(1-u)}\)</span>.Generate
+all <span class="math inline">\(n\)</span> required random uniform
+numbers as vector <span class="math inline">\(\textbf{u}\)</span>. Then
+<span class="math inline">\(F_X^{-1}(\textbf{u})\)</span> is a vector of
+length n containing the sample <span class="math inline">\(x_1,\cdots,x_n\)</span>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>rRayleigh <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">1000</span>, sigma, <span class="at">seed =</span> <span class="dv">0</span>){</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, sigma){</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>    <span class="fu">return</span>(x<span class="sc">/</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">/</span>sigma<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  }</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  F_inverse <span class="ot">&lt;-</span> <span class="cf">function</span>(x, sigma){</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span>x))) </span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  }</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  u <span class="ot">&lt;-</span> <span class="fu">runif</span>(n)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">sapply</span>(u,<span class="cf">function</span>(t) <span class="fu">F_inverse</span>(t,sigma))</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>}</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>x_1 <span class="ot">=</span> <span class="fu">rRayleigh</span>(<span class="at">n =</span> n, <span class="at">sigma =</span> <span class="dv">1</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>p <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">log</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>,<span class="fl">0.2</span>)))</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(<span class="fu">rbind</span>(<span class="fu">quantile</span>(x_1,<span class="at">probs =</span> <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>,<span class="fl">0.2</span>)),p),<span class="dv">3</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">10%</th>
+<th align="right">30%</th>
+<th align="right">50%</th>
+<th align="right">70%</th>
+<th align="right">90%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="right">0.445</td>
+<td align="right">0.834</td>
+<td align="right">1.158</td>
+<td align="right">1.564</td>
+<td align="right">2.174</td>
+</tr>
+<tr class="even">
+<td align="left">p</td>
+<td align="right">0.459</td>
+<td align="right">0.845</td>
+<td align="right">1.177</td>
+<td align="right">1.552</td>
+<td align="right">2.146</td>
+</tr>
+</tbody>
+</table>
+<p>The table above shows that the relative quantile numbers of the
+sample (first line) from Rayleigh(<span class="math inline">\(1\)</span>) basically match the theoretical
+distribution (second line).</p>
+<p>In the following results, the probability density histograms of the
+generated samples for several choices of <span class="math inline">\(\sigma\)</span> with the theoretical density
+superimposed illustrate that the mode of the generated samples is
+<strong>close</strong> to the theoretical ones. For any selected <span class="math inline">\(\sigma\)</span>, the highest part of the histogram
+is mild to the peak of the theoretical density. Here <span class="math inline">\(\sigma\)</span> is selected as 0.5,1,2,5,10 and 20
+in order.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>),<span class="at">pty =</span> <span class="st">&quot;s&quot;</span>)       </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sigma_set <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">20</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="cf">for</span>(sigma <span class="cf">in</span> sigma_set){</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rRayleigh</span>(<span class="at">n =</span> <span class="dv">5000</span>, <span class="at">sigma =</span> sigma)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">hist</span>(x,<span class="at">breaks =</span> <span class="dv">30</span>,<span class="at">prob =</span> T, <span class="at">main =</span> <span class="fu">bquote</span>(sigma <span class="sc">==</span> <span class="er">~</span> .(sigma)), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>,<span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="fu">max</span>(x),.<span class="dv">01</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">lines</span>(y,<span class="fu">sapply</span>(y,<span class="cf">function</span>(t) t<span class="sc">/</span>sigma<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>t<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span><span class="sc">/</span>sigma<span class="sc">^</span><span class="dv">2</span>)),<span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">par</span>(op)</span></code></pre></div>
+</div>
+<div id="question-3.11" class="section level2">
+<h2>Question 3.11</h2>
+<p>Generate a random sample of size 1000 from a normal location mixture.
+The components of the mixture have <span class="math inline">\(N(0,
+1)\)</span> and <span class="math inline">\(N(3, 1)\)</span>
+distributions with mixing probabilities <span class="math inline">\(p_1\)</span> and <span class="math inline">\(p_2 =
+1 − p_1\)</span>. Graph the histogram of the sample with density
+superimposed, for <span class="math inline">\(p_1 = 0.75\)</span>.
+Repeat with different values for <span class="math inline">\(p_1\)</span> and observe whether the empirical
+distribution of the mixture appears to be bimodal. Make a conjecture
+about the values of <span class="math inline">\(p_1\)</span> that
+produce bimodal mixtures.</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<p>To simulate the mixture:</p>
+<ul>
+<li>Generate an integer <span class="math inline">\(k\in\{0,1\}\)</span>, where <span class="math inline">\(P(0)=p_1=1-P(1)\)</span>.</li>
+<li>If <span class="math inline">\(k = 0\)</span> deliver random x from
+<span class="math inline">\(N(0,1)\)</span>;</li>
+<li>If <span class="math inline">\(k = 1\)</span> deliver random x from
+<span class="math inline">\(N(3,1)\)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>normal_mixture <span class="ot">&lt;-</span> <span class="cf">function</span>(n,p1,<span class="at">seed=</span><span class="dv">0</span>){</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  z <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">size =</span> n, <span class="at">replace =</span> T, <span class="at">prob =</span> <span class="fu">c</span>(p1,<span class="dv">1</span><span class="sc">-</span>p1))</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">rnorm</span>(n)<span class="sc">+</span>z<span class="sc">*</span><span class="dv">3</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>}</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">normal_mixture</span>(n, <span class="fl">0.75</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.4</span>),<span class="at">main =</span> <span class="fu">TeX</span>(<span class="st">&#39;$p_1=0.75$&#39;</span>),<span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">hist</span>(x,<span class="at">breaks =</span> <span class="dv">50</span>,<span class="at">add=</span>T,<span class="at">probability =</span> T,<span class="at">col =</span> <span class="st">&quot;white&quot;</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>),<span class="at">add =</span> T,<span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>pi)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>(x<span class="dv">-3</span>)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="dv">2</span>),<span class="at">add =</span> T,<span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>The plot above shows the the histogram of the sample with density
+superimposed for <span class="math inline">\(p_1 = 0.75\)</span> (blue
+line) as well as the densities of <span class="math inline">\(N(0,1)\)</span> and <span class="math inline">\(N(3,1)\)</span> (gray line). From the diagram, two
+peaks can be faintly seen.</p>
+<p>On the purpose of briefly exploring when the empirical distribution
+of the mixture appears to be bimodal, the simulations are repeated with
+different values for <span class="math inline">\(p_1\)</span>, ranging
+from 0 to 0.5.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(<span class="fu">normal_mixture</span>(<span class="dv">1000</span>, <span class="fl">0.5</span>)),<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.4</span>),<span class="at">main =</span> <span class="st">&quot;&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="cf">for</span>(p <span class="cf">in</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.1</span>,<span class="fl">0.02</span>), <span class="fu">seq</span>(<span class="fl">0.1</span>,<span class="fl">0.4</span>,<span class="fl">0.1</span>))){</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">density</span>(<span class="fu">normal_mixture</span>(<span class="dv">1000</span>, p)))</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>It is obvious that the closer <span class="math inline">\(p_1\)</span> is to 0.5, the more pronounced the
+bimodal distribution becomes. When <span class="math inline">\(p_1\)</span> is at a certain value between 0.05
+and 0.07, the bimodal distribution appears. Actually, Whether or not a
+bimodal distribution occurs depends on whether the probability density
+function <span class="math inline">\(F_X(x)=p_1N(0,1)+(1-p_1)N(3,1)\)</span> has two
+peaks, i.e., <span class="math inline">\(F_X&#39;(x)\)</span> has
+several zeros. More specifically, in the context of the plot, the key
+question is whether there is a solution to <span class="math inline">\(F_X&#39;’(x)&gt;0\)</span>.</p>
+<p>An analogy can be given for the case where <span class="math inline">\(p_1\)</span> is between 0.5 and 1, because <span class="math inline">\(N(0,1)\)</span> and <span class="math inline">\(N(3,1)\)</span> are symmetrical with respect to x
+= 1.5.</p>
+</div>
+<div id="question-3.20" class="section level2">
+<h2>Question 3.20</h2>
+<p>A <em>compound Poisson process</em> is a stochastic process <span class="math inline">\(\{X(t), t \ge 0\}\)</span> that can be represented
+as the random sum <span class="math inline">\(X(t) = \sum_{i=1}^{N(t)}
+Yi, t \ge 0\)</span>, where <span class="math inline">\(\{N(t), t \ge
+0\}\)</span> is a Poisson process and <span class="math inline">\(Y_1,
+Y_2,\cdots\)</span> are iid and independent of <span class="math inline">\(\{N(t), t \ge 0\}\)</span>.Write a program to
+simulate a compound Poisson(<span class="math inline">\(\lambda\)</span>)-Gamma process (<span class="math inline">\(Y\)</span> has a Gamma distribution). Estimate the
+mean and the variance of <span class="math inline">\(X(10)\)</span> for
+several choices of the parameters and compare with the theoretical
+values.</p>
+<p>Hint: Show that <span class="math inline">\(E[X(t)] = \lambda
+tE[Y_1]\)</span> and <span class="math inline">\(Var(X(t)) = \lambda
+tE[Y^ 2_1 ]\)</span>.</p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+<ul>
+<li>describe your basic idea</li>
+<li>present the answer details using texts, tables, and figures</li>
+<li>discuss results: make sense? any problems (if any,
+why)?implications? mechanism?</li>
+<li>include your R code in the markdown document</li>
+</ul>
+<p>To simulate the compound Poisson(<span class="math inline">\(\lambda\)</span>)-Gamma process:</p>
+<ul>
+<li>Generate an integer <span class="math inline">\(Z\in\mathbb{N}\)</span>, where <span class="math inline">\(P(Z=n)=e^{-\lambda t}\frac{(\lambda
+t)^n}{n!}\)</span>.</li>
+<li>Generate a list of samples <span class="math inline">\(Y_1,\cdots,Y_Z\)</span> from <span class="math inline">\(Gamma(\alpha,\beta)\)</span>,where <span class="math inline">\(\alpha\)</span> is the shape parameter and <span class="math inline">\(\beta\)</span> is the inverse scale
+parameter.</li>
+<li>Deliver <span class="math inline">\(X(t)=\sum_{i=1}^ZY_i\)</span></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>cpp <span class="ot">&lt;-</span> <span class="cf">function</span>(n,t,lambda,alpha,beta,<span class="at">seed=</span><span class="dv">0</span>){</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">sapply</span>(<span class="fu">rpois</span>(n,lambda<span class="sc">*</span>t),<span class="cf">function</span>(t) <span class="fu">sum</span>(<span class="fu">rgamma</span>(t,alpha,beta)))</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>From the Wald equation, <span class="math inline">\(E[X(t)]=E[Z]E[Y_1]=\lambda tE[Y_1]=\lambda
+t\frac{\alpha}{\beta}\)</span> and <span class="math inline">\(E[X^2(t)]=E[N]E[Y_1^2]+E[N(N-1)]E[Y_1^2]=\lambda
+tE[Y_1^2]+(\lambda t)^2(E[Y_1])^2\)</span>.</p>
+<p>Therefor, <span class="math inline">\(Var[X(t)]=\lambda t
+E[Y_1^2]=\lambda t\frac{\alpha(1+\alpha)}{\beta^2}\)</span>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>op <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),<span class="at">pty =</span> <span class="st">&quot;s&quot;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>t <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.5</span>,<span class="dv">10</span>,<span class="fl">0.5</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(alpha))) {</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">sapply</span>(beta,<span class="cf">function</span>(z) <span class="fu">cpp</span>(n,t,lambda,alpha[i],z))</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  <span class="cf">if</span>(i<span class="sc">==</span><span class="dv">1</span>){<span class="fu">plot</span>(<span class="at">x=</span>beta,<span class="at">y=</span><span class="fu">apply</span>(x,<span class="dv">2</span>,mean),<span class="at">col=</span>i,<span class="at">xlab=</span><span class="fu">bquote</span>(beta),<span class="at">ylab=</span><span class="st">&quot;mean&quot;</span>,<span class="at">pch=</span><span class="dv">2</span>)}</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="cf">else</span> {<span class="fu">points</span>(beta,<span class="at">y=</span><span class="fu">apply</span>(x,<span class="dv">2</span>,mean),<span class="at">col=</span>i,<span class="at">pch=</span><span class="dv">2</span>)}</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">curve</span>(i<span class="sc">/</span>x<span class="sc">*</span>lambda<span class="sc">*</span>t,<span class="at">add=</span>T,<span class="at">col=</span>i)</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>}</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">4</span>),<span class="cf">function</span>(t) <span class="fu">bquote</span>(alpha<span class="sc">==</span><span class="er">~</span>.(t))),<span class="at">col =</span> <span class="fu">seq</span>(<span class="dv">4</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(alpha))) {</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">sapply</span>(beta,<span class="cf">function</span>(z) <span class="fu">cpp</span>(n,t,lambda,alpha[i],z))</span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>  <span class="cf">if</span>(i<span class="sc">==</span><span class="dv">1</span>){<span class="fu">plot</span>(<span class="at">x=</span>beta,<span class="at">y=</span><span class="fu">apply</span>(x,<span class="dv">2</span>,var),<span class="at">col=</span>i,<span class="at">xlab=</span><span class="fu">bquote</span>(beta),<span class="at">ylab=</span><span class="st">&quot;var&quot;</span>,<span class="at">pch=</span><span class="dv">5</span>,<span class="at">cex=</span><span class="fl">0.5</span>)}</span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="cf">else</span> {<span class="fu">points</span>(beta,<span class="at">y=</span><span class="fu">apply</span>(x,<span class="dv">2</span>,var),<span class="at">col=</span>i,<span class="at">pch=</span><span class="dv">5</span>,<span class="at">cex=</span><span class="fl">0.5</span>)}</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>  <span class="fu">curve</span>(i<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span>i)<span class="sc">/</span>x<span class="sc">^</span><span class="dv">2</span><span class="sc">*</span>lambda<span class="sc">*</span>t,<span class="at">add=</span>T,<span class="at">col=</span>i)</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>}</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>,<span class="at">legend =</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">4</span>),<span class="cf">function</span>(t) <span class="fu">bquote</span>(alpha<span class="sc">==</span><span class="er">~</span>.(t))),<span class="at">col =</span> <span class="fu">seq</span>(<span class="dv">4</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAXVBMVEUAAAAAADoAAGYAOjoAOpAAZrY6AAA6ADo6AGY6OgA6OmY6ZpA6kNtmAABmADpmkLZmtttmtv+QOgCQ2/+2ZgC22/+2///bkDrbtmbb////tmb/25D//7b//9v///+xXBm0AAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFF0lEQVR4nO3dgU7bSBRAUacFtt2F3TZkazDE//+ZjZOWOCzk2jPz4hF7r0SlShE8nYw9TnDTprezNUsPUHsCQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBR6Dtutn36ceC49TXEWijzFu9AD3f3S45R7WNgL4vOUe1vQBt19dLzlFtx3NQ17iE3mh0iDUFdrHm3QrMusg8ZQbnH1vb9daFgQJ+znadsasWfMKOD/x9jMVcDs0GCt5VE4A2V4/tdf90EzPX/JXahV64zgcaLhS7q8e+3X0tOdBxnhKbRv48JxeKT19+7L+WHOhCzQcaTorPf9+nAf0vdrF2t5Y3t9UcYlmbRsgu1m+uh6GCTo3zgSrZNKq9Dqpl06gYqI5NY/TA3fF19bgJelco6Uo6edMoOM/o1fzqfrec0943i9jFcjaNiJP08IwNw7SVvNSoZdM4uVAcgApe4Y+Pjhqug5Lm+c8K2ry/pA+HXzf12uT57lNVQGnzvD4HtWfeV9wD7c8JU15qdyeOCbtY4beAE+c53cWaZnX//mMHoF80fOrsmtsuawVtYJqZpc4zZ/AB6NeV7asz1du7Rh5Qfziam5SFVHCeuUCTV1DqQK/arsttGplA/OLw8Ijr/sxvGU+e7uVWUMF5RrvYlEWxM9qdF3bH85TvnQW0v1WAzkHz7ifIAwp4DzgLaMou1v5+oqY9Y7krqMSrsLKHGDQa+b1zYsFDrH/6o9yeeigaaLTo43bVEdBNqTfJm5M/jn8r3YQVlD9PxM0LlwLqXy77z5+DygAVPElfDOjl0uT8BlxqBRV7q+xyQNMqA1TwJP0xgQr+JvNjAtUyUEACQQJBAkHVAX2oBIIEggSCBIIEggSCBIIEggSCBIIEggSCSgPtfxlc0T8Pzp6nMNB2vbrv27wbDkqWP09hoMPtQ0E3giaUP0/IOagreGdYiXLmCQGq7UMccuaJAJp4+9DFyponAKir5xy9L2+e8kAfav0EALWV+eTOUxro3I3oS5Q9T/HroLrWT/48hYHaww0Q1VwH5c/ji1VIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggKAzo4WvT/PVv1HefX+o8UUDd6lu/rehGquR5ooDa4Z6c8h8ok1zyPFFAm2GgLuaTfFNKnicOaLte/VnNAkqfJ3QFVXSIJc8TChT1adkJJc8TCxT7f2PMKXkeVxAUBrT65zHsE/sTSp4nbgU93DSfvwV99/klzxN7iNVT8jwCQUFABT8yrkjp8/h2ByQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQ9BPm8KggTa8S3gAAAABJRU5ErkJggg==" /><!-- --></p>
+<p>For a fixed <span class="math inline">\(\lambda=1\)</span>, the
+estimated mean and the variance of <span class="math inline">\(X(10)\)</span> for several choices of <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are demonstrated above with the
+theoretical values(the curve parts). As can be seen from the graphs, the
+estimated value is all close to the theoretical one, and the values of
+them are proportional to <span class="math inline">\(\alpha\)</span>
+while inversely proportional to <span class="math inline">\(\beta\)</span>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>beta <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">20</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">100</span>,<span class="dv">1000</span>,<span class="dv">10000</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>mean_hat <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>var_hat <span class="ot">=</span> <span class="cn">NULL</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="cf">for</span>(j <span class="cf">in</span> <span class="fu">seq</span>(<span class="fu">length</span>(n))){</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  x <span class="ot">=</span> <span class="fu">sapply</span>(lambda,<span class="cf">function</span>(z) <span class="fu">cpp</span>(n[j],t,z,alpha,beta))</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  mean_hat <span class="ot">=</span> <span class="fu">rbind</span>(mean_hat,<span class="fu">apply</span>(x,<span class="dv">2</span>,mean))</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  var_hat <span class="ot">=</span> <span class="fu">rbind</span>(var_hat,<span class="fu">apply</span>(x,<span class="dv">2</span>,var))</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>}</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>mean_hat <span class="ot">=</span> <span class="fu">rbind</span>(mean_hat,lambda<span class="sc">*</span>t<span class="sc">*</span>alpha<span class="sc">/</span>beta)</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="fu">colnames</span>(mean_hat) <span class="ot">&lt;-</span> lambda</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="fu">rownames</span>(mean_hat) <span class="ot">&lt;-</span> <span class="fu">c</span>(n,<span class="st">&quot;True&quot;</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>mean_hat</span></code></pre></div>
+<pre><code>##              1        3        8       20
+## 10    22.82492 66.24318 153.7713 403.9668
+## 100   20.46102 61.15823 161.9797 404.6654
+## 1000  19.66056 59.49257 159.0968 398.8833
+## 10000 19.97429 60.01718 159.9671 399.3887
+## True  20.00000 60.00000 160.0000 400.0000</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>var_hat <span class="ot">=</span> <span class="fu">rbind</span>(var_hat,lambda<span class="sc">*</span>t<span class="sc">*</span>alpha<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span>alpha)<span class="sc">/</span>beta<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">colnames</span>(var_hat) <span class="ot">&lt;-</span> lambda</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">rownames</span>(var_hat) <span class="ot">&lt;-</span> <span class="fu">c</span>(n,<span class="st">&quot;True&quot;</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>var_hat</span></code></pre></div>
+<pre><code>##              1        3        8       20
+## 10    49.39639 134.6193 192.3253 2100.208
+## 100   89.74149 196.3661 519.0883 1436.366
+## 1000  83.03679 232.1081 646.7830 1554.083
+## 10000 78.78872 241.5084 638.3935 1616.115
+## True  80.00000 240.0000 640.0000 1600.000</code></pre>
+<p>These two tables show the estimated mean and variance for different n
+and <span class="math inline">\(\lambda\)</span> at <span class="math inline">\(\alpha=1\)</span> and <span class="math inline">\(\beta=0.5\)</span>, respectively with the
+theoretical values at the last row. When the sample size is large
+enough, the estimated value is in good agreement with the true
+value.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

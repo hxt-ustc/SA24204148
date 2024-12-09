@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Xinting Huang" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Introduction to QrNet</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to QrNet</h1>
+<h4 class="author">Xinting Huang</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>In many real-world applications, the target variable y is not only
+influenced by independent variables X , but also by underlying network
+structures or auxiliary data. For example, in finance, social networks,
+or genomics, the network structures can reveal dependencies or
+associations among variables. The <strong>SA24204148</strong> package
+introduces a framework to incorporate such network information
+explicitly into quantile regression models.</p>
+<p>This R package introduces a novel method called
+<strong>QrNet</strong> for solving quantile regression problems with the
+assistance of network-structured data. The main features of the package
+include two key functions:</p>
+<ul>
+<li><em>two_stage</em>: A traditional two-stage algorithm for solving
+quantile regression problems, which separates the estimation of network
+structure and regression coefficients.</li>
+<li><em>QrNet</em>: A more advanced method that jointly estimates both
+the unobserved network structure and the regression coefficients.</li>
+</ul>
+</div>
+<div id="model" class="section level2">
+<h2>Model</h2>
+<p>The mathematical formulation of the <strong>network-assisted quantile
+regression</strong> model can be described as follows:</p>
+<p><span class="math display">\[
+\begin{cases}
+A = d u v^\top + E, \\
+y = X \beta_x + u \beta_u + v \beta_v + \epsilon,
+\end{cases}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(A\)</span> : Represents the adjacency
+matrix or feature matrix of the network, decomposed as a low-rank
+approximation <span class="math inline">\(d u v^\top\)</span>, where
+<span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> capture network-related latent
+variables.</li>
+<li><span class="math inline">\(X\)</span>: The traditional predictor
+matrix in regression problems.</li>
+<li><span class="math inline">\(u, v\)</span>: Latent variables
+associated with the network structure.</li>
+<li><span class="math inline">\(\beta_x, \beta_u, \beta_v\)</span>:
+Regression coefficients for <span class="math inline">\(X\)</span>,
+<span class="math inline">\(u\)</span>, and <span class="math inline">\(v\)</span>, respectively.</li>
+<li><span class="math inline">\(\epsilon\)</span>: Noise or error
+term.</li>
+</ul>
+<p>The objective of this model is to estimate both the regression
+coefficients and the latent variables within the quantile regression
+framework:</p>
+<p><span class="math display">\[
+\underset{\substack{\boldsymbol{\beta}_x, \beta_u, \beta_v \\ d,\|
+\boldsymbol{u}\|=\| \boldsymbol{v}\|=\sqrt{n}}}{\arg \min }
+\frac{1}{n}\sum^n_{i=1}\rho_{\tau}(y_i-\boldsymbol{x_i}^T\beta_x-u_i\beta_u-v_i\beta_v)
++ \frac{\lambda}{n^2}\left\|\boldsymbol{A}-d \boldsymbol{u}
+\boldsymbol{v}^{\top}\right\|_F^2,
+\]</span></p>
+<p>This approach allows for more accurate predictions of <span class="math inline">\(y\)</span> while simultaneously uncovering the
+influence of network structures on the target variable.</p>
+</div>
+<div id="two_stage" class="section level2">
+<h2>two_stage</h2>
+<p>The <em>two_stage</em> method in the package solves the
+network-assisted quantile regression problem in two stages:</p>
+<div id="stage-1-singular-value-decomposition-svd-for-latent-variables" class="section level3">
+<h3>Stage 1: Singular Value Decomposition (SVD) for Latent
+Variables</h3>
+<p>In the first stage, we estimate the latent variables <span class="math inline">\(\boldsymbol{u}\)</span> and <span class="math inline">\(\boldsymbol{v}\)</span> (representing centrality
+and authority in a network context) by performing <strong>singular value
+decomposition (SVD)</strong> on the network adjacency matrix <span class="math inline">\(\boldsymbol{A}\)</span>. Specifically, the idea is
+to approximate <span class="math inline">\(\boldsymbol{A}\)</span> as a
+low-rank matrix:</p>
+<p><span class="math display">\[
+{A} \approx d {u} {v}^{\top}
+\]</span> where: - <span class="math inline">\({u}\)</span> and <span class="math inline">\({v}\)</span> are the centrality and authority
+vectors, respectively. - <span class="math inline">\(d\)</span> is a
+scalar that scales the vectors <span class="math inline">\({u}\)</span>
+and <span class="math inline">\({v}\)</span>.</p>
+<p>The SVD decomposes <span class="math inline">\({A}\)</span> into
+three matrices <span class="math inline">\({A} = U \Sigma
+V^\top\)</span>, where the first singular vector in <span class="math inline">\(U\)</span> represents the centrality vector ${u}
+$, and the first singular vector in <span class="math inline">\(V\)</span> represents the authority vector<span class="math inline">\({v}\)</span>. This gives us initial estimates for
+these latent variables.</p>
+<p>The source R code is as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>svda <span class="ot">&lt;-</span> irlba<span class="sc">::</span><span class="fu">irlba</span>(A, <span class="at">nu =</span> r, <span class="at">nv =</span> r) </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>uu <span class="ot">&lt;-</span> svda<span class="sc">$</span>u[,<span class="dv">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>vv <span class="ot">&lt;-</span> svda<span class="sc">$</span>v[,<span class="dv">1</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> svda<span class="sc">$</span>d[<span class="dv">1</span>]</span></code></pre></div>
+</div>
+<div id="stage-2-linear-regression" class="section level3">
+<h3>Stage 2: Linear Regression</h3>
+<p>In the second stage, after obtaining <span class="math inline">\({u}\)</span> and <span class="math inline">\({v}\)</span>, we proceed with the linear
+regression analysis.</p>
+<p>The source R code is as follows:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>ret_two_stage <span class="ot">&lt;-</span> <span class="fu">lm.fit</span>(<span class="fu">cbind</span>(X, uu[<span class="dv">1</span><span class="sc">:</span>n_obs], vv[<span class="dv">1</span><span class="sc">:</span>n_obs]), y)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>ret_two_stage<span class="sc">$</span>beta <span class="ot">&lt;-</span> ret_two_stage<span class="sc">$</span>coefficients</span></code></pre></div>
+<p>Thus, the method combines the latent structure derived from the
+network with the regression analysis to obtain an accurate prediction of
+the target variable <span class="math inline">\(y\)</span>.</p>
+</div>
+<div id="example-code" class="section level3">
+<h3>Example Code</h3>
+<p>Here is how you can use the <em>two_stage</em> function in
+<strong>SA24204148</strong>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(SA24204148)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>sigmaa <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>sigmay <span class="ot">&lt;-</span> <span class="fl">1e-5</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>, <span class="at">sd =</span> sigmaa), <span class="at">nrow =</span> n)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p), <span class="at">nrow =</span> n, <span class="at">ncol =</span> p)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> sigmay)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">two_stage</span>(A, X, y)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>ret<span class="sc">$</span>coefficients</span></code></pre></div>
+<pre><code>##            x1            x2            x3            x4            x5 
+##  1.559178e-06  1.853942e-06  1.810198e-06 -1.984686e-05 -7.817470e-07</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">vec_norm</span>(ret<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## [1] 9.083302e-05</code></pre>
+</div>
+</div>
+<div id="qrnet" class="section level2">
+<h2>QrNet</h2>
+<p>The <em>QrNet</em> algorithm extends the previous framework by using
+the <strong>augmented Lagrangian method</strong> (ALM) with
+<strong>Alternating Direction Method of Multipliers (ADMM)</strong>, to
+solve the network-assisted quantile regression problem.</p>
+<div id="reformulation-with-augmented-lagrangian" class="section level3">
+<h3>Reformulation with Augmented Lagrangian</h3>
+<p>Recall that the original optimization problem for network-assisted
+quantile regression is:</p>
+<p><span class="math display">\[
+\underset{\substack{\boldsymbol{\beta}_x, \beta_u, \beta_v \\ d,\|
+\boldsymbol{u}\|=\| \boldsymbol{v}\|=\sqrt{n}}}{\arg \min }
+\frac{1}{n}\sum^n_{i=1}\rho_{\tau}(y_i-\boldsymbol{x_i}^T\beta_x-u_i\beta_u-v_i\beta_v)
++ \frac{\lambda}{n^2}\left\|\boldsymbol{A}-d \boldsymbol{u}
+\boldsymbol{v}^{\top}\right\|_F^2,
+\]</span></p>
+<p>To solve this problem using ADMM, we introduce auxiliary variables
+and Lagrange multipliers. The key idea is to decouple the problem into
+smaller, more manageable subproblems that can be solved iteratively.</p>
+<p>We introduce an auxiliary matrix <span class="math inline">\(\boldsymbol{Z}\)</span> such that:</p>
+<p><span class="math display">\[
+X\beta_x+\boldsymbol{z}+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v=\boldsymbol{y}
+\]</span></p>
+<p>Now, the augmented Lagrangian for this problem can be written as:</p>
+<p><span class="math display">\[
+\begin{array}{ll}
+    L_{\sigma}(\beta_x,\beta_u,\beta_v,\boldsymbol{z},d,\boldsymbol{u},\boldsymbol{v},\theta)
+&amp;=
+Q_{\tau}(\boldsymbol{z})+\frac{\lambda}{n^2}\left\|\boldsymbol{A}-d
+\boldsymbol{u} \boldsymbol{v}^{\top}\right\|_F^2    \\
+    &amp;-&lt;\boldsymbol{\theta},X\beta_x+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v+\boldsymbol{z}-\boldsymbol{y}&gt;  \\
+    &amp;+
+\frac{\sigma}{2}\|X\beta_x+\boldsymbol{u}\beta_u+\boldsymbol{v}\beta_v+\boldsymbol{z}-\boldsymbol{y}\|_2^2,
+\end{array}
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{z}\)</span> is the auxiliary
+matrix introduced to relax the constraints.</li>
+<li><span class="math inline">\(\boldsymbol{\theta}\)</span> is the
+Lagrange multiplier that enforces the equality constraint.</li>
+</ul>
+<p>The objective now consists of two parts:</p>
+<ol style="list-style-type: decimal">
+<li><p>The quantile regression loss term.</p></li>
+<li><p>The augmented Lagrangian term, which ensures that the low-rank
+approximation of the network structure is satisfied.</p></li>
+</ol>
+</div>
+<div id="admm-algorithm" class="section level3">
+<h3>ADMM Algorithm</h3>
+<p>The ADMM algorithm iterates between solving for the variables ${}_x
+$, <span class="math inline">\({u}\)</span>, <span class="math inline">\({v}\)</span>, and <span class="math inline">\({z}\)</span>, by alternately optimizing the
+Lagrangian terms. The steps of the algorithm are as follows:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(\beta\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+\beta^{k+1} =  argmin_{\beta} -&lt;\theta,W\beta&gt;+
+\frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>int <span class="fu">update_beta</span>(const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> y,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> X,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>                arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> beta,</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> theta,</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>                double sigma,</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> z){</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  int n_obs <span class="ot">=</span> X.n_rows;</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  arma<span class="sc">::</span>mat WW <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">join_rows</span>(X, <span class="fu">u.head</span>(n_obs));</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  arma<span class="sc">::</span>mat W <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">join_rows</span>(WW, <span class="fu">v.head</span>(n_obs));</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>  beta <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">solve</span>(W, y <span class="sc">-</span> z <span class="sc">+</span> theta <span class="sc">/</span> sigma);</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>  return <span class="dv">1</span>;</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>}</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(z\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+\boldsymbol{z}^{k+1} = argmin_{\boldsymbol{z}}
+Q_{\tau}(\boldsymbol{z})-&lt;\theta,\boldsymbol{z}&gt;+
+\frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>int <span class="fu">update_z</span>(const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> y,</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>             const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> X,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> beta,</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> theta,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>             double sigma,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>             double tau,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>             arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> z){</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  int n_obs <span class="ot">=</span> X.n_rows;</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  arma<span class="sc">::</span>mat W <span class="ot">=</span> <span class="fu">join_rows</span>(X, <span class="fu">u.head</span>(n_obs), <span class="fu">v.head</span>(n_obs));</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  arma<span class="sc">::</span>colvec xi <span class="ot">=</span> y <span class="sc">-</span>  W <span class="sc">*</span> beta <span class="sc">+</span> theta<span class="sc">/</span>sigma;</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="cf">for</span>(int <span class="at">i =</span> <span class="dv">0</span>; i <span class="sc">&lt;</span> n_obs; i<span class="sc">++</span>){</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>    <span class="fu">z</span>(i) <span class="ot">=</span> <span class="fu">prox</span>(tau, <span class="fu">xi</span>(i), n_obs <span class="sc">*</span> sigma);</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  }</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  return <span class="dv">1</span>;</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>};</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(d\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+d^{k+1} = argmin_d  \frac{\lambda}{n^2}
+\|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>double <span class="fu">update_d</span>(const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> A,</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v) </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>{</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  double d <span class="ot">=</span> <span class="fu">as_scalar</span>(<span class="fu">u.t</span>() <span class="sc">*</span> A <span class="sc">*</span> v);</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  return d;</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>}</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(u\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+\boldsymbol{u}^{k+1} =argmin_{\boldsymbol{u}}  \frac{\lambda}{n^2}
+\|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2-&lt;\theta,\boldsymbol{u}\beta_u&gt;+
+\frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>int <span class="fu">update_u</span>(const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> A,</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> y,</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>             const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> X,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>             arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u,</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v,</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> beta,</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> theta,</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>             double d,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>             double sigma,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>             double tau,</span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>             double l,</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> z){</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>  int n_obs <span class="ot">=</span> X.n_rows, k <span class="ot">=</span> X.n_cols, n <span class="ot">=</span> A.n_rows, n_c <span class="ot">=</span> n <span class="sc">-</span> n_obs;</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>  arma<span class="sc">::</span>colvec rmat <span class="ot">=</span> <span class="fu">beta</span>(k)<span class="sc">*</span>(sigma<span class="sc">*</span>(y <span class="sc">-</span> X<span class="sc">*</span><span class="fu">beta.head</span>(k) <span class="sc">-</span> <span class="fu">beta</span>(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span><span class="fu">v.head</span>(n_obs) <span class="sc">-</span> z) <span class="sc">+</span> theta) <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>l<span class="sc">*</span>d<span class="sc">*</span><span class="fu">A.head_rows</span>(n_obs)<span class="sc">*</span>v<span class="sc">/</span>n;</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>  <span class="fu">u.head</span>(n_obs) <span class="ot">=</span> rmat <span class="sc">/</span> (<span class="fu">pow</span>(<span class="fu">beta</span>(k),<span class="dv">2</span>)<span class="sc">*</span>sigma <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>l<span class="sc">*</span><span class="fu">pow</span>(d,<span class="dv">2</span>));</span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a>  </span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a>  <span class="cf">if</span>(n_obs <span class="sc">&lt;</span> n) {</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a>    <span class="fu">u.tail</span>(n_c) <span class="ot">=</span> <span class="fu">A.tail_rows</span>(n_c)<span class="sc">*</span>v<span class="sc">/</span>d<span class="sc">/</span>n;</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a>  }</span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a>  </span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> normalize u</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a>  u <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">normalise</span>(u) <span class="sc">*</span> <span class="fu">sqrt</span>(n);</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a>  </span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a>  return <span class="dv">1</span>;</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a>}</span></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(v\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+\boldsymbol{v}^{k+1} =argmin_{\boldsymbol{v}} \frac{\lambda}{n^2}
+\|\boldsymbol{A-d\boldsymbol{u}\boldsymbol{v}^T}\|_F^2-&lt;\theta,\boldsymbol{v}\beta_v&gt;+
+\frac{\sigma}{2}\|W\beta+\boldsymbol{z}-\boldsymbol{y}\|_2^2
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>int <span class="fu">update_v</span>(const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> A,</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> y,</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>             const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> X,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u,</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>             arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v,</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> beta,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> theta,</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>             double d,</span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>             double sigma,</span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a>             double tau,</span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a>             double l,</span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>             const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> z){</span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  int n_obs <span class="ot">=</span> X.n_rows, k <span class="ot">=</span> X.n_cols, n <span class="ot">=</span> A.n_rows, n_c <span class="ot">=</span> n <span class="sc">-</span> n_obs;</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  arma<span class="sc">::</span>colvec rmat <span class="ot">=</span> <span class="fu">beta</span>(k<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>(sigma<span class="sc">*</span>(y <span class="sc">-</span> X<span class="sc">*</span><span class="fu">beta.head</span>(k) <span class="sc">-</span> <span class="fu">beta</span>(k)<span class="sc">*</span><span class="fu">u.head</span>(n_obs) <span class="sc">-</span> z) <span class="sc">+</span> theta) <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>l<span class="sc">*</span>d<span class="sc">*</span><span class="fu">A.head_cols</span>(n_obs)<span class="fu">.t</span>()<span class="sc">*</span>u<span class="sc">/</span>n;</span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a>  <span class="fu">v.head</span>(n_obs) <span class="ot">=</span> rmat <span class="sc">/</span> (<span class="fu">pow</span>(<span class="fu">beta</span>(k<span class="sc">+</span><span class="dv">1</span>),<span class="dv">2</span>)<span class="sc">*</span>sigma <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>l<span class="sc">*</span><span class="fu">pow</span>(d,<span class="dv">2</span>));</span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a>  </span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a>  <span class="cf">if</span>(n_obs <span class="sc">&lt;</span> n) {</span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a>    <span class="fu">v.tail</span>(n_c) <span class="ot">=</span> <span class="fu">A.tail_cols</span>(n_c)<span class="fu">.t</span>()<span class="sc">*</span>u<span class="sc">/</span>d<span class="sc">/</span>n;</span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a>  }</span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a>  </span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a>  <span class="sc">/</span><span class="er">/</span> normalize u</span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a>  v <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">normalise</span>(v) <span class="sc">*</span> <span class="fu">sqrt</span>(n);</span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a>  </span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a>  return <span class="dv">1</span>;</span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a>}</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Update <span class="math inline">\(\theta\)</span></strong></li>
+</ol>
+<p><span class="math display">\[
+\theta^{k+1} =\theta^k-\sigma(W\beta+\boldsymbol{z}-\boldsymbol{y})
+\]</span></p>
+<p>The source R++ code is as follows:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>int <span class="fu">update_theta</span>(arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> theta,</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                 double sigma,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>                 const arma<span class="sc">::</span>mat<span class="sc">&amp;</span> X,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>                 const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> u,</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>                 const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> v,</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>                 const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> y,</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>                 const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> z,</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>                 const arma<span class="sc">::</span>colvec<span class="sc">&amp;</span> beta){</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>  int n_obs <span class="ot">=</span> X.n_rows;</span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>  arma<span class="sc">::</span>mat WW <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">join_rows</span>(X, <span class="fu">u.head</span>(n_obs));</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>  arma<span class="sc">::</span>mat W <span class="ot">=</span> arma<span class="sc">::</span><span class="fu">join_rows</span>(WW, <span class="fu">v.head</span>(n_obs));</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>  theta <span class="sc">-</span><span class="er">=</span> sigma<span class="sc">*</span>(W<span class="sc">*</span>beta<span class="sc">+</span>z<span class="sc">-</span>y);</span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>  return <span class="dv">1</span>;</span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="example-code-1" class="section level3">
+<h3>Example Code</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">library</span>(irlba)</span></code></pre></div>
+<pre><code>## 载入需要的程序包：Matrix</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>sigmaa <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>sigmay <span class="ot">&lt;-</span> <span class="fl">1e-5</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>, <span class="at">sd =</span> sigmaa), <span class="at">nrow =</span> n)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p), <span class="at">nrow =</span> n, <span class="at">ncol =</span> p)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> sigmay)</span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>ret_q <span class="ot">&lt;-</span> <span class="fu">QrNet</span>(A, X, y)</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>ret_q<span class="sc">$</span>beta</span></code></pre></div>
+<pre><code>##              [,1]
+## [1,]  0.004575515
+## [2,] -0.036972853
+## [3,] -0.009910792
+## [4,]  0.114828072
+## [5,]  0.609778320</code></pre>
+</div>
+</div>
+<div id="comparing-the-two-methods-two_stage-vs.-qrnet" class="section level2">
+<h2>Comparing the Two Methods: <em>two_stage</em>
+vs. <em>QrNet</em></h2>
+<p>In this section, we compare the performance of two methods for
+network-assisted quantile regression: the <em>two_stage</em> method and
+the <em>QrNet</em> algorithm.</p>
+<p>First, simulate a sample dataset:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>n<span class="ot">=</span><span class="fl">1e3</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>d<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>p<span class="ot">=</span><span class="dv">3</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>sigma_a_set<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>),<span class="dv">2</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">2</span>))</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>u<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>v<span class="ot">=</span><span class="fl">0.5</span><span class="sc">*</span>u<span class="sc">+</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>u <span class="ot">=</span> u<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">sum</span>(u<span class="sc">^</span><span class="dv">2</span>))<span class="sc">*</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>v <span class="ot">=</span> v<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">sum</span>(v<span class="sc">^</span><span class="dv">2</span>))<span class="sc">*</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>sigma_a<span class="ot">=</span>sigma_a_set[<span class="dv">2</span>] <span class="co">#  choose sigma_a</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a>A<span class="ot">=</span>d<span class="sc">*</span>u<span class="sc">%*%</span><span class="fu">t</span>(v)<span class="sc">+</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">^</span><span class="dv">2</span>,<span class="dv">0</span>,sigma_a<span class="sc">^</span><span class="dv">2</span>),n,n)</span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a>beta_x<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>),<span class="at">ncol=</span><span class="dv">1</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a>beta_v<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a>beta_u_set<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">^</span><span class="dv">0</span>,<span class="dv">2</span><span class="sc">^</span><span class="dv">2</span>,<span class="dv">2</span><span class="sc">^</span><span class="dv">4</span>)</span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a>sigma_y_set<span class="ot">=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">4</span>),<span class="dv">2</span><span class="sc">^</span>(<span class="sc">-</span><span class="dv">2</span>),<span class="dv">2</span><span class="sc">^</span><span class="dv">0</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a>beta_u<span class="ot">=</span>beta_u_set[<span class="dv">1</span>] <span class="co">#  choose beta_u</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a>sigma_y<span class="ot">=</span>sigma_y_set[<span class="dv">3</span>] <span class="co">#  choose beta_y</span></span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a>X<span class="ot">=</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(n<span class="sc">*</span>p,<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">nrow =</span> n)</span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a>y<span class="ot">=</span>X<span class="sc">%*%</span>beta_x<span class="sc">+</span>u<span class="sc">*</span>beta_u<span class="sc">+</span>v<span class="sc">*</span>beta_v<span class="sc">+</span><span class="fu">matrix</span>(<span class="fu">rnorm</span>(n,<span class="dv">0</span>,sigma_y<span class="sc">^</span><span class="dv">2</span>),<span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" tabindex="-1"></a>lambda0<span class="ot">=</span>n<span class="sc">*</span>sigma_y<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>sigma_a<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a><span class="co"># 1. 查看生成的目标变量 y 和预测变量 X 的关系</span></span>
+<span id="cb17-29"><a href="#cb17-29" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" tabindex="-1"></a><span class="co"># 可视化 X 和 y 的关系（散点图）</span></span>
+<span id="cb17-31"><a href="#cb17-31" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">main =</span> <span class="st">&quot;Target variable y vs. Index&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Index&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># 可视化 X 中的前三个变量</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">matplot</span>(X[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>], <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;First Three Predictors (X)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Index&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>, <span class="st">&quot;X3&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># 2. 可视化网络数据 A 的结构（前几行）</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">image</span>(A[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>], <span class="at">main =</span> <span class="st">&quot;Network Structure A (Subset)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Index&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Index&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAA7VBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZmYAZrY6AAA6ADo6OgA6OmY6ZmY6ZpA6ZrY6kLY6kNtmAABmADpmOgBmOjpmOpBmZgBmZjpmZmZmkLZmkNtmtrZmtttmtv99ACWQOgCQOmaQZgCQZjqQkGaQtpCQttuQtv+Q27aQ2/+iBwa2ZgC2Zjq2ZpC2kDq2kGa2tma225C227a229u22/+2/7a2/9u2///DIgDbkDrbkGbbtmbbtpDb25Db27bb29vb2//b/9vb///hPADtYgDyhAD1oQD3ujz40HT/tmb/25D/27b//7b//8j//9v///+zzCjMAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAK1ElEQVR4nO2deWPbth2GKSeOvHbprHVXs7hem7bz2F2NN5drt7ZOnJa2K33/jzPcBEhBL3jIpMX3+SORJVy/hyAAShCVbchOsrEbMHUoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgABCUZ9mZ+O9+lS3DF9Z/vUoqP8+OwoTrv7+XZYvnl+mlpFYlKbOwvvvV4qJW567GbakcCzq+3iLo7kNY9PY2rM8zxeIstZTkqkx71RG1FLL5QZ27GretcixIVtgQlOB+e8IiM8ink0pJrmqj2pn5LRVqTmt1titaxA8TyEKMoPWX4jB8cK2fzo5+p3qXPgtL9e+3v8myJx+JJ0WjFp99mB1d5ib70aUtcPFSHJhzmVyXchUklWlPZcJvxFnx5KWt6sp/0Wao2mMps8Xv/aDF3xdhnRu/IPH4K9Fife79pzoNgzixIFGUFqSOT5Y9vTKt/oesXj55auo1h0pqK8wj+bw4jrKd/kG7PRGZnKAqqROU66JOtwvSGar2VM09/u+JFqwo/I6q6qwJqnpWUT0M40SCRD85utKCcnnUvGrEwzP5j3hNOFjKh8JNkZkgji8338mE/z73xgXx/OKj14EtL6lruuiQv7q+W8lnci9IJ8hmsO3RyJdFS45tn1Kt2lqnEyQK+kYGICO8lg9Pa3FiQf8UKZUgc2wL12pVf6G0K1fmSNnOdOYMe8fUDJhPP7/2BdmkfueXrzx/vdkuyEytrj0adUYVVXe1I0OzTluLSprrAJ6+rjRXcWJBoncv/rzSHcTMBhcuNHliPBNTaaHPpGMz/FTNzE2GCjm4mBPDlmKTuqb73WCbIJXBb49NKnJ5Xco9bNTpHwZVnpaoxs8wzgRBIsMzKajM6oJKpe6lmCpyPSQs9XEUBzgQVEWre9H/XqnzcqsgFZQ5NxqCdMQmg98e6yMLqvNc1eq0J1B1RMWErsr6ohZngiA9fi31kBO0Wij55YnsPs/8w17vQcd/q8Yg1+S8Gl62C9ragwJBfnsUbjq3z+vk2+r0B2xb3t2r95TcMM4UQWZ14S+G3HAjSyzNUQzHoCpqkdGGKx4uXojH3540Ben/y2pS3JTvfx52szLzBNUXZ3Y9mLmlkNYQ1hnWolRUy6H1J25GaiNIHZqlWU/crfRU5Xq5MqcMhLOY1y3KqgsVfhA6USVIZJSrFT2LfXC9Pq9OVv/FqmzXHqNjaUSZgE2otTqrgkT4R2YWU9OmPM9EYUGcSYKkgWodZI6AmehFCDKQpRe9Xgd5grwzxh1mPYaZheKFCVDjrYOWNpH/os3gtcfUfhY+MENZUKdfkL8O+rIaz8I4UwTJdLKmu09PzLpTrjWfXm7MEtC1SK2kX+hGNgYWY0jNKHq5rUtx8/KtGCeff+WvpF9UVXkvugxVe4KOo3uyboV64NfpFxSspFWa9y/DckXluwU9cspwhdGFwxYkelX9Cr4thy1InGNLnGgnBy7oftXizaStHLig/lAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAAwt6OyA3liELtSTHTUEUtJUHFuR2SQ4ZwyEJcgwZAwUBDlJQI6ibOhREQRREQRQ0nVnsjSUaflRDI2sH2Y2U9gkKoqBJCsqzbKm+XBT7BsTMBRXq22bqm2On21PMW9D6XH4XUH3BqAi/pktBivuVvAeF/oZd5Dsi7yy2Qe/q2BZ+bYkZfPuTxWZ5UwcLsilv6mWM1YPmLagag5QqCmoCZ7G5C4JQEKAxwdQnni7XYu2zYvYtqIjMYhQUKcVCQQAKoqCd2LtgRL9rPXNBhb0DR5k95ELRZnXTu83ayBKd1W/q1e7vUsOoeshLjUcjSF2sah70YvXRCGIPQhT2GoxjUARzb6Ys0n8oCNJocpSbOtFoH887ihREQTsErb+noJ2C7lf6ZlbrP/W5ZdMBCzJ3jCvi11kpuJnHBvdTHTslfWz5i6Hh42fLjwY38TWy1HEKbY539Wq7jEH6SjSywKEgY6jnXfUOWlCeyTsfR9eAcxdk7sNdcgyKCfqt7jr9ZrEDFtQL96Z9o4mNsPcxzcfLGnKa36j7Yuf9ZrFDFlQuLgp5Y/pehg5YkHw3TL4NFvtIcPaC5PupUlDszdTZC7I9KO+1EGpEOVU6j0FFv7X02HEn03EWy/re4nzsuJOZ/htmI0NBgJaC7KcVOz93n7Mgif6sq0wYhG5PogM5noEb839sHVB9YtSYq6NZojSq7TLN67dcY5+ZbpL62QELsh+871oomg9U59qDzG9M7Voo3q/0jxzNUZDoHjLsAoxBuXh9poL0EAMvNIrstJegDkG1z4rZ4zro9uQJBe1k1y8KHbIguEEzhUMWlLcxM8Od9r3ea53DTntvh2YPhoxhr3S/1KCgiCCzUNwNHMjHjjuZTh89w1kM77QfO+5kxtonPXbcyYy1037suJMZqwftZZqfgKDEt1zxTvtDFZQK3Gk/d0EQCqKgfQuy7PUdxUYtjawUREEUREEUREENXFCNKOvR4q9k2u3RP6Y7bWBTNoxREAVR0CEJcm8FUBDANcS28KZOvenxaHvMYhREQRREQRREQR2Ih1snaq4R3FRuLEBBFERBowuCuztmLgjv7nBXWLYhX9exLXVXWvW5ygXjvllvRUWv6+LmbMo39TLG+mx+3oISdnfMWxB7EALv7pi5ILy7Y+6CIG+TiQdlGWKaj1ZLQSMLin0VgYIipbT/pd55CXJQEAXtBF6sZo+GvQjCF6tJRaIEY7/eOXHCpUZSkWML2JughIvVpCLHFsAe1PP17onxxWpSkWML2J8gfLGaVOTYAvYoaJgixxZAQT1f7554oCLHFjC2oMOCggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFAYYTVPr3ey873Py9nqftzw8E+Yus9y9daQYTJG9E7W5GHfzRpQD5d8sfqgryy1vSptxzDDOUIP2Gfr5s/tGlgI35IZ3uDVi2bkCEoQTpG+CaTR/BH10KkI+OP2klKMg/RUG/kJ3bfFwW/NGlAPVnuzEozD+9U0yf/WYMCP7oUoA6YdoJqtXZZZbYykQFtf8RnTC/vDHt7Um/nwLTTPMUU3/0OMW6DIIRpjlIF2aPSotBJMjfpQtHmOw037YHBfm1rX6/BGaY7kKx7Uo6yD+9MUidFrJ5eglSdJhEggI27S81gvx51vdHhw28WAVQEICCABQEoCAABQEoCEBBAAoCUBCAggAUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCANMT1Nj0MMguls5QEICCAJMUdL/640pvL5NbWl5JQYXeziJ3kPX64ffWTFSQcCJ38sp9UGVm/pAbouQ+sl13nhmeiQo6Vdvo9E663DyhttSVR//69YOecRMVdKZu56Q3GYon9DCkfOXZEPvn05m0oMIJqna9DrN/Pp1JC6r1IMn6/A9D7F1NZ9KCzN5n84SiOP7h/CEnsWkLMt9JMbOYHq3Phtn+nMy0BYXrICFGbg12+4QfhOkJmhgUBKAgAAUBKAhAQQAKAlAQgIIAFASgIAAFASgIQEEACgJQEICCABQEoCAABQEoCEBBAAoCUBDg//lyU8V/Q20tAAAAAElFTkSuQmCC" /><!-- --></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># 3. 可视化 u 和 v 的关系</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co"># u 和 v 的关系（散点图）</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="fu">plot</span>(u, v, <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">main =</span> <span class="st">&quot;Relationship between u and v&quot;</span>, </span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;u&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;v&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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9drax0VAQAQEREBABAREQEAEBERAQAQEdDKvDZYSAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERBQRkBl8MNzH38T8Khmp7F4ZK/r/5rhwbTKB6i522ofFNTzJuBZ1k7jw13dYel44nN4MErZAImb0OAzz0ztvc/Wm2z8eN3c2VUO9oQHo5W3BoXEtC9ufLeGBhp7UmWNgMqwrJ4OaNR4594TGEyrnID27no5ckASQHtnr8HBtMo9xTy3C7uVBNDe91T+wGBaZb4OCls5UgBy509EMK1yACq7axG5rEy1TwCoHJlIk4LpK1sGyWiChpwAUOl+UmhMMK3yTbHmky9jd+s5NBvQ47Wnv4hgWmWsQc2XBYXl9GxApbx7zFFrwoNpxRerQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBERAQAQEREBABAREQEAEBLR2QOL5sd6HDx9BBAREQEAEBERAQAQEtH5AN5E3OCfS2gE1nx843MXdoJpEawdUp1BR/JVTbL0iICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiAgAgIiICACAiIgIAICIiCgXwDDxLU6XUSCeAAAAABJRU5ErkJggg==" /><!-- --></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># u 和 v 的时间序列图</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">plot</span>(u, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Time Series of u and v&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Index&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Value&quot;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="fu">lines</span>(v, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;u&quot;</span>, <span class="st">&quot;v&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Compare performance for each method and quantiles:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">library</span>(knitr)  <span class="co"># 用于生成表格</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co"># 运行 two_stage 方法</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">two_stage</span>(A, X, y)</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>beta_two_stage <span class="ot">&lt;-</span> ret<span class="sc">$</span>beta</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="co"># 运行 QrNet 方法</span></span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>tau_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>beta_qrnet <span class="ot">&lt;-</span> <span class="fu">lapply</span>(tau_values, <span class="cf">function</span>(tau) {</span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>  ret_q <span class="ot">&lt;-</span> <span class="fu">QrNet</span>(A, X, y, <span class="at">tau =</span> tau)</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>  ret_q<span class="sc">$</span>beta</span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>})</span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a><span class="co"># 将结果整理为数据框</span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>result_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>  <span class="at">Beta =</span> <span class="fu">paste0</span>(<span class="st">&quot;Beta_&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(beta_two_stage)),</span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>  <span class="at">Two_Stage =</span> beta_two_stage</span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>)</span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a><span class="co"># 添加不同分位数的 QrNet 结果到数据框</span></span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_along</span>(tau_values)) {</span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a>  result_table[[<span class="fu">paste0</span>(<span class="st">&quot;Tau = &quot;</span>, tau_values[i])]] <span class="ot">&lt;-</span> beta_qrnet[[i]]</span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>}</span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a><span class="co"># 打印表格</span></span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a><span class="fu">kable</span>(result_table, <span class="at">format =</span> <span class="st">&quot;markdown&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;Comparison of Two-Stage and QrNet Methods&quot;</span>)</span></code></pre></div>
+<table style="width:100%;">
+<caption>Comparison of Two-Stage and QrNet Methods</caption>
+<colgroup>
+<col width="4%" />
+<col width="10%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Beta</th>
+<th align="right">Two_Stage</th>
+<th align="right">Tau = 0.1</th>
+<th align="right">Tau = 0.3</th>
+<th align="right">Tau = 0.5</th>
+<th align="right">Tau = 0.7</th>
+<th align="right">Tau = 0.9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">x1</td>
+<td align="left">Beta_1</td>
+<td align="right">1.0200290</td>
+<td align="right">1.0200479</td>
+<td align="right">1.0200361</td>
+<td align="right">1.0200178</td>
+<td align="right">1.0200258</td>
+<td align="right">1.0200006</td>
+</tr>
+<tr class="even">
+<td align="left">x2</td>
+<td align="left">Beta_2</td>
+<td align="right">2.9541885</td>
+<td align="right">2.9542077</td>
+<td align="right">2.9542044</td>
+<td align="right">2.9541524</td>
+<td align="right">2.9541751</td>
+<td align="right">2.9541728</td>
+</tr>
+<tr class="odd">
+<td align="left">x3</td>
+<td align="left">Beta_3</td>
+<td align="right">5.0413114</td>
+<td align="right">5.0412858</td>
+<td align="right">5.0413025</td>
+<td align="right">5.0413051</td>
+<td align="right">5.0413125</td>
+<td align="right">5.0413344</td>
+</tr>
+<tr class="even">
+<td align="left">x4</td>
+<td align="left">Beta_4</td>
+<td align="right">0.9015804</td>
+<td align="right">0.9015800</td>
+<td align="right">0.9016078</td>
+<td align="right">0.9015771</td>
+<td align="right">0.9015796</td>
+<td align="right">0.9016054</td>
+</tr>
+<tr class="odd">
+<td align="left">x5</td>
+<td align="left">Beta_5</td>
+<td align="right">0.9989283</td>
+<td align="right">0.9989561</td>
+<td align="right">0.9989043</td>
+<td align="right">0.9989350</td>
+<td align="right">0.9989390</td>
+<td align="right">0.9989018</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+---
+title: "Homework-2024.11.18"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.11.18}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r include=FALSE}
+library(Rcpp)
+library(microbenchmark)
+```
+
+
+## Question 9.8
+
+Write an Rcpp function for Exercise 9.8. This example appears in [40]. Consider the bivariate density
+
+$$
+f(x, y) \propto\binom{n}{x} y^{x+a-1}(1-y)^{n-x+b-1}, \quad x=0,1, \ldots, n, 0 \leq y \leq 1
+$$
+
+It can be shown (see e.g. [23]) that for fixed $a, b, n$, the conditional distributions are Binomial$(n, y)$ and Beta$(x + a, n − x + b)$. Use the Gibbs sampler to generate a chain with target joint density $f(x, y)$.
+
+Compare the corresponding generated random numbers with those by the R function you wrote using the function “qqplot”.
+
+Campare the computation time of the two functions with the function “microbenchmark”.
+
+## Answer
+
+Here’s the implementation of a Gibbs sampler for generating a chain with the given target joint density $f(x,y)$, where the conditional distributions are specified as follows:
+
+  + $x|y\sim\text{binomial}(n,y)$
+  + $y|x\sim \text{Beta}(x + a, n − x + b)$
+
+```{r}
+cppFunction('
+DataFrame gibbs_sampler_rcpp(int iterations, int n, double a, double b, double x_init, double y_init) {
+  // Storage for samples
+  NumericVector x_samples(iterations);
+  NumericVector y_samples(iterations);
+  
+  // Initialize x and y
+  double x = x_init;
+  double y = y_init;
+  
+  // Gibbs Sampling
+  for (int i = 0; i < iterations; i++) {
+    // Step 1: Sample x from Binomial(n, y)
+    x = R::rbinom(n, y);
+    
+    // Step 2: Sample y from Beta(x + a, n - x + b)
+    y = R::rbeta(x + a, n - x + b);
+    
+    // Store samples
+    x_samples[i] = x;
+    y_samples[i] = y;
+  }
+  
+  // Return samples as a DataFrame
+  return DataFrame::create(
+    Named("x") = x_samples,
+    Named("y") = y_samples
+  );
+}
+')
+```
+
+We can compare methods that use Rcpp with those that don't.
+
+Here is the Gibber sampling code without Rcpp:
+
+```{r}
+gibbs_sampler_r <- function(iterations, n, a, b, x_init, y_init) {
+  # Storage for samples
+  x_samples <- numeric(iterations)
+  y_samples <- numeric(iterations)
+  
+  # Initialize x and y
+  x <- x_init
+  y <- y_init
+  
+  # Gibbs Sampling
+  for (i in 1:iterations) {
+    # Step 1: Sample x from Binomial(n, y)
+    x <- rbinom(1, size = n, prob = y)
+    
+    # Step 2: Sample y from Beta(x + a, n - x + b)
+    y <- rbeta(1, shape1 = x + a, shape2 = n - x + b)
+    
+    # Store samples
+    x_samples[i] <- x
+    y_samples[i] <- y
+  }
+  
+  # Return samples as a data frame
+  data.frame(x = x_samples, y = y_samples)
+}
+```
+
+
+To compare the generated random numbers from the Rcpp implementation and the pure R implementation, we can use a Q-Q plot. The Q-Q plot is a good way to visualize how similar the distributions of the two sets of samples are. Here's how to do it:
+
+```{r}
+# Generate samples using both methods
+set.seed(123)
+iterations <- 10000
+n <- 10
+a <- 2
+b <- 2
+x_init <- 5
+y_init <- 0.5
+
+samples_r <- gibbs_sampler_r(iterations, n, a, b, x_init, y_init)
+samples_rcpp <- gibbs_sampler_rcpp(iterations, n, a, b, x_init, y_init)
+
+op <- par(mfrow = c(1, 2))
+
+# Q-Q Plot for comparing `y` samples
+qqplot(
+  samples_r$y, samples_rcpp$y,
+  main = "Q-Q Plot: R vs. Rcpp (y samples)",
+  xlab = "Quantiles of R Implementation",
+  ylab = "Quantiles of Rcpp Implementation",
+  col = "blue", pch = 16
+)
+abline(0, 1, col = "red", lwd = 2)  # Add a 45-degree line for reference
+
+# Q-Q Plot for comparing `x` samples
+qqplot(
+  samples_r$x, samples_rcpp$x,
+  main = "Q-Q Plot: R vs. Rcpp (x samples)",
+  xlab = "Quantiles of R Implementation",
+  ylab = "Quantiles of Rcpp Implementation",
+  col = "blue", pch = 16
+)
+abline(0, 1, col = "red", lwd = 2)
+
+```
+
+The Q-Q plots suggest that the Rcpp implementation is consistent with the R implementation for both variables. The observed minor differences in x samples are expected and acceptable given the nature of the problem and the stochastic algorithms used.
+
+To compare the computation time of the R and Rcpp implementations, we can use the microbenchmark package, which provides a reliable way to benchmark and compare function execution times over multiple runs.
+
+```{r}
+# Set parameters for the Gibbs sampler
+iterations <- 10000
+n <- 10
+a <- 2
+b <- 2
+x_init <- 5
+y_init <- 0.5
+
+# Benchmark the two functions
+benchmark_results <- microbenchmark(
+  R_implementation = gibbs_sampler_r(iterations, n, a, b, x_init, y_init),
+  Rcpp_implementation = gibbs_sampler_rcpp(iterations, n, a, b, x_init, y_init),
+  times = 10  # Number of repetitions
+)
+
+# Print benchmark results
+print(benchmark_results)
+```
+
+This shows that after multiple runs, Rcpp implementations are usually significantly faster than pure R implementations, especially when the number of iterations is large.
+
+Finally, a scatter plot of the sampling results of the two methods is shown.
+
+```{r}
+# 运行采样器一次
+samples_r <- gibbs_sampler_r(iterations, n, a, b, x_init, y_init)
+samples_rcpp <- gibbs_sampler_rcpp(iterations, n, a, b, x_init, y_init)
+
+# 绘制散点图
+par(mfrow = c(1, 2))
+plot(samples_r$x, samples_r$y, col = rgb(0, 0, 1, 0.3), pch = 16,
+     main = "纯 R 实现: x 与 y 联合分布", xlab = "x", ylab = "y")
+plot(samples_rcpp$x, samples_rcpp$y, col = rgb(1, 0, 0, 0.3), pch = 16,
+     main = "Rcpp 实现: x 与 y 联合分布", xlab = "x", ylab = "y")
+par(mfrow = c(1, 1))
+```
+
+

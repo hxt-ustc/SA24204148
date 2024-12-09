@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="By SA24204148" />
+
+<meta name="date" content="2024-12-09" />
+
+<title>Homework-2024.11.04</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Homework-2024.11.04</h1>
+<h4 class="author">By SA24204148</h4>
+<h4 class="date">2024-12-09</h4>
+
+
+
+<div id="question-11.3" class="section level2">
+<h2>Question 11.3</h2>
+<ol style="list-style-type: lower-alpha">
+<li>Write a function to compute the kth term in</li>
+</ol>
+<p><span class="math display">\[
+\sum_{k=0}^{\infty} \frac{(-1)^k}{k!2^k} \frac{\|a\|^{2 k+2}}{(2 k+1)(2
+k+2)} \frac{\Gamma\left(\frac{d+1}{2}\right)
+\Gamma\left(k+\frac{3}{2}\right)}{\Gamma\left(k+\frac{d}{2}+1\right)}
+\]</span> where <span class="math inline">\(d \ge 1\)</span> is an
+integer, <span class="math inline">\(a\)</span> is a vector in <span class="math inline">\(\mathbb{R}^d\)</span>, and <span class="math inline">\(||\cdot||\)</span> denotes the Euclidean norm.
+Perform the arithmetic so that the coefficients can be computed for
+(almost) arbitrarily large k and d. (This sum converges for all <span class="math inline">\(a \in \mathbb{R}^d\)</span>).</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Modify the function so that it computes and returns the
+sum.</p></li>
+<li><p>Evaluate the sum when <span class="math inline">\(a = (1,
+2)^T\)</span> .</p></li>
+</ol>
+</div>
+<div id="answer" class="section level2">
+<h2>Answer</h2>
+<div id="a" class="section level3">
+<h3>(a)</h3>
+<p>The k-th term formula is:</p>
+<p><span class="math display">\[
+\text{term}_k = \frac{(-1)^k}{k!2^k} \frac{\|a\|^{2 k+2}}{(2 k+1)(2
+k+2)} \frac{\Gamma\left(\frac{d+1}{2}\right)
+\Gamma\left(k+\frac{3}{2}\right)}{\Gamma\left(k+\frac{d}{2}+1\right)}.
+\]</span></p>
+<p>To avoid computing a ratio of two very large or very small numbers,
+the above formula is equivalent to following statement:</p>
+<p><span class="math display">\[
+term_k =
+(-1)^k\exp\{(2k+2)\log(||a||)-\log\Gamma(k+2)-(k+2)\log2+\log\Gamma\left(\frac{d+1}{2}\right)+\log\Gamma\left(k+\frac{1}{2}\right)-log\Gamma\left(k+\frac{d}{2}+1\right)\}
+\]</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Function to calculate the k-th term in the series</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>compute_kth_term <span class="ot">&lt;-</span> <span class="cf">function</span>(k, a, d) {</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="co"># Euclidean norm of vector a</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  norm_a <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="co"># Calculate each component of the exponent in the term</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  term <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span>k <span class="sc">*</span> <span class="fu">exp</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>    (<span class="dv">2</span> <span class="sc">*</span> k <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">log</span>(norm_a) <span class="sc">-</span> </span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>    <span class="fu">lgamma</span>(k <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">-</span> </span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>    (k <span class="sc">+</span> <span class="dv">2</span>) <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>    <span class="fu">lgamma</span>((d <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="fu">lgamma</span>(k <span class="sc">+</span> <span class="fl">0.5</span>) <span class="sc">-</span> </span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    <span class="fu">lgamma</span>(k <span class="sc">+</span> d <span class="sc">/</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  )</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  </span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  <span class="fu">return</span>(term)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>}</span></code></pre></div>
+<p>Alternatively, since <span class="math inline">\(\Gamma(x+1)=x\Gamma(x)\)</span>, the ratio of the
+k+1th term to the kth term is <span class="math inline">\(\frac{term_{k+1}}{term_k}=\frac{-(2k+1)||a||^2}{4(k+2)(k+d/2+1)}\)</span>.
+Using this equation, the k+1th term can be obtained by multiplying the
+ratio by the kth term which avoids computational issue.</p>
+</div>
+<div id="b" class="section level3">
+<h3>(b)</h3>
+<p>To compute the full sum, we’ll loop over k until the terms are small
+enough to meet a convergence criterion.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>compute_sum <span class="ot">&lt;-</span> <span class="cf">function</span>(a, d, <span class="at">k_out =</span> <span class="dv">0</span> ,<span class="at">tolerance =</span> <span class="fl">1e-10</span>, <span class="at">max_iter =</span> <span class="dv">1000</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  total_sum <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="cf">repeat</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    term <span class="ot">&lt;-</span> <span class="fu">compute_kth_term</span>(k, a, d)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    total_sum <span class="ot">&lt;-</span> total_sum <span class="sc">+</span> term</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="co"># Check for convergence</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">abs</span>(term) <span class="sc">&lt;</span> tolerance <span class="sc">||</span> k <span class="sc">&gt;=</span> max_iter) {</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>      <span class="cf">break</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    }</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  }</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="cf">if</span>(k_out) <span class="fu">cat</span>(<span class="st">&quot;k=&quot;</span>, k, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="fu">return</span>(total_sum)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>}</span></code></pre></div>
+<p>In R, the vectorized version appears to be faster than the method
+above using loops. Here is the function that computes the sum of the
+first k (enough large) terms using the vectorization method.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>compute_sum_vector <span class="ot">&lt;-</span> <span class="cf">function</span>(a, d, k) {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  vec <span class="ot">&lt;-</span> <span class="fu">seq</span>(k)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  a_norm <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>), <span class="at">length =</span> k)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  part1 <span class="ot">&lt;-</span> <span class="fu">lgamma</span>(vec<span class="fl">+1.5</span>)<span class="sc">-</span><span class="fu">lgamma</span>(vec<span class="sc">+</span>d<span class="sc">/</span><span class="dv">2</span><span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  part2 <span class="ot">&lt;-</span> (<span class="dv">2</span><span class="sc">*</span>vec<span class="sc">+</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">log</span>(a_norm) <span class="sc">-</span> <span class="fu">log</span>(<span class="fu">factorial</span>(vec)) <span class="sc">-</span> vec<span class="sc">*</span><span class="fu">log</span>(<span class="dv">2</span>) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">2</span><span class="sc">*</span>vec<span class="sc">+</span><span class="dv">1</span>)<span class="sc">-</span><span class="fu">log</span>(<span class="dv">2</span><span class="sc">*</span>vec<span class="sc">+</span><span class="dv">2</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  </span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(i<span class="sc">*</span><span class="fu">exp</span>(part1<span class="sc">+</span>part2))<span class="sc">*</span><span class="fu">gamma</span>(d<span class="sc">/</span><span class="dv">2</span><span class="fl">+0.5</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="c" class="section level3">
+<h3>(c)</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Vector a and dimension d</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># Compute the sum</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">compute_sum</span>(a, d, <span class="at">k_out =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## k= 17</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;The sum is:&quot;</span>, result))</span></code></pre></div>
+<pre><code>## [1] &quot;The sum is: 1.53216399886018&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">compute_sum_vector</span>(a, d, <span class="dv">17</span>)</span></code></pre></div>
+<pre><code>## [1] 1.532164</code></pre>
+<p>For the method using loop, convergence is reached when k = 17 and the
+result of the calculation is 1.53216399886018, which is almost identical
+to the result using the vectorization method(1.532164).</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>d <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">seq</span>(d)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">system.time</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  {</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1000</span>)) {</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>      <span class="fu">compute_sum</span>(a, d)</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>    }</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  }</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 用户 系统 流逝 
+## 0.61 0.00 1.11</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">system.time</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  {</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">1000</span>)) {</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>      <span class="fu">compute_sum_vector</span>(a, d, <span class="dv">17</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    }</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  }</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 用户 系统 流逝 
+## 0.00 0.00 0.03</code></pre>
+<p>When d = 10, repeating both of these methods 10,00 times, it can be
+seen that the vectorized method is much faster than the loop method.</p>
+</div>
+</div>
+<div id="question-11.4" class="section level2">
+<h2>Question 11.4</h2>
+<p>Find the intersection points <span class="math inline">\(A(k)\)</span> in <span class="math inline">\((0,\sqrt{k})\)</span> of the curves</p>
+<p><span class="math display">\[
+S_{k-1}(a)=P\left(t(k-1)&gt;\sqrt{\frac{a^2(k-1)}{k-a^2}}\right)
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+S_k(a)=P\left(t(k)&gt;\sqrt{\frac{a^2 k}{k+1-a^2}}\right)
+\]</span></p>
+<p>for <span class="math inline">\(k = 4 : 25, 100, 500, 1000\)</span>,
+where <span class="math inline">\(t(k)\)</span> is a Student <span class="math inline">\(t\)</span> random variable with <span class="math inline">\(k\)</span> degrees of freedom.</p>
+</div>
+<div id="answer-1" class="section level2">
+<h2>Answer</h2>
+<ul>
+<li>Determine the Intersection Point: The intersection point <span class="math inline">\(A(k)\)</span> is the value <span class="math inline">\(a\)</span> at which the two curves <span class="math inline">\(S_{k-1}(a)\)</span> and <span class="math inline">\(S_{k}(a)\)</span> are equal.</li>
+<li>Define the Equation: Substitute the expressions for <span class="math inline">\(S_{k-1}(a)\)</span> and <span class="math inline">\(S_{k}(a)\)</span>into an equation, and solve for
+<span class="math inline">\(a\)</span> numerically.</li>
+<li>Numerical Solution: Since this is an equation, we can use a
+numerical solver in R, such as uniroot, to find the value of <span class="math inline">\(a\)</span> that meets this condition.</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Define a function to calculate Sk-1(a) - Sk(a)</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>compute_difference <span class="ot">&lt;-</span> <span class="cf">function</span>(a, k) {</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="co"># Calculate Sk-1(a)</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  critical_value_k_minus_1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (k <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (k <span class="sc">-</span> a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  prob_k_minus_1 <span class="ot">&lt;-</span> <span class="fu">pt</span>(critical_value_k_minus_1, <span class="at">df =</span> k <span class="sc">-</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>  </span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="co"># Calculate Sk(a)</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  critical_value_k <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> k <span class="sc">/</span> (k <span class="sc">+</span> <span class="dv">1</span> <span class="sc">-</span> a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  prob_k <span class="ot">&lt;-</span> <span class="fu">pt</span>(critical_value_k, <span class="at">df =</span> k, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  </span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="co"># Return the difference</span></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="fu">return</span>(prob_k_minus_1 <span class="sc">-</span> prob_k)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>}</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co"># Set the value of k, for example, k = 4</span></span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>k_set <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span> <span class="sc">:</span> <span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">1000</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>result1 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> k_set) {</span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a>  <span class="co"># Use uniroot to find the value of a in the interval (0, sqrt(k))</span></span>
+<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(compute_difference, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">1e-5</span>, <span class="fu">ifelse</span>(k<span class="sc">&gt;</span><span class="dv">100</span>,<span class="fu">sqrt</span>(k)<span class="sc">-</span><span class="dv">4</span>,<span class="fu">sqrt</span>(k)<span class="sc">-</span><span class="fl">1e-5</span>)), <span class="at">k =</span> k)</span>
+<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a>  a_intersection <span class="ot">&lt;-</span> result<span class="sc">$</span>root</span>
+<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a>  result1 <span class="ot">&lt;-</span> <span class="fu">c</span>(result1, a_intersection)</span>
+<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;Intersection point A(k) for k =&quot;</span>, k, <span class="st">&quot;is a =&quot;</span>, a_intersection, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Intersection point A(k) for k = 4 is a = 1.492103 
+## Intersection point A(k) for k = 5 is a = 1.533549 
+## Intersection point A(k) for k = 6 is a = 1.562768 
+## Intersection point A(k) for k = 7 is a = 1.584421 
+## Intersection point A(k) for k = 8 is a = 1.601182 
+## Intersection point A(k) for k = 9 is a = 1.614523 
+## Intersection point A(k) for k = 10 is a = 1.625387 
+## Intersection point A(k) for k = 11 is a = 1.634409 
+## Intersection point A(k) for k = 12 is a = 1.642025 
+## Intersection point A(k) for k = 13 is a = 1.64854 
+## Intersection point A(k) for k = 14 is a = 1.654177 
+## Intersection point A(k) for k = 15 is a = 1.659098 
+## Intersection point A(k) for k = 16 is a = 1.663451 
+## Intersection point A(k) for k = 17 is a = 1.667288 
+## Intersection point A(k) for k = 18 is a = 1.670736 
+## Intersection point A(k) for k = 19 is a = 1.673841 
+## Intersection point A(k) for k = 20 is a = 1.676588 
+## Intersection point A(k) for k = 21 is a = 1.679139 
+## Intersection point A(k) for k = 22 is a = 1.681461 
+## Intersection point A(k) for k = 23 is a = 1.683589 
+## Intersection point A(k) for k = 24 is a = 1.685545 
+## Intersection point A(k) for k = 25 is a = 1.687347 
+## Intersection point A(k) for k = 100 is a = 1.720599 
+## Intersection point A(k) for k = 500 is a = 1.729751 
+## Intersection point A(k) for k = 1000 is a = 1.730927</code></pre>
+<p>Note that to avoid computational problems, the interval used in the
+actual uniroot function shrinks inward <span class="math inline">\(\epsilon\)</span></p>
+</div>
+<div id="question-11.5" class="section level2">
+<h2>Question 11.5</h2>
+<p>Write a function to solve the equation</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \frac{2 \Gamma\left(\frac{k}{2}\right)}{\sqrt{\pi(k-1)}
+\Gamma\left(\frac{k-1}{2}\right)}
+\int_0^{c_{k-1}}\left(1+\frac{u^2}{k-1}\right)^{-k / 2} d u \\
+&amp; \quad=\frac{2 \Gamma\left(\frac{k+1}{2}\right)}{\sqrt{\pi k}
+\Gamma\left(\frac{k}{2}\right)}
+\int_0^{c_k}\left(1+\frac{u^2}{k}\right)^{-(k+1) / 2} d u
+\end{aligned}
+\]</span> for <span class="math inline">\(a\)</span>, where</p>
+<p><span class="math display">\[
+c_k=\sqrt{\frac{a^2 k}{k+1-a^2}} .
+\]</span></p>
+<p>Compare the solutions with the points <span class="math inline">\(A(k)\)</span> in Exercise 11.4.</p>
+</div>
+<div id="answer-2" class="section level2">
+<h2>Answer</h2>
+<p>Use the integrate function to calculate the integrals of the left and
+right sides of the equation, and to avoid calculating the ratio of two
+larger numbers, use the <span class="math inline">\(\exp(\log
+x)=x\)</span> method.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Define the function to compute the integrals and find &#39;a&#39;</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>solve_for_a <span class="ot">&lt;-</span> <span class="cf">function</span>(k) {</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>  <span class="co"># Define the target function based on the equation</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  target_function <span class="ot">&lt;-</span> <span class="cf">function</span>(a) {</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>    <span class="co"># Compute ck and ck-1</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>    ck <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> k <span class="sc">/</span> (k <span class="sc">+</span> <span class="dv">1</span> <span class="sc">-</span> a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>    ck_minus_1 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(a<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (k <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (k <span class="sc">-</span> a<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>    </span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>    <span class="co"># Compute the left-hand side integral</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>    left_integral <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(u) (<span class="dv">1</span> <span class="sc">+</span> u<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>))<span class="sc">^</span>(<span class="sc">-</span>k <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">0</span>, ck_minus_1)<span class="sc">$</span>value</span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>    left_side <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">lgamma</span>(k <span class="sc">/</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">lgamma</span>((k <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">/</span> (<span class="fu">sqrt</span>( (k <span class="sc">-</span> <span class="dv">1</span>))) <span class="sc">*</span> left_integral</span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>    </span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="co"># Compute the right-hand side integral</span></span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>    right_integral <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(u) (<span class="dv">1</span> <span class="sc">+</span> u<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> k)<span class="sc">^</span>(<span class="sc">-</span>(k <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">0</span>, ck)<span class="sc">$</span>value</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a>    right_side <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">exp</span>(<span class="fu">lgamma</span>((k <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span> <span class="dv">2</span>)<span class="sc">-</span><span class="fu">lgamma</span>(k <span class="sc">/</span> <span class="dv">2</span>)) <span class="sc">/</span> (<span class="fu">sqrt</span>( k) )  <span class="sc">*</span> right_integral</span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a>    </span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a>    <span class="co"># Return the difference</span></span>
+<span id="cb16-18"><a href="#cb16-18" tabindex="-1"></a>    <span class="fu">return</span>(left_side <span class="sc">-</span> right_side)</span>
+<span id="cb16-19"><a href="#cb16-19" tabindex="-1"></a>  }</span>
+<span id="cb16-20"><a href="#cb16-20" tabindex="-1"></a>  </span>
+<span id="cb16-21"><a href="#cb16-21" tabindex="-1"></a>  <span class="co"># Use a root-finding method to find &#39;a&#39; such that target_function(a) = 0</span></span>
+<span id="cb16-22"><a href="#cb16-22" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">uniroot</span>(target_function, <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.8</span>))<span class="sc">$</span>root</span>
+<span id="cb16-23"><a href="#cb16-23" tabindex="-1"></a>  <span class="fu">return</span>(result)</span>
+<span id="cb16-24"><a href="#cb16-24" tabindex="-1"></a>  </span>
+<span id="cb16-25"><a href="#cb16-25" tabindex="-1"></a>}</span>
+<span id="cb16-26"><a href="#cb16-26" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" tabindex="-1"></a>result2 <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb16-28"><a href="#cb16-28" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" tabindex="-1"></a><span class="co"># Example usage with a specific value of k</span></span>
+<span id="cb16-30"><a href="#cb16-30" tabindex="-1"></a>k_set <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span> <span class="sc">:</span> <span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">500</span>, <span class="dv">1000</span>)</span>
+<span id="cb16-31"><a href="#cb16-31" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> k_set) {</span>
+<span id="cb16-32"><a href="#cb16-32" tabindex="-1"></a>  a_solution <span class="ot">&lt;-</span> <span class="fu">solve_for_a</span>(k)</span>
+<span id="cb16-33"><a href="#cb16-33" tabindex="-1"></a>  result2 <span class="ot">&lt;-</span> <span class="fu">c</span>(result2, a_solution)</span>
+<span id="cb16-34"><a href="#cb16-34" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;the root for k =&quot;</span>,k , <span class="st">&quot;is&quot;</span>, a_solution,<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb16-35"><a href="#cb16-35" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## the root for k = 4 is 1.492103 
+## the root for k = 5 is 1.53355 
+## the root for k = 6 is 1.562749 
+## the root for k = 7 is 1.58443 
+## the root for k = 8 is 1.601182 
+## the root for k = 9 is 1.614518 
+## the root for k = 10 is 1.625388 
+## the root for k = 11 is 1.634416 
+## the root for k = 12 is 1.642036 
+## the root for k = 13 is 1.648552 
+## the root for k = 14 is 1.654188 
+## the root for k = 15 is 1.659112 
+## the root for k = 16 is 1.663449 
+## the root for k = 17 is 1.6673 
+## the root for k = 18 is 1.670741 
+## the root for k = 19 is 1.673835 
+## the root for k = 20 is 1.676632 
+## the root for k = 21 is 1.679172 
+## the root for k = 22 is 1.68149 
+## the root for k = 23 is 1.683613 
+## the root for k = 24 is 1.685564 
+## the root for k = 25 is 1.687365 
+## the root for k = 100 is 1.720612 
+## the root for k = 500 is 1.729756 
+## the root for k = 1000 is 1.730907</code></pre>
+<p>As a special note, due to the computational issue, the interval is
+specifically limited to (1,1.8) when solving for the zeros here.</p>
+<p>Comparison with the results of Exercise 11.4 shows that they are
+almost identical.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>result1<span class="sc">-</span>result2</span></code></pre></div>
+<pre><code>##  [1]  1.213242e-07 -1.271934e-06  1.877804e-05 -9.164503e-06  4.643237e-08
+##  [6]  4.548479e-06 -6.809037e-07 -7.118481e-06 -1.046151e-05 -1.215408e-05
+## [11] -1.109535e-05 -1.369738e-05  1.723211e-06 -1.150179e-05 -4.943893e-06
+## [16]  5.393855e-06 -4.328406e-05 -3.291002e-05 -2.845035e-05 -2.321389e-05
+## [21] -1.959327e-05 -1.847607e-05 -1.267932e-05 -4.323105e-06  2.046181e-05</code></pre>
+</div>
+<div id="question" class="section level2">
+<h2>Question</h2>
+<p>Suppose <span class="math inline">\(T_1, \cdots , T_n\)</span> are
+i.i.d. samples drawn from the exponential distribution with expectation
+<span class="math inline">\(\lambda\)</span>. Those values greater than
+<span class="math inline">\(\tau\)</span> are not observed due to right
+censorship, so that the observed values are <span class="math inline">\(Y_i=T_i \mathbb{I}\left(T_i \leq \tau\right)+\tau
+\mathbb{I}\left(T_i&gt;\tau\right)\)</span>, <span class="math inline">\(i = 1,\cdots, n\)</span>. Suppose <span class="math inline">\(\tau= 1\)</span> and the observed <span class="math inline">\(Y_i\)</span> values are as follows:</p>
+<p><span class="math display">\[
+0.54, 0.48, 0.33, 0.43, 1.00, 1.00, 0.91, 1.00, 0.21, 0.85
+\]</span></p>
+<p>Use the E-M algorithm to estimate <span class="math inline">\(\lambda\)</span>, compare your result with the
+observed data MLE (note: <span class="math inline">\(Y_i\)</span>
+follows a mixture distribution).</p>
+</div>
+<div id="answer-3" class="section level2">
+<h2>Answer</h2>
+<p>First use the MLE method to estimate the <span class="math inline">\(\lambda\)</span>.</p>
+<p>Due to <span class="math inline">\(Y_i=T_i \mathbb{I}\left(T_i \leq
+\tau\right)+\tau \mathbb{I}\left(T_i&gt;\tau\right)\)</span>,the
+distribution function of <span class="math inline">\(Y_i\)</span> is
+given by</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(Y_i\leq t)&amp;=  \mathbb{I}(\tau\leq t) +
+\mathbb{I}(\tau&gt;t)P(T_i\leq t) \\
+            &amp;=  \mathbb{I}(\tau\leq t) +
+\mathbb{I}(\tau&gt;t)(1-e^{-\lambda t})
+\end{aligned}
+\]</span></p>
+<p>Therefore, the density function of <span class="math inline">\(Y_i\)</span> is</p>
+<p><span class="math display">\[
+f_{Y_i}(t)=
+\begin{cases}
+\lambda e^{-\lambda t}, &amp; t&lt;\tau\\
+e^{-\lambda \tau}, &amp; t=\tau
+\end{cases}
+\]</span></p>
+<p>By minimizing the following log-likelihood function, the estimate of
+lambda is obtained as <span class="math inline">\(\hat{\lambda}_{mle}=\frac{\sum_{i=1}^n
+\mathbb{I}(Y_i&lt;\tau)}{\sum_{i=1}^n Y_i}\)</span></p>
+<p><span class="math display">\[
+l(\lambda) = -\lambda\sum_{i=1}^n Y_i +\sum_{i=1}^n
+\mathbb{I}(Y_i&lt;\tau)\log\lambda
+\]</span></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">0.54</span>, <span class="fl">0.48</span>, <span class="fl">0.33</span>, <span class="fl">0.43</span>, <span class="fl">1.00</span>, <span class="fl">1.00</span>, <span class="fl">0.91</span>, <span class="fl">1.00</span>, <span class="fl">0.21</span>, <span class="fl">0.85</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>tau <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>lambda1 <span class="ot">=</span> <span class="fu">sum</span>(y<span class="sc">&lt;</span>tau)<span class="sc">/</span><span class="fu">sum</span>(y)</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;The estimate of lambda by mle is&quot;</span>, lambda1, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## The estimate of lambda by mle is 1.037037</code></pre>
+<p>Next use the E-M algorithm.</p>
+<ul>
+<li>Complete data: <span class="math inline">\(X = (Y_i,
+T_i)\)</span></li>
+<li>Observed data: <span class="math inline">\(Y_i\)</span></li>
+<li>missing data: <span class="math inline">\(T_i\)</span></li>
+<li>likelihood function: <span class="math inline">\(L(\lambda |
+Y_i,T_i) = \Pi_{i=1}^n \lambda e^{-\lambda T_i}\)</span></li>
+</ul>
+<p>E-step:</p>
+<p>Given the observed data <span class="math inline">\(Y_i\)</span>, the
+distribution function for <span class="math inline">\(T_i\)</span>
+is</p>
+<p><span class="math display">\[
+\begin{aligned}
+P(T_i\leq t|Y_i)&amp;=\mathbb{I}(t&lt;\tau)\mathbb{I}(Y_i\leq t) +
+\mathbb{I}(t\ge\tau)(\mathbb{I}(Y_i&lt;\tau)+\mathbb{I}(Y_i=\tau)P(T_i\leq
+t|T_i\ge\tau))\\
+&amp;= \mathbb{I}(t&lt;\tau)\mathbb{I}(Y_i\leq t) +
+\mathbb{I}(t\ge\tau)(\mathbb{I}                                                                                                                                                                                                            (Y_i&lt;\tau)+\mathbb{I}(Y_i=\tau)\frac{e^{-\lambda\tau}-e^{-\lambda
+t}}{e^{-\lambda\tau}})\\  
+\end{aligned}
+\]</span></p>
+<p>Therefore, the density function of <span class="math inline">\(T_i|Y_i\)</span> is</p>
+<p><span class="math display">\[
+f_{T_i|Y_i}(t)=
+\begin{cases}
+1, &amp; t = Y_i\\
+\lambda e^{\lambda(\tau-t)}, &amp; t\ge\tau, Y_i=\tau
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\mathbb{E}(T_i|Y_i)=\mathbb{I}(Y_i\not=\tau)Y_i+\mathbb{I}(Y_i=\tau)(\tau+\frac{1}{\lambda})
+\]</span></p>
+<p>M-step:</p>
+<p>Given <span class="math inline">\(T_i=\mathbb{E}_{\lambda_k}(T_i|Y_i)\)</span>,
+maximize the log-likelihood to obtain an estimate of <span class="math inline">\(\lambda_{k+1}\)</span> as <span class="math inline">\(\frac{n}{T_i}\)</span>:</p>
+<p><span class="math display">\[
+l(\lambda | Y_i,T_i)=-\lambda\sum T_i+n\log\lambda
+\]</span></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># E-M algorithm</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>tol <span class="ot">&lt;-</span> <span class="fl">1e-6</span>  <span class="co"># Convergence tolerance</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>max_iter <span class="ot">&lt;-</span> <span class="dv">1000</span>  <span class="co"># Maximum number of iterations</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>lambda <span class="ot">=</span> lambda1</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="cf">for</span> (iter <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>max_iter) {</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>  <span class="co"># E-step: Calculate expected T_i for censored and uncensored values</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>  expected_T <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(y <span class="sc">&lt;</span> tau, y, tau <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> lambda)</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>  </span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>  <span class="co"># M-step: Update lambda</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>  new_lambda <span class="ot">&lt;-</span> <span class="fu">length</span>(y) <span class="sc">/</span> <span class="fu">sum</span>(expected_T)</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>  </span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>  <span class="co"># Check convergence</span></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">abs</span>(new_lambda <span class="sc">-</span> lambda) <span class="sc">&lt;</span> tol) {</span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>    lambda <span class="ot">&lt;-</span> new_lambda</span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>  }</span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>  </span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>  <span class="co"># Update lambda for the next iteration</span></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a>  lambda <span class="ot">&lt;-</span> new_lambda</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>}</span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a><span class="co"># Output the estimated lambda</span></span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>lambda</span></code></pre></div>
+<pre><code>## [1] 1.037037</code></pre>
+<p>The estimate of <span class="math inline">\(\lambda\)</span> by E-M
+algorithm is 1.037037, which is almost identical to the estimate of
+<span class="math inline">\(\lambda\)</span> by mle(1.037037).</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

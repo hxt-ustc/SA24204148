@@ -1,0 +1,260 @@
+---
+title: "Homework-2024.10.14"
+author: "By SA24204148"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Homework-2024.10.14}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Question 
+
+Of N = 1000 hypotheses, 950 are null and 50 are alternative. The p-value under any null hypothesis is uniformly distributed(use runif), and the p-value under any alternative hypothesis follows the beta distribution with parameter 0.1 and 1 (use rbeta). Obtain Bonferroni adjusted p-values and B-H adjusted p-values. Calculate FWER, FDR, and TPR under nominal level $\alpha = 0.1$ for each of the two adjustment methods based on m = 10000 simulation replicates. You should output the 6 numbers (3 ) to a $3 \times 2$ table (column names: Bonferroni correction, B-H correction; row names: FWER, FDR, TPR). Comment the results.
+
+
+## Answer
+
+To address this problem, I will simulate data under the scenario described, apply both the Bonferroni and Benjamini-Hochberg (B-H) adjustments to the p-values, and compute the Family-Wise Error Rate (FWER), False Discovery Rate (FDR), and True Positive Rate (TPR) for each adjustment method.
+
+To simulate the p-values:
+
+ + Under null hypotheses (950 hypotheses): use a uniform distribution (runif).
+ + Under alternative hypotheses (50 hypotheses): use a beta distribution (rbeta(0.1, 1)).
+ 
+To apply Bonferroni and B-H corrections:
+
+ + Bonferroni correction: reject those null hypotheses with $p_i < \alpha/N (i = 1, \cdots, N)$, so correct $p_i$ by $min(1,Np_i)$
+ + B-H correction: sort p-values and reject those null hypotheses with $p_{(k)} ≤ k\alpha/N$ which can be  produced by the R function p.adjust.
+ 
+To calculate FWER, FDR, and TPR:
+
+ + FWER (Family-Wise Error Rate): Probability of making at least one Type I error (false positive).
+ + FDR (False Discovery Rate): Proportion of false positives among rejected hypotheses.
+ + TPR (True Positive Rate): Proportion of true positives among all alternative hypotheses (sensitivity).
+ 
+```{r}
+set.seed(123)
+
+# Parameters
+N <- 1000  # total number of hypotheses
+m <- 10000  # number of simulation replicates
+alpha <- 0.1  # nominal significance level
+
+# Function to compute FWER, FDR, and TPR for one simulation
+compute_metrics <- function(p_values, true_nulls, method) {
+  # Apply p-value adjustments
+  if (method == "bonferroni") {
+    p_adjusted <- pmin(1, p_values * N)  # Bonferroni correction
+  } else if (method == "bh") {
+    p_adjusted <- p.adjust(p_values, method = "BH")  # B-H correction
+  }
+  
+  # Decision: reject if p_adjusted < alpha
+  rejected <- p_adjusted < alpha
+  
+  # Calculate metrics
+  FWER <- any(rejected[true_nulls])  # Family-Wise Error Rate (any false positive)
+  FDP <- sum(rejected[true_nulls]) / max(1, sum(rejected))  # False Discovery Proportion (FDR)
+  TPR <- sum(rejected[!true_nulls]) / sum(!true_nulls)  # True Positive Rate
+  
+  return(c(FWER = FWER, FDR = FDP, TPR = TPR))
+}
+
+# Simulation
+results_bonferroni <- matrix(0, nrow = m, ncol = 3)
+results_bh <- matrix(0, nrow = m, ncol = 3)
+
+for (i in 1:m) {
+  # Generate p-values
+  true_nulls <- c(rep(TRUE, 950), rep(FALSE, 50))  # 950 null, 50 alternative
+  p_values_null <- runif(950)  # null hypotheses: uniform distribution
+  p_values_alt <- rbeta(50, 0.1, 1)  # alternative hypotheses: beta distribution
+  p_values <- c(p_values_null, p_values_alt)
+  
+  # Bonferroni correction
+  results_bonferroni[i, ] <- compute_metrics(p_values, true_nulls, method = "bonferroni")
+  
+  # Benjamini-Hochberg correction
+  results_bh[i, ] <- compute_metrics(p_values, true_nulls, method = "bh")
+}
+
+# Calculate mean FWER, FDR, and TPR over all simulations
+mean_bonferroni <- colMeans(results_bonferroni)
+mean_bh <- colMeans(results_bh)
+
+# Output the results as a 3x2 table
+results_table <- matrix(c(mean_bonferroni, mean_bh), nrow = 3, byrow = FALSE)
+colnames(results_table) <- c("Bonferroni correction", "B-H correction")
+rownames(results_table) <- c("FWER", "FDR", "TPR")
+
+print(results_table)
+```
+
+Comments on the Results:
+
+ + FWER: The Family-Wise Error Rate is much lower for the Bonferroni correction (0.0873) compared to the B-H correction (0.9305). This is expected because Bonferroni is a conservative method that tightly controls the probability of making even a single Type I error (false positive). On the other hand, B-H does not control FWER as strictly, leading to a much higher FWER.
+ + FDR: The False Discovery Rate is very low for Bonferroni (0.00451), indicating that the proportion of false discoveries among rejected hypotheses is minimal. For the B-H correction, the FDR is close to the nominal level of 0.1 (0.0950), which is expected since the B-H method is designed to control FDR at the specified threshold.
+ + TPR: The True Positive Rate is higher for B-H (0.5611) compared to Bonferroni (0.3967). This means that B-H is more sensitive and detects more true positives (alternative hypotheses), while Bonferroni sacrifices power (lower TPR) in exchange for stricter Type I error control.
+ 
+Summary:
+
+ + Bonferroni is more conservative, yielding a lower FWER and FDR but at the cost of a lower TPR (fewer true positives detected).
+ + B-H Correction offers better TPR (higher power) and controls FDR well but results in a higher FWER, meaning more Type I errors.
+ 
+# Question 7.4
+
+Refer to the air-conditioning data set **aircondit** provided in the **boot** package. The 12 observations are the times in hours between failures of airconditioning equipment :
+
+$$
+3, 5, 7, 18, 43, 85, 91, 98, 100, 130, 230, 487
+$$
+
+Assume that the times between failures follow an exponential model $Exp(\lambda)$. Obtain the MLE of the hazard rate $lambda$ and use bootstrap to estimate the bias and standard error of the estimate.
+
+# Answer
+
+To obtain the MLE of the hazard rate $lambda$:
+
+The likelihood function is the joint probability of observing the data given the parameter $\lambda$:
+
+$$
+L(\lambda|x_1,\cdots,x_n)=\Pi \lambda e^{-\lambda x_i}.
+$$
+
+It's easier to work with the log of the likelihood function (log-likelihood), which converts the product into a sum:
+
+$$
+l(\lambda|x_1,\cdots,x_n)=nlog\lambda-\lambda\sum x_i
+$$
+
+Take the derivative of the log-likelihood with respect to $\lambda$, set it equal to zero, and solve for $\lambda$:
+
+$$
+\frac{n}{\lambda}-\sum x_i=0\Rightarrow \hat{\lambda}=\frac{1}{\bar{x}}
+$$
+
+```{r}
+# Data: times between failures
+times <- c(3, 5, 7, 18, 43, 85, 91, 98, 100, 130, 230, 487)
+
+# MLE of lambda
+lambda_mle <- 1 / mean(times)
+
+# Bootstrap to estimate bias and standard error
+set.seed(123)  # For reproducibility
+n_bootstrap <- 1000  # Number of bootstrap samples
+lambda_boot <- numeric(n_bootstrap)
+
+for (i in 1:n_bootstrap) {
+  boot_sample <- sample(times, replace = TRUE)
+  lambda_boot[i] <- 1 / mean(boot_sample)
+}
+
+# Bias estimate
+bias_estimate <- mean(lambda_boot) - lambda_mle
+
+# Standard error estimate
+se_estimate <- sd(lambda_boot)
+
+# Results
+cat("MLE of lambda:", lambda_mle, "\n")
+cat("Bootstrap estimate of lambda:", mean(lambda_boot), "\n")
+cat("Bootstrap bias estimate:", bias_estimate, "\n")
+cat("Bootstrap standard error estimate:", se_estimate, "\n")
+```
+
+These indicate that the maximum likelihood estimate (MLE) for $\lambda$, based on the exponential model, is approximately 0.00925. The bootstrap approach was used to estimate the bias, which is around 0.00158, and the standard error of the estimate is approximately 0.00445. The bias being positive suggests that the MLE might slightly underestimate the true value of $\lambda$, as the bias is added to the MLE to correct it. The standard error gives an indication of the variability of the estimate.
+
+# Question 7.5
+
+Refer to Exercise 7.4. Compute 95% bootstrap confidence intervals for the mean time between failures $\frac{1}{\lambda}$ by the standard normal, basic, percentile, and BCa methods. Compare the intervals and explain why they may differ.
+
+# Answer
+
+To compute 95% bootstrap confidence intervals for the mean time between failures $\lambda$:
+
+ + Bootstrap Sampling: Generate a large number of bootstrap samples from the original data.
+ + Estimate $\frac{1}{\lambda}$: For each bootstrap sample, calculate the MLE of $\frac{1}{\lambda}$.
+ + Construct Confidence Intervals: Use the results from the bootstrap samples to compute the confidence intervals using the specified methods.
+
+```{r}
+set.seed(123)  # For reproducibility
+n <- length(times)  # Number of original observations
+B <- 1000  # Number of bootstrap samples
+
+# Store bootstrap estimates for mean time between failures (1/lambda)
+mean_time_boot <- numeric(B)
+
+for (i in 1:B) {
+  boot_sample <- sample(times, n, replace = TRUE)
+  lambda_boot <- 1 / mean(boot_sample)  # MLE for each bootstrap sample
+  mean_time_boot[i] <- 1 / lambda_boot  # 1/lambda for each bootstrap sample
+}
+
+```
+
+Standard Normal Method: Using the standard error of the bootstrap estimates, we can calculate a normal-based confidence interval for $\frac{1}{\lambda}$.
+
+```{r}
+alpha <- 0.05
+mean_time_hat <- mean(mean_time_boot)  # Mean estimate of 1/lambda
+se_boot <- sd(mean_time_boot)  # Standard error of bootstrap estimates
+
+# Standard normal confidence interval
+z <- qnorm(1 - alpha / 2)
+ci_normal <- c(mean_time_hat - z * se_boot, mean_time_hat + z * se_boot)
+```
+
+Basic Method: The basic bootstrap confidence interval uses the difference between the original estimate and the quantiles of the bootstrap distribution.
+
+```{r}
+# Basic bootstrap CI
+ci_basic <- 2 * mean_time_hat - quantile(mean_time_boot, c(1 - alpha / 2, alpha / 2))
+```
+
+Percentile Method: The percentile bootstrap confidence interval is based on the quantiles of the bootstrap estimates.
+
+```{r}
+# Percentile bootstrap CI
+ci_percentile <- quantile(mean_time_boot, c(alpha / 2, 1 - alpha / 2))
+```
+
+BCa Method: The bias-corrected and accelerated (BCa) method adjusts for bias and acceleration in the bootstrap estimates.
+
+```{r include=TRUE,echo=FALSE}
+library(boot)
+```
+
+
+```{r}
+# Calculate BCa confidence interval for the mean time between failures
+bca_ci <- boot.ci(boot(mean_time_boot, function(x, i) mean(x[i]), R = B), type = "bca")
+ci_bca <- c(bca_ci$bca[4], bca_ci$bca[5])
+```
+
+Output the Confidence Intervals:
+
+```{r}
+ci_results <- data.frame(
+  Method = c("Standard Normal", "Basic", "Percentile", "BCa"),
+  Lower = c(ci_normal[1], ci_basic[1], ci_percentile[1], ci_bca[1]),
+  Upper = c(ci_normal[2], ci_basic[2], ci_percentile[2], ci_bca[2])
+)
+
+print(ci_results)
+```
+
+The table shows the 95% bootstrap confidence intervals for the mean time between failures ($\frac{1}{\lambda}$) using four different methods: Standard Normal, Basic, Percentile, and BCa. 
+
+ + Standard Normal:  The standard normal method assumes that the distribution of the mean time between failures is approximately normal, which may not be valid if the distribution is skewed. The confidence interval is relatively wide compared to other methods, possibly reflecting the variability in the data.
+ + Basic: The basic bootstrap method centers the interval around the original estimate and corrects for asymmetry in the bootstrap distribution. The lower bound is smaller than in the standard normal interval, and the upper bound is somewhat smaller, indicating a slightly narrower interval.
+ + Percentile: The percentile method directly uses the quantiles of the bootstrap distribution. This interval is notably wider, especially on the upper end. This suggests that the bootstrap distribution might have a heavy upper tail, which this method captures more effectively.
+ +  BCa (Bias-Corrected and Accelerated): The BCa method adjusts for both bias and skewness in the bootstrap distribution. In this case, the interval is surprisingly narrow compared to the other methods. This might be due to how the BCa method adjusts for bias and acceleration in the bootstrap distribution, leading to a tighter estimate of the mean time between failures.
+ 
+Why the Intervals Differ:
+ + Bias and Skewness: The BCa method corrects for both bias and skewness, while the other methods do not fully adjust for these. This may explain why the BCa interval is so much tighter.
+ + Tail Behavior: The percentile method captures the shape of the bootstrap distribution more directly, including any heavy tails, which might explain why it produces the wider interval.
+ + Symmetry Assumption: The standard normal method assumes symmetry in the distribution of the bootstrap estimates, which might not be the case here. This could explain the relatively wide interval.
+ + Distribution Shape: The basic method provides a middle ground, adjusting for asymmetry but not for bias, resulting in a moderately wide interval.
